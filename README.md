@@ -15,5 +15,5 @@ This is ***Bank Challenger*** project.
     > **IntellJ** : ./bank-challenger  
     **Visual Studio Code** : ./bank-challenger/frontend
 4. **Visual Studio Code**의 터미널을 열어 `npm install` 명령어 실행.
-6. **InteliJ**의 터미널을 열어 `./mvnw clean install` 명령어 실행
+5. **InteliJ**의 터미널을 열어 `./mvnw clean install` 명령어 실행
 6. InteliJ에서 `BankChallApplication` 실행

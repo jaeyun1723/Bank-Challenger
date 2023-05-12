@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class HelloController {
 
-    @GetMapping("/api/hello")
-    public String hello() {
-        return "ㅗㅑ";
+    @GetMapping(value = {"/login"})
+    public String handelError() {
+        return "forward:/index.html";
     }
 
 }

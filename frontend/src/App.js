@@ -1,37 +1,22 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import logo from './logo.svg';
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import Main from './pages/Main'
+import Login from './pages/Login';
+import Callback from './pages/Callback';
 
 function App() {
-  const [hello, setHello] = useState('');
-
-  useEffect(() => {
-    axios.get('/api/hello')
-    .then(response => setHello(response.data))
-    .catch(error => console.log(error))
-  }, []);
-  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-      <div>
-        Spring Boot 통신 테스트: {hello}
+    <BrowserRouter>
+      <div name='app'>
+          <Routes>
+            <Route path="/" element={<Main />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/login/naver" element={<Callback />} />
+          </Routes>
       </div>
-    </div>
+    </BrowserRouter>
+
   );
 }
 

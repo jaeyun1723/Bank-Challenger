@@ -4,10 +4,12 @@ import com.boolsazo.bankchall.domain.Account;
 import com.boolsazo.bankchall.repository.AccountRepository;
 import com.boolsazo.bankchall.service.AccountService;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
 
     @Autowired

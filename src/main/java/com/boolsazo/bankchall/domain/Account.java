@@ -1,5 +1,6 @@
 package com.boolsazo.bankchall.domain;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,9 +22,13 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "account_id", nullable = false)
     private Long accountId;
+    @Column(name = "user_id", nullable = false)
     private Long userId;
+    @Column(name = "account_num_masked", nullable = false)
     private String accountNumMasked;
+    @Column(name = "bank_name", nullable = false)
     private String bankName;
     private boolean isUsed = false;
     private int type;

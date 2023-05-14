@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 
-function Main() {
+function LoginMain() {
     const [status, setStatus] = useState('');
 
     useEffect(() =>{
@@ -12,17 +12,17 @@ function Main() {
         .catch(error => console.log(error));
     }, []);
 
-    if (status === true) {
-        window.location.href = "/main";
+    if (status === false) {
+        window.location.href = "/";
     }
     else {
         return(
             <div>
-                <a href="/login">로그인</a>
-                {status}
+                로그인 후 들어오는 페이지 테스트 중입니다.<br/>
+                <a href="/logout">로그아웃</a>
             </div>
         );
     }
 }
 
-export default Main;
+export default LoginMain;

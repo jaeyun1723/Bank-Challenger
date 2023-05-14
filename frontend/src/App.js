@@ -2,8 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Main from './pages/Main'
-import Login from './pages/Login';
-import Callback from './pages/Callback';
+import LoginMain from './pages/LoginMain';
 
 function App() {
   return (
@@ -11,12 +10,10 @@ function App() {
       <div name='app'>
           <Routes>
             <Route path="/" element={<Main />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/login/naver" element={<Callback />} />
+            <Route path="/main" element={<LoginMain />} />
           </Routes>
       </div>
     </BrowserRouter>
-
   );
 }
 

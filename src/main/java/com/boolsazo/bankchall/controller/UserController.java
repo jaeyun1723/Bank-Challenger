@@ -1,12 +1,16 @@
 package com.boolsazo.bankchall.controller;
 
 import com.boolsazo.bankchall.naver.NaverApiInfo;
+import com.boolsazo.bankchall.repository.UserRepository;
+import com.boolsazo.bankchall.service.BFRService;
+import com.boolsazo.bankchall.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +22,11 @@ import org.springframework.web.client.RestTemplate;
 public class UserController {
 
     NaverApiInfo naverApiInfo = NaverApiInfo.getInstance();
+    UserService userService;
+
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/login")
     public String goNaverLogin() {
@@ -95,20 +104,39 @@ public class UserController {
         System.out.println("이메일: " + email);
         System.out.println("출생년도: " + birthyear);
         System.out.println("프로필이미지링크: " + profileImage);
-        /*
-        1. isExist 실행
-            2-1. true
-                /loginmain으로 redirect
-            2-2. false
-                각 정보를 database에 insert하고, /survey로 redirect
-         */
-        return "redirect:/main";
+        System.out.println(session.getAttribute("sessionId"));
+
+        String redirectUrl = "redirect:/main";
+
+        int userId = 0;
+        try {
+            // Register
+            if(!userService.existsByEmail(email)) {
+                System.out.println("** Register");
+                try {
+                    userService.registerUser(id, name, age, gender, email, birthyear, profileImage);
+                } catch (Exception e2) {
+                    System.out.println("ERROR IN REGISTER");
+                }
+                redirectUrl = "redirect:/survey";
+            }
+
+            System.out.println("** Login");
+            userId = userService.findUserIdByEmail(email);
+        } catch (Exception e) {
+            System.out.println("ERROR IN FIND USER");
+        } finally {
+            session.setAttribute("userId", userId);
+            System.out.println(email + " user login.");
+        }
+
+        System.out.println(session.getAttribute("userId"));
+        return redirectUrl;
     }
 
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         if (session.getAttribute("sessionId") != null) {
-            System.out.println(session.getAttribute("sessionId"));
             session.invalidate();
         }
         return "redirect:/";

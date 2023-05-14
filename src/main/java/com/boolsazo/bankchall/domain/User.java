@@ -17,7 +17,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private int userId;
     @Column(nullable = false)
     private String id;
     @Column(nullable = false)
@@ -31,13 +31,17 @@ public class User {
     private String birthYear;
     @Column(nullable = false)
     private String age;
-    @Column(name="profile_image")
+    @Column(name="profile_image", nullable = false)
     private String profileImage;
 
     @Column(name="financial_type")
     private String financialType;
 
     public User() {
+    }
+
+    public User(int userId) {
+        this.userId = userId;
     }
 
     public User(String id) {
@@ -52,6 +56,18 @@ public class User {
         this.birthYear = birthYear;
         this.age = age;
         this.profileImage = profileImage;
+    }
+
+    public User(int userId, String name, String email, String gender, String birthYear, String age,
+        String profileImage, String financialType) {
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.birthYear = birthYear;
+        this.age = age;
+        this.profileImage = profileImage;
+        this.financialType = financialType;
     }
 
 }

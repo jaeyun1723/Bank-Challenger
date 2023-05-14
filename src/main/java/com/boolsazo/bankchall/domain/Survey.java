@@ -1,15 +1,23 @@
 package com.boolsazo.bankchall.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Entity
+@Table(name = "survey")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 public class Survey {
 
+    @Id
     @Column(name = "user_id", nullable = false)
     private int userId;
 

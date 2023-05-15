@@ -1,8 +1,6 @@
 package com.boolsazo.bankchall.controller;
 
 import com.boolsazo.bankchall.naver.NaverApiInfo;
-import com.boolsazo.bankchall.repository.UserRepository;
-import com.boolsazo.bankchall.service.BFRService;
 import com.boolsazo.bankchall.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -10,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +32,7 @@ public class UserController {
         String state = naverApiInfo.getState();
 
         String url = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
-            clientId + "&redirect_uri=" + callbackUrl + "&state=" + state;
+                clientId + "&redirect_uri=" + callbackUrl + "&state=" + state;
 
         return "redirect:" + url;
     }
@@ -53,14 +50,14 @@ public class UserController {
         String state = request.getParameter("state");
 
         String tokenUrl =
-            "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=" +
-                clientId + "&client_secret=" + clientSecret + "&code=" + code + "&state=" + state;
+                "https://nid.naver.com/oauth2.0/token?grant_type=authorization_code&client_id=" +
+                        clientId + "&client_secret=" + clientSecret + "&code=" + code + "&state=" + state;
 
         // Access token by post
         HttpEntity<String> entity = new HttpEntity<>("", new HttpHeaders());
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response = restTemplate.postForEntity(tokenUrl, entity,
-            String.class);
+                String.class);
 
         // Parsing response.body from string to json object
         Gson gson = new Gson();

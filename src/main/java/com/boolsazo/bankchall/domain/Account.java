@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -30,8 +31,10 @@ public class Account {
     private String accountNumMasked;
     @Column(name = "bank_name", nullable = false)
     private String bankName;
-    private boolean isUsed = false;
-    private int type;
+    @Column(name = "is_used", nullable = false)
+    private boolean isUsed;
+    @Column(nullable = false)
+    private long type;
 
     public Account(Long userId, String accountNumMasked, String bankName, boolean isUsed,
         int type) {

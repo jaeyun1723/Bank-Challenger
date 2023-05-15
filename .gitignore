@@ -1,5 +1,6 @@
 ### Naver API Infomation
 /src/main/java/com/boolsazo/bankchall/naver/
+src/main/java/com/boolsazo/bankchall/naver/NaverApiInfo.java
 
 HELP.md
 target/

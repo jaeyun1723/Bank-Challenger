@@ -1,14 +1,19 @@
 package com.boolsazo.bankchall.service.impl;
 
+import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.dto.BFR;
 import com.boolsazo.bankchall.dto.BFRTestForm;
+import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.BFRService;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BFRServiceImpl implements BFRService {
 
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public BFR createBFR(BFRTestForm vo) throws Exception {
@@ -35,8 +40,8 @@ public class BFRServiceImpl implements BFRService {
             sb.append("F"); // 2 : 미래 지향형(Future)
         }
 
-        String BFRType = sb.toString();
-        BFR bfr = BFR.valueOf(BFRType);
+        String financialType = sb.toString();
+        BFR bfr = BFR.valueOf(financialType);
 
         return bfr;
     }
@@ -46,16 +51,15 @@ public class BFRServiceImpl implements BFRService {
         int userId = vo.getUserId();
         BFR bfr = createBFR(vo);
 
-        // TODO: userRepository에 BFR 등록하기
-
+        User user = userRepository.findOneByUserId(userId);
+        user.setFinancialType(bfr.name());
+        userRepository.save(user);
     }
 
     @Override
-    public BFR showBFR(int uerId) throws Exception {
-        // TODO: userRepository에서 User의 BFR 가져오기
-        //String BFRType = userRepository.getBFR();
-        String BFRType = "LRP";
-        BFR bfr = BFR.valueOf(BFRType);
+    public BFR showBFR(int userId) throws Exception {
+        String financialType = userRepository.findFinancialTypeByUserId(userId);
+        BFR bfr = BFR.valueOf(financialType);
         return bfr;
     }
 }

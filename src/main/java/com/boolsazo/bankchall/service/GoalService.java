@@ -1,7 +1,7 @@
 package com.boolsazo.bankchall.service;
 
 import com.boolsazo.bankchall.domain.Goal;
-import java.util.List;
+import com.boolsazo.bankchall.dto.GoalListResponse;
 
 public interface GoalService {
 
@@ -13,6 +13,6 @@ public interface GoalService {
 
     Goal showGoal(int goalId);
 
-    List<Goal> showAllGoal(int userId);
+    GoalListResponse showAllGoal(int userId);
 
 }

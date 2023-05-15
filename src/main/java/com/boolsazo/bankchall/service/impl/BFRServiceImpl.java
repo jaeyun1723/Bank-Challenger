@@ -51,7 +51,7 @@ public class BFRServiceImpl implements BFRService {
         int userId = vo.getUserId();
         BFR bfr = createBFR(vo);
 
-        User user = userRepository.findOneByUserId(userId);
+        User user = userRepository.findByUserId(userId);
         user.setFinancialType(bfr.name());
         userRepository.save(user);
     }

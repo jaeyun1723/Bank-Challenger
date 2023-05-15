@@ -42,6 +42,7 @@ public class UserController {
 
     @GetMapping("/login/callback")
     public String LoginProcess(HttpServletRequest request) {
+
         /******************************************************************************************
          * 1. GET ACCESS TOKEN                                                                    *
          ******************************************************************************************/
@@ -94,6 +95,7 @@ public class UserController {
         /******************************************************************************************
          * 3. DO LOGIN OR REGISTER                                                                *
          ******************************************************************************************/
+
         HttpSession session = request.getSession();
         session.setAttribute("sessionId", naverApiInfo.generateRandomState());
 

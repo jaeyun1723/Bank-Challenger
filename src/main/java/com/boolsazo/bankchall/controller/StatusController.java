@@ -3,13 +3,23 @@ package com.boolsazo.bankchall.controller;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+
+import com.boolsazo.bankchall.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping("/status")
 public class StatusController {
 
-    @GetMapping(value = "/status/login")
+    UserService userService;
+
+    public StatusController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping(value = "/login")
     public Map<String, Boolean> isLogin(HttpServletRequest request) {
         Map<String, Boolean> result = new HashMap<>();
 
@@ -17,6 +27,25 @@ public class StatusController {
             result.put("login", true);
         } else {
             result.put("login", false);
+        }
+
+        return result;
+    }
+
+    @GetMapping(value = "/bfr")
+    public Map<String, Boolean> isBFR(HttpServletRequest request) {
+        Map<String, Boolean> result = new HashMap<>();
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        try {
+            String bfr = userService.findFinancialTypeByUserId(userId);
+            if (bfr != null) {
+                result.put("bfr", true);
+            } else {
+                result.put("bfr", false);
+            }
+        } catch (Exception e) {
+            System.out.println("Error in check financial type");
         }
 
         return result;

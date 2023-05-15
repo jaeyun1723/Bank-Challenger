@@ -48,8 +48,9 @@ public class User {
         this.id = id;
     }
 
-    public User(String name, String email, String gender, String birthYear, String age,
+    public User(String id, String name, String email, String gender, String birthYear, String age,
         String profileImage) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.gender = gender;

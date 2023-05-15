@@ -3,6 +3,7 @@ package com.boolsazo.bankchall.service.impl;
 import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean existsByEmail(String email) {
         return userRepository.existsByEmail(email);
+    }
+
+    public void deleteByUserId(String userId) {
+        this.userRepository.deleteByUserId(userId);
+    }
+
+    public User findByUserId(int userId) {
+        return this.userRepository.findByUserId(userId);
     }
 
     @Override
@@ -48,37 +57,13 @@ public class UserServiceImpl implements UserService {
     public String findFinancialTypeByUserId(int userId) throws Exception {
         String financialType = "";
         try {
-            userRepository.findFinancialTypeByUserId(userId);
+            financialType = userRepository.findFinancialTypeByUserId(userId);
         } catch (Exception e) {
             System.out.println("Error in findFinancialTypeByUserId");
         } finally {
             System.out.println("Find financialType process");
         }
         return financialType;
-    }
-
-    @Override
-    public void deleteByUserId(int userId) throws Exception {
-        try {
-            userRepository.deleteByUserId(userId);
-        } catch (Exception e) {
-            System.out.println("Error in deleteByUserId");
-        } finally {
-            System.out.println("Delete user process");
-        }
-    }
-
-    @Override
-    public User findOneByUserId(int userId) throws Exception {
-        User user = null;
-        try {
-            user = userRepository.findOneByUserId(userId);
-        } catch (Exception e) {
-            System.out.println("Error in findOneByUserId");
-        } finally {
-            System.out.println("Find user process");
-        }
-        return user;
     }
 
     @Override

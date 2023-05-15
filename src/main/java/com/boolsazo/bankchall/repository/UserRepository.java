@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByEmail(String email);
+    void deleteByUserId(String userId);
+    User findByUserId(int userId);
 
     @Modifying
     @Query(value = "insert into user (id, name, age, gender, email, birthyear, profile_image) "
@@ -24,12 +26,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query(value = "select financial_type from user where user_id = ?1 ;", nativeQuery = true)
     String findFinancialTypeByUserId(int userId);
-
-    @Query(value = "delete from user where user_id = ?1 ;", nativeQuery = true)
-    void deleteByUserId(int userId);
-
-    @Query(value = "select user_id, id, name, age, gender, email, birthyear, profile_image, financial_type from user where user_id = ?1 ;", nativeQuery = true)
-    User findOneByUserId(int userId);
 
     @Query(value = "select user_id from user where email = ?1 ;", nativeQuery = true)
     int findUserIdByEmail(String email) throws Exception;

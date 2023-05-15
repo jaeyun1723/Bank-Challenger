@@ -44,8 +44,9 @@ public class User {
         this.id = id;
     }
 
-    public User(String id, String name, String email, String gender, String birthYear, String age,
-        String profileImage) {
+    public User(int userId, String id, String name, String email, String gender, String birthYear, String age,
+            String profileImage, String financialType) {
+        this.userId = userId;
         this.id = id;
         this.name = name;
         this.email = email;
@@ -53,6 +54,7 @@ public class User {
         this.birthYear = birthYear;
         this.age = age;
         this.profileImage = profileImage;
+        this.financialType = financialType;
     }
 
 }

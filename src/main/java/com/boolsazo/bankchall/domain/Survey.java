@@ -12,7 +12,6 @@ import lombok.Setter;
 @Setter
 @Entity
 public class Survey {
-
     @Id
     @Column(name = "user_id", nullable = false)
     private int userId;

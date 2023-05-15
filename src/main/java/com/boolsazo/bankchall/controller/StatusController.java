@@ -3,7 +3,9 @@ package com.boolsazo.bankchall.controller;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -49,6 +51,20 @@ public class StatusController {
         }
 
         return result;
+    }
+
+    @GetMapping("/user")
+    public User getUserInfo(HttpSession request) throws Exception {
+        User user = null;
+
+        try {
+            int userId = (int) request.getAttribute("userId");
+            user = userService.findByUserId(userId);
+        } catch (Exception e) {
+            System.out.println("INVALID ACCESS: User Information");
+        }
+
+        return user;
     }
 
 }

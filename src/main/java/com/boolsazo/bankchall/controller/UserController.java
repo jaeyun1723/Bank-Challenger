@@ -1,13 +1,16 @@
 package com.boolsazo.bankchall.controller;
 
+import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.naver.NaverApiInfo;
 import com.boolsazo.bankchall.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -110,7 +113,7 @@ public class UserController {
         int userId = 0;
         try {
             // Register
-            if(!userService.existsByEmail(email)) {
+            if (!userService.existsByEmail(email)) {
                 System.out.println("** Register");
                 try {
                     userService.registerUser(id, name, age, gender, email, birthyear, profileImage);

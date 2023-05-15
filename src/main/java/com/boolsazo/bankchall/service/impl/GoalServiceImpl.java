@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class GoalServiceImpl implements GoalService {
 
-
     @Autowired
     private GoalRepository goalRepository;
 

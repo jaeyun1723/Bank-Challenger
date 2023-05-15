@@ -22,23 +22,24 @@ function User() {
 
     if (login === false) {
         window.location.href = "/";
+        return;
     }
-    else {
-        return(
-            <div name='user'>
-                순번: {user["userId"]}<br/>
-                이름: {user["name"]}<br/>
-                이메일: {user["email"]}<br/>
-                성별: {user["gender"]}<br/>
-                출생년도: {user["birthYear"]}<br/>
-                연령대: {user["age"]}<br/>
-                프로필 링크: {user["profileImage"]}<br/>
-                금융대사량 타입: {user["financialType"]}<br/>
-                <hr/>
-                <a href='/main'>메인으로</a>
-            </div>
-        );
-    }
+
+    return(
+        <div name='user'>
+            순번: {user["userId"]}<br/>
+            이름: {user["name"]}<br/>
+            이메일: {user["email"]}<br/>
+            성별: {user["gender"]}<br/>
+            출생년도: {user["birthYear"]}<br/>
+            연령대: {user["age"]}<br/>
+            프로필 링크: {user["profileImage"]}<br/>
+            금융대사량 타입: {user["financialType"]}<br/>
+            <hr/>
+            <a href='/main'>메인으로</a><br/>
+            <a href='/delete'>회원탈퇴</a>
+        </div>
+    );
 }
 
 export default User;

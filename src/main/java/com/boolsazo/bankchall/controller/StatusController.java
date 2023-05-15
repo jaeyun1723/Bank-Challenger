@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 
 import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.service.UserService;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -65,6 +66,17 @@ public class StatusController {
         }
 
         return user;
+    }
+
+    @DeleteMapping(value = "/delete")
+    public void delete(HttpServletRequest request) {
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        try {
+            userService.deleteByUserId(userId);
+        } catch (Exception e) {
+            System.out.println("Error in delete user");
+        }
     }
 
 }

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class HelloController {
 
-    @GetMapping(value = {"/main", "/survey", "/user"})
+    @GetMapping(value = {"/main", "/survey", "/user", "/delete"})
     public String handleError() {
         return "forward:/index.html";
     }

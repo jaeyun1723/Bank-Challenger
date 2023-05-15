@@ -3,9 +3,6 @@ package com.boolsazo.bankchall.controller;
 import com.boolsazo.bankchall.domain.Goal;
 import com.boolsazo.bankchall.dto.GoalListResponse;
 import com.boolsazo.bankchall.service.GoalService;
-
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -74,4 +71,5 @@ public class GoalController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to delete Goal.");
         }
     }
+
 }

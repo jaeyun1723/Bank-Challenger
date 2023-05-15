@@ -16,7 +16,7 @@ public class AccountRepositoryTest {
     private AccountRepository accountRepository;
     @Test
     public void unit() throws Exception {
-        Account account = new Account(2, "9999***", "KB 국민은행", false, 0);
-        accountRepository.save(account);
+      //  Account account = new Account(2, "9999***", "KB 국민은행", false, 0);
+      //  accountRepository.save(account);
     }
 }

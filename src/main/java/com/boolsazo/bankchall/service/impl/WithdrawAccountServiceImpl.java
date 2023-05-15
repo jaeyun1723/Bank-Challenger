@@ -1,7 +1,7 @@
 package com.boolsazo.bankchall.service.impl;
 
 import com.boolsazo.bankchall.domain.Account;
-import com.boolsazo.bankchall.dto.AccountResponse;
+import com.boolsazo.bankchall.dto.api.AccountResponse;
 import com.boolsazo.bankchall.dto.WithdrawRegisterRequest;
 import com.boolsazo.bankchall.repository.AccountRepository;
 import com.boolsazo.bankchall.service.WithdrawAccountService;
@@ -18,7 +18,9 @@ public class WithdrawAccountServiceImpl implements WithdrawAccountService {
 
     @Override
     public void registerAccount(WithdrawRegisterRequest request) {
-        accountRepository.save(request.toEntity());
+        // 재윤 코드
+        // 계좌 정보 조회 api 호출
+      //  accountRepository.save(request.toEntity());
     }
 
     @Override

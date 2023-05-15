@@ -51,5 +51,5 @@ build/
 ### VS Code ###
 .vscode/
 
-### API Information ###
-/src/main/resources/application-oauth.properties
+### Open API Information ###
+!/src/main/resources/application.properties

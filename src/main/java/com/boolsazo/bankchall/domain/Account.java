@@ -35,13 +35,16 @@ public class Account {
     private boolean isUsed;
     @Column(nullable = false)
     private int type;
+    @Column(name = "fintech_use_num")
+    private String fintechUseNum;
 
     public Account(int userId, String accountNumMasked, String bankName, boolean isUsed,
-        int type) {
+        int type, String fintechUseNum) {
         this.userId = userId;
         this.accountNumMasked = accountNumMasked;
         this.bankName = bankName;
         this.isUsed = isUsed;
         this.type = type;
+        this.fintechUseNum = fintechUseNum;
     }
 }

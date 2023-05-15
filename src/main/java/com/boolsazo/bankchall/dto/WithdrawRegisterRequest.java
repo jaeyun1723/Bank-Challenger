@@ -17,12 +17,14 @@ public class WithdrawRegisterRequest {
     private String bankName;
     private boolean isUsed = true;
     private int userId;
+    private String fintechUseNum = "";
 
-    public Account toEntity() {
-        return new Account(userId,
-                accountNumMasked,
-                bankName,
-                isUsed,
-                0);
-    }
+//    public Account toEntity() {
+//        return new Account(userId,
+//            accountNumMasked,
+//            bankName,
+//            isUsed,
+//            fintechUseNum,
+//            0);
+//    }
 }

@@ -1,4 +1,4 @@
-package com.boolsazo.bankchall.dto;
+package com.boolsazo.bankchall.dto.api;
 
 
 import com.boolsazo.bankchall.domain.Account;

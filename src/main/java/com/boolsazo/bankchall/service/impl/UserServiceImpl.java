@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
         return userRepository.existsByEmail(email);
     }
 
-    public void deleteByUserId(String userId) {
+    public void deleteByUserId(int userId) {
         this.userRepository.deleteByUserId(userId);
     }
 

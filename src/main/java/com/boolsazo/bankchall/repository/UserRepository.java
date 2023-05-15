@@ -9,11 +9,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Integer> {
 
     boolean existsByEmail(String email);
 
-    void deleteByUserId(String userId);
+    void deleteByUserId(int userId);
 
     User findByUserId(int userId);
 

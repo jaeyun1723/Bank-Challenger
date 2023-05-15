@@ -26,7 +26,7 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public void deleteGoal(long goalId) {
+    public void deleteGoal(int goalId) {
         goalRepository.deleteById(goalId);
     }
 
@@ -36,7 +36,7 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public Goal showGoal(long goalId) {
+    public Goal showGoal(int goalId) {
         Optional<Goal> optionalGoal = goalRepository.findById(goalId);
         // Goal 객체가 존재하지 않는 경우에 대한 처리를 추가합니다.
         return optionalGoal.orElseThrow(
@@ -44,7 +44,7 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public List<Goal> showAllGoal(long userId) {
+    public List<Goal> showAllGoal(int userId) {
 
         return goalRepository.findAll();
     }

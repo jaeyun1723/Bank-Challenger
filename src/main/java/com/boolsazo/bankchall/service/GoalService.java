@@ -7,12 +7,12 @@ public interface GoalService {
 
     Goal registerGoal(Goal vo);
 
-    void deleteGoal(long goalId);
+    void deleteGoal(int goalId);
 
     void updateGoal(Goal vo);
 
-    Goal showGoal(long goalId);
+    Goal showGoal(int goalId);
 
-    List<Goal> showAllGoal(long userId);
+    List<Goal> showAllGoal(int userId);
 
 }

@@ -1,11 +1,11 @@
 package com.boolsazo.bankchall.service.impl;
 
+
 import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.dto.BFR;
 import com.boolsazo.bankchall.dto.BFRTestForm;
 import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.BFRService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

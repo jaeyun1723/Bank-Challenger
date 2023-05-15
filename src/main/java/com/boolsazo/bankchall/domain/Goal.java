@@ -1,6 +1,7 @@
 package com.boolsazo.bankchall.domain;
 
 import com.boolsazo.bankchall.common.BaseTimeEntity;
+
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,10 +26,10 @@ public class Goal extends BaseTimeEntity {
     @Id
     @Column(name = "goal_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long goalId;
+    private int goalId;
 
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private int userId;
 
     @Column
     private String category;
@@ -36,13 +38,13 @@ public class Goal extends BaseTimeEntity {
     private String goalName;
 
     @Column(name = "product_id")
-    private Long productId;
+    private int productId;
 
     @Column(name = "goal_amount", nullable = false)
-    private Long goalAmount;
+    private int goalAmount;
 
     @Column(name = "saving_amount")
-    private Long savingAmount;
+    private int savingAmount;
 
     @Column(name = "goal_image")
     private String goalImage;
@@ -55,8 +57,8 @@ public class Goal extends BaseTimeEntity {
 
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime savingStartDate;
+
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime createDate;
-
 
 }

@@ -16,7 +16,7 @@ public class WithdrawRegisterRequest {
     private String accountNumMasked;
     private String bankName;
     private boolean isUsed = true;
-    private Long userId;
+    private int userId;
 
     public Account toEntity() {
         return new Account(userId,

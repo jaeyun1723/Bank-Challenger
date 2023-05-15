@@ -24,9 +24,9 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "account_id", nullable = false)
-    private Long accountId;
+    private int accountId;
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private int userId;
     @Column(name = "account_num_masked", nullable = false)
     private String accountNumMasked;
     @Column(name = "bank_name", nullable = false)
@@ -34,9 +34,9 @@ public class Account {
     @Column(name = "is_used", nullable = false)
     private boolean isUsed;
     @Column(nullable = false)
-    private long type;
+    private int type;
 
-    public Account(Long userId, String accountNumMasked, String bankName, boolean isUsed,
+    public Account(int userId, String accountNumMasked, String bankName, boolean isUsed,
         int type) {
         this.userId = userId;
         this.accountNumMasked = accountNumMasked;

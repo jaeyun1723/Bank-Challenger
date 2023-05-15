@@ -22,8 +22,8 @@ import lombok.Setter;
 public class GoalAccount {
     @Id
     @Column(name = "account_id", nullable = false)
-    private Long accountId;
+    private int accountId;
     @Id
     @Column(name = "goal_id", nullable = false)
-    private Long goalId;
+    private int goalId;
 }

@@ -24,12 +24,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public List<Account> showAllWAccount(Long userId) {
+    public List<Account> showAllWAccount(int userId) {
         return accountRepository.findAll();
     }
 
     @Override
-    public void deleteWAccount(Long userId) {
+    public void deleteWAccount(int userId) {
         accountRepository.deleteById(userId);
     }
 }

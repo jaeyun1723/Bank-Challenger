@@ -5,7 +5,7 @@ import com.boolsazo.bankchall.domain.User;
 public interface UserService {
 
     boolean existsByEmail(String email);
-    void deleteByUserId(String userId);
+    void deleteByUserId(int userId);
     User findByUserId(int userId);
 
     void registerUser(String id, String name, String age, String gender, String email,

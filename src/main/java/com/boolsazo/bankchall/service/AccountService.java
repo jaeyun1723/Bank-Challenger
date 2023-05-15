@@ -5,8 +5,8 @@ import java.util.List;
 
 public interface AccountService {
     void registerWAccount(Account vo);
-    List<Account> showAllWAccount(Long userId);
-    void deleteWAccount(Long userId);
+    List<Account> showAllWAccount(int userId);
+    void deleteWAccount(int userId);
 
 
 }

@@ -35,7 +35,7 @@ public class WithdrawAccountController {
     }
 
     @GetMapping("/list/{userId}")
-    public ResponseEntity<?> withdrawList(@PathVariable("userId") Long userId) {
+    public ResponseEntity<?> withdrawList(@PathVariable("userId") int userId) {
         try {
             AccountResponse response = withdrawAccountService.withdrawList(userId);
             return ResponseEntity.status(HttpStatus.OK)
@@ -49,7 +49,7 @@ public class WithdrawAccountController {
     }
 
     @DeleteMapping("{accountId}")
-    public ResponseEntity deleteAccount(@PathVariable("accountId") Long accountId) {
+    public ResponseEntity deleteAccount(@PathVariable("accountId") int accountId) {
         try {
             withdrawAccountService.deleteAccount(accountId);
             return ResponseEntity.status(HttpStatus.OK)

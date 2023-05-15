@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Table(name = "user")
 @Getter
@@ -17,7 +18,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id", nullable = false)
-    private Long userId;
+    private int userId;
     @Column(nullable = false)
     private String id;
     @Column(nullable = false)
@@ -40,8 +41,20 @@ public class User {
     public User() {
     }
 
-    public User(String id) {
+    public User(int userId) {
+        this.userId = userId;
+    }
+
+    public User(String id, String name, String email, String gender, String birthYear, String age,
+                String profileImage, String financialType) {
         this.id = id;
+        this.name = name;
+        this.email = email;
+        this.gender = gender;
+        this.birthYear = birthYear;
+        this.age = age;
+        this.profileImage = profileImage;
+        this.financialType = financialType;
     }
 
     public User(int userId, String id, String name, String email, String gender, String birthYear, String age,

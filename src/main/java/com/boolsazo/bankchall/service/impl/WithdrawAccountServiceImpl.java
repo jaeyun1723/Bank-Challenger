@@ -22,7 +22,7 @@ public class WithdrawAccountServiceImpl implements WithdrawAccountService {
     }
 
     @Override
-    public AccountResponse withdrawList(Long userId) {
+    public AccountResponse withdrawList(int userId) {
         List<AccountResponse.Result> list = accountRepository.findByUserIdAndType(userId, (byte) 0).stream()
                 .map(account -> new AccountResponse.Result(account, account.isUsed())).collect(
                         Collectors.toList());
@@ -31,7 +31,7 @@ public class WithdrawAccountServiceImpl implements WithdrawAccountService {
     }
 
     @Override
-    public void deleteAccount(Long accountId) {
+    public void deleteAccount(int accountId) {
         Account account = accountRepository.findByAccountId(accountId);
         accountRepository.delete(account);
     }

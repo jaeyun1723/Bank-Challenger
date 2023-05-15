@@ -7,7 +7,7 @@ public interface WithdrawAccountService {
 
     void registerAccount(WithdrawRegisterRequest request);
 
-    AccountResponse withdrawList(Long userId);
+    AccountResponse withdrawList(int userId);
 
-    void deleteAccount(Long accountId);
+    void deleteAccount(int accountId);
 }

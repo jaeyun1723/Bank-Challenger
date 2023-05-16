@@ -1,11 +1,17 @@
 package com.boolsazo.bankchall.repository;
 
 import com.boolsazo.bankchall.domain.User;
+import com.boolsazo.bankchall.dto.resultSet.CategoryResultSet;
+import com.boolsazo.bankchall.dto.resultSet.GenderAgeResultSet;
+import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
+import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Transactional
 @Repository
@@ -32,4 +38,22 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select user_id from user where email = ?1 ;", nativeQuery = true)
     int findUserIdByEmail(String email) throws Exception;
 
+    @Query(value = "select category, count(*) count from user u\n"
+            + "join goal g on u.user_id = g.user_id\n"
+            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+            + "group by category", nativeQuery = true)
+    CategoryResultSet goalStatistics(@Param("userId") int userId);
+
+    @Query(value = "select gender, count(*) count from user u\n"
+            + "join goal g on u.user_id = g.user_id\n"
+            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+            + "and u.birthyear = :birthYear\n"
+            + "group by u.gender", nativeQuery = true)
+    GenderAgeResultSet genderAgeStatistics(@PathVariable("userId") int userId, @PathVariable("birthYear") String birthYear);
+
+    @Query(value = "select occupation, count(*) count from user u\n"
+            + "join survey s on u.user_id = s.user_id\n"
+            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+            + "group by occupation", nativeQuery = true)
+    OccupationResultSet jobStatistics(@PathVariable("userId") int userId);
 }

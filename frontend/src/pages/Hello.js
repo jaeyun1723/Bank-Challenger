@@ -14,8 +14,7 @@ function Hello() {
 
     if (status === true) {
         window.location.href = "/main";
-    }
-    else {
+    } else {
         return(
             <div>
                 <a href="/login">로그인</a>

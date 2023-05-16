@@ -2,20 +2,28 @@ import { React, useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Survey() {
-    const [status, setStatus] = useState('');
+    const [login, setLogin] = useState('');
+    const [bfr, setBfr] = useState('');
 
     useEffect(() =>{
         axios.get("/status/login")
             .then(response => {
-                setStatus(response.data.login);
+                setLogin(response.data.login);
+            })
+            .catch(error => console.log(error));
+
+        axios.get("/status/bfr")
+            .then(response => {
+                setBfr(response.data.bfr);
             })
             .catch(error => console.log(error));
     }, []);
 
-    if (status === false) {
+    if (login === false) {
         window.location.href = "/";
-    }
-    else {
+    } else if (bfr === true) {
+        window.location.href = "/main";
+    } else {
         return(
             <div>
                 설문조사(+금융대사량) 페이지 테스트 중입니다.<br/>

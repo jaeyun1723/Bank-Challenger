@@ -140,7 +140,9 @@ public class UserController {
     public String logout(HttpSession session) {
         if (session.getAttribute("sessionId") != null) {
             session.invalidate();
+            System.out.println("세션 제거");
         }
+        System.out.println("로그아웃");
         return "redirect:/";
     }
 

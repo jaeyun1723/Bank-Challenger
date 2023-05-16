@@ -74,9 +74,12 @@ public class StatusController {
 
         try {
             userService.deleteByUserId(userId);
+            System.out.println("회원 탈퇴");
         } catch (Exception e) {
             System.out.println("Error in delete user");
         }
+        request.getSession().invalidate();
+        System.out.println("세션 제거");
     }
 
 }

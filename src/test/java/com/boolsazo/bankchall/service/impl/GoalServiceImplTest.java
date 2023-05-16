@@ -1,43 +1,29 @@
 //package com.boolsazo.bankchall.service.impl;
 //
 //
-//import static org.hamcrest.Matchers.any;
 //import static org.junit.jupiter.api.Assertions.assertEquals;
 //import static org.junit.jupiter.api.Assertions.assertFalse;
-//import static org.junit.jupiter.api.Assertions.assertNotNull;
-//import static org.junit.jupiter.api.Assertions.assertNull;
 //import static org.junit.jupiter.api.Assertions.assertTrue;
 //import static org.mockito.ArgumentMatchers.anyLong;
 //import static org.mockito.Mockito.doNothing;
-//import static org.mockito.Mockito.verify;
 //import static org.mockito.Mockito.when;
 //
 //import com.boolsazo.bankchall.domain.Goal;
 //import com.boolsazo.bankchall.repository.GoalRepository;
 //import java.sql.Timestamp;
 //import java.time.LocalDateTime;
-//import java.util.ArrayList;
 //import java.util.Arrays;
 //import java.util.HashMap;
 //import java.util.List;
 //import java.util.Map;
 //import java.util.Optional;
-//import org.junit.Before;
 //import org.junit.jupiter.api.BeforeEach;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
 //import org.junit.jupiter.api.extension.ExtendWith;
-//import org.junit.runner.RunWith;
-//import org.mockito.ArgumentCaptor;
 //import org.mockito.InjectMocks;
 //import org.mockito.Mock;
-//import org.mockito.Mockito;
-//import org.mockito.MockitoAnnotations;
-//import org.mockito.junit.MockitoJUnitRunner;
 //import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 //
 //@ExtendWith(MockitoExtension.class)
 //class GoalServiceImplTest {
@@ -56,8 +42,8 @@
 //        LocalDateTime customCreateDate = LocalDateTime.of(2023, 5, 14, 10, 30);
 //        Timestamp savingStartDate = Timestamp.valueOf(customCreateDate);
 //        dummyGoal = new Goal(1L, "전자제품", "아이폰15", 456L, 2000L, 500L,
-//            "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-14-model-unselect-gallery-1-202209?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1660689596976",
-//            false, "1", savingStartDate, );
+//                "https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/iphone-14-model-unselect-gallery-1-202209?wid=5120&hei=2880&fmt=p-jpg&qlt=80&.v=1660689596976",
+//                false, "1", savingStartDate, );
 //    }
 //
 //    @Test
@@ -78,10 +64,10 @@
 //        String day = "1";
 //
 //        Goal goalForm = new Goal(userId, category, goalName, productId, goalAmount,
-//            savingAmount,
-//            goalImage, isExpired, day, savingStartDate);
+//                savingAmount,
+//                goalImage, isExpired, day, savingStartDate);
 //        Goal expectedGoal = new Goal(userId, category, goalName, productId, goalAmount,
-//            savingAmount, goalImage, isExpired, day, savingStartDate);
+//                savingAmount, goalImage, isExpired, day, savingStartDate);
 //        when(goalRepository.save(goalForm)).thenReturn(expectedGoal);
 //
 //        // when
@@ -184,7 +170,7 @@
 //        goals.put(goalId, existingGoal);
 //
 //        when(goalRepository.findById(anyLong())).thenAnswer(
-//            i -> Optional.ofNullable(goals.get(i.getArgument(0))));
+//                i -> Optional.ofNullable(goals.get(i.getArgument(0))));
 //
 //        // When
 //        service.updateGoal(updatedGoal);

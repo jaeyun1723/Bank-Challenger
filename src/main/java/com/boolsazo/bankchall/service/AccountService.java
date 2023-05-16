@@ -1,12 +1,17 @@
 package com.boolsazo.bankchall.service;
 
-import com.boolsazo.bankchall.domain.Account;
-import java.util.List;
+import com.boolsazo.bankchall.dto.RegistAccountRequest;
+import com.boolsazo.bankchall.dto.api.AccountResponse;
 
 public interface AccountService {
-    void registerWAccount(Account vo);
-    List<Account> showAllWAccount(int userId);
-    void deleteWAccount(int userId);
 
+    void registWithdrawAccount(RegistAccountRequest request);
 
+    void registSavingAccount(RegistAccountRequest request);
+
+    AccountResponse withdrawList(int userId);
+
+    AccountResponse savingsList(int userId);
+
+    void deleteAccount(int accountId);
 }

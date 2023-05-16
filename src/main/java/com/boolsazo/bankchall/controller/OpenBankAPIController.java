@@ -53,14 +53,13 @@ public class OpenBankAPIController {
                 userOauth.getAccessToken());
 
             BankAccountDto accountDto = userAccountListResponse.getRes_list().get(0);
-//            Account account = new Account(userId, accountDto.getAccount_num_masked()
-//                , accountDto.getBank_name(), false, type, accountDto.getFintech_use_num());
+
             RegistAccountRequest request = new RegistAccountRequest(
-                    accountDto.getAccount_num_masked(),
-                    accountDto.getBank_name(),
-                    false,
-                    userId,
-                    accountDto.getFintech_use_num());
+                accountDto.getAccount_num_masked(),
+                accountDto.getBank_name(),
+                false,
+                userId,
+                accountDto.getFintech_use_num());
 
             if (type == 0) {
                 accountService.registWithdrawAccount(request);

@@ -1,8 +1,8 @@
 package com.boolsazo.bankchall.controller;
 
+import com.boolsazo.bankchall.dto.api.AccountResponse;
 import com.boolsazo.bankchall.dto.RegistAccountRequest;
 import com.boolsazo.bankchall.service.AccountService;
-import com.boolsazo.bankchall.dto.api.AccountResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

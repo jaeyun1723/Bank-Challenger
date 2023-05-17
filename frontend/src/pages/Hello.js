@@ -17,7 +17,7 @@ function Hello() {
     } else {
         return(
             <div>
-                <a href="/login">로그인</a>
+                <a href="/login">네이버로 로그인 하기</a>
                 {status}
             </div>
         );

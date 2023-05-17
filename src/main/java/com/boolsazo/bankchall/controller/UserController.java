@@ -42,6 +42,10 @@ public class UserController {
 
     @GetMapping("/login/callback")
     public String LoginProcess(HttpServletRequest request) {
+        // cancel
+        if (request.getParameter("error") != null) {
+            return "redirect:/";
+        }
 
         /******************************************************************************************
          * 1. GET ACCESS TOKEN                                                                    *

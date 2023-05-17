@@ -38,10 +38,15 @@ public class StatusController {
     @GetMapping(value = "/bfr")
     public Map<String, Boolean> isBFR(HttpServletRequest request) {
         Map<String, Boolean> result = new HashMap<>();
-        int userId = (int) request.getSession().getAttribute("userId");
 
+        if (request.getSession().getAttribute("userId") == null) {
+            result.put("bfr", false);
+            return result;
+        }
         try {
+            int userId = (int) request.getSession().getAttribute("userId");
             String bfr = userService.findFinancialTypeByUserId(userId);
+
             if (bfr != null) {
                 result.put("bfr", true);
             } else {
@@ -58,11 +63,13 @@ public class StatusController {
     public User getUserInfo(HttpSession request) throws Exception {
         User user = null;
 
-        try {
-            int userId = (int) request.getAttribute("userId");
-            user = userService.findByUserId(userId);
-        } catch (Exception e) {
-            System.out.println("INVALID ACCESS: User Information");
+        if (request.getAttribute("userId") != null) {
+            try {
+                int userId = (int) request.getAttribute("userId");
+                user = userService.findByUserId(userId);
+            } catch (Exception e) {
+                System.out.println("INVALID ACCESS: User Information");
+            }
         }
 
         return user;
@@ -70,9 +77,8 @@ public class StatusController {
 
     @DeleteMapping(value = "/delete")
     public void delete(HttpServletRequest request) {
-        int userId = (int) request.getSession().getAttribute("userId");
-
         try {
+            int userId = (int) request.getSession().getAttribute("userId");
             userService.deleteByUserId(userId);
             System.out.println("회원 탈퇴");
         } catch (Exception e) {

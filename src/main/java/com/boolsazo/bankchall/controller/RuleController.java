@@ -2,6 +2,9 @@ package com.boolsazo.bankchall.controller;
 
 import com.boolsazo.bankchall.dto.RuleRequestDto;
 import com.boolsazo.bankchall.service.RuleService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,12 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/rule")
+@Tag(name = "규칙", description = "규칙 API")
 public class RuleController {
 
     @Autowired
     private RuleService service;
 
     @PostMapping
+    @Operation(summary = "규칙 등록 API", description = "규칙을 등록할 수 있는 API")
     public ResponseEntity registerRule(@RequestBody RuleRequestDto dto) {
         try {
             service.registerRule(dto);
@@ -33,6 +38,7 @@ public class RuleController {
     }
 
     @PutMapping
+    @Operation(summary = "규칙 수정 API", description = "규칙을 수정할 수 있는 API")
     public ResponseEntity updateRule(@RequestBody RuleRequestDto dto) {
         try {
             service.registerRule(dto);
@@ -45,6 +51,8 @@ public class RuleController {
     }
 
     @DeleteMapping("{goalId}")
+    @Parameter(name = "goalId", description = "목표 PK")
+    @Operation(summary = "규칙 삭제 API", description = "규칙을 삭제할 수 있는 API")
     public ResponseEntity deleteRule(@PathVariable("goalId") int goalId) {
         try {
             service.deleteRule(goalId);

@@ -1,16 +1,15 @@
 package com.boolsazo.bankchall.controller;
 
-import com.boolsazo.bankchall.domain.User;
 import com.boolsazo.bankchall.naver.NaverApiInfo;
 import com.boolsazo.bankchall.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +19,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.client.RestTemplate;
 
 @Controller
+@Tag(name = "사용자", description = "사용자 API")
 public class UserController {
 
     NaverApiInfo naverApiInfo = NaverApiInfo.getInstance();
@@ -30,6 +30,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
+    @Operation(summary = "네이버 로그인 API", description = "네이버 OPEN API를 이용하여 로그인 할 수 있는 API")
     public String goNaverLogin() {
         String clientId = naverApiInfo.getClientId();
         String callbackUrl = naverApiInfo.getCallbackUrl();
@@ -41,7 +42,9 @@ public class UserController {
         return "redirect:" + url;
     }
 
+
     @GetMapping("/login/callback")
+    @Operation(summary = "네이버 로그인 callback API", description = "네이버 OPEN API를 이용하여 로그인 할 수 있는 API")
     public String LoginProcess(HttpServletRequest request) {
         // cancel
         if (request.getParameter("error") != null) {
@@ -142,6 +145,7 @@ public class UserController {
     }
 
     @GetMapping("/logout")
+    @Operation(summary = "로그아웃 API", description = "로그인한 사용자의 세션을 삭제할 수 있는 API")
     public String logout(HttpSession session) {
         if (session.getAttribute("sessionId") != null) {
             session.invalidate();
@@ -152,6 +156,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete")
+    @Operation(summary = "회원 탈퇴 API", description = "해당 사용자가 로그인된 사용자인지 확인할 수 있는 API")
     public String delete(HttpServletRequest request) {
         try {
             int userId = (int) request.getSession().getAttribute("userId");

@@ -5,10 +5,10 @@ function User() {
     const [login, setLogin] = useState('');
     const [user, setUser] = useState('');
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/status/login")
-        .then(response => {
-            setLogin(response.data.login);
+        .then(response1 => {
+            setLogin(response1.data.login);
 
             if (login === false) return;
             axios.get("/status/user")
@@ -18,7 +18,7 @@ function User() {
                 .catch(error => console.log(error));
         })
         .catch(error => console.log(error));
-    }, []);
+    }, [login]);
 
     if (login === false) {
         window.location.href = "/";

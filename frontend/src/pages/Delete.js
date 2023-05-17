@@ -4,13 +4,13 @@ import axios from 'axios';
 function Delete() {
     const [login, setLogin] = useState('');
 
-    useEffect(() =>{ 
+    useEffect(() => { 
         axios.get("/status/login")
         .then(response => {
             setLogin(response.data.login);
         })
         .then(() => {
-            if (login == false) {
+            if (login === false) {
                 window.location.href = "/";
             } else {
                 if (window.confirm("진짜 탈퇴하시겠습니까?") === false) {

@@ -84,7 +84,7 @@ function Survey() {
         return result.join("");
     }
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/status/login")
             .then(response => {
                 setLogin(response.data.login);

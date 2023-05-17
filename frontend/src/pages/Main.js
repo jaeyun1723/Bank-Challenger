@@ -5,7 +5,7 @@ function Main() {
     const [login, setLogin] = useState('');
     const [bfr, setBfr] = useState('');
 
-    useEffect(() =>{
+    useEffect(() => {
         axios.get("/status/login")
             .then(response => {
                 setLogin(response.data.login);

@@ -29,6 +29,7 @@ public class SurveyController {
     public ResponseEntity registerSurvey(@RequestBody Survey pvo) {
         try {
             service.registerSurvey(pvo);
+            System.out.println("설문조사 제출");
             return ResponseEntity.status(HttpStatus.CREATED)
                        .body("Survey created successfully.");
         } catch (Exception e) {

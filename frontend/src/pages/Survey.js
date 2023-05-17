@@ -5,6 +5,7 @@ import { Typography, Box, FormGroup, FormLabel, MenuItem, Input, Select, Slider,
 function Survey() {
     const [login, setLogin] = useState('');
     const [bfr, setBfr] = useState('');
+    const [user, setUser] = useState('');
 
     const [isMarried, setIsMarried] = useState("미혼"); // 결혼 여부
     const [monthlyIncome, setMonthlyIncome] = useState(0); // 월 소득
@@ -54,8 +55,30 @@ function Survey() {
     }
 
     const handleConfirmInput = () => {
-        const message = `결혼 여부 : ${isMarried}\n월 소득 : ${numberWithCommas(Math.round(monthlyIncome))}원\n소비 비율 : ${spendingRatio}%\n직종 : ${occupation}\n예적금 : ${numberWithCommas(Math.round(savings))}원\n대출금 : ${numberWithCommas(Math.round(loan))}원\n위 정보가 맞습니까?`;
-        return window.confirm(message);
+        const message = `결혼 여부 : ${isMarried}\n월 소득 : ${numberWithCommas(Math.round(monthlyIncome))}만 원\n소비 비율 : ${spendingRatio}%\n직종 : ${occupation}\n예적금 : ${numberWithCommas(Math.round(savings))}만 원\n대출금 : ${numberWithCommas(Math.round(loan))}만 원\n위 정보가 맞습니까?`;
+        
+        if (window.confirm(message)) {
+            let sendData = JSON.stringify({
+                "userId": user["userId"],
+                "married": (isMarried === "미혼") ? false : true,
+                "monthlyIncome": Math.round(monthlyIncome),
+                "spendingRatio": spendingRatio,
+                "occupation": occupation,
+                "savings": Math.round(savings),
+                "loan": Math.round(loan),
+            })
+            
+            axios({
+                method: "POST",
+                url: "/survey",
+                data: sendData,
+                headers: {"Content-type": "application/json;charset=UTF-8"}
+            }).then(() => {
+                window.location.href = "/main";
+            }).catch((error) => {
+                console.log(error);
+            });
+        }
     }
 
     const handleOnClick = () => {
@@ -96,6 +119,12 @@ function Survey() {
                 setBfr(response.data.bfr);
             })
             .catch(error => console.log(error));
+
+        axios.get("/status/user")
+            .then(response => {
+                setUser(response.data);
+            })
+            .catch(error => console.log(error));
     }, []);
 
     if (login === false) {
@@ -125,12 +154,12 @@ function Survey() {
                         </Select>
                     </FormGroup>
                     <FormGroup controlId="monthlyIncome" sx={{margin: 2}}>
-                        <FormLabel>월 소득</FormLabel>
+                        <FormLabel>월 소득(단위: 만 원)</FormLabel>
                         <Input
                             value={monthlyIncome}
                             onChange={handleChangeMonthlyIncome}
                             type="number"
-                            placeholder="월 소득 입력"
+                            placeholder="월 소득 입력(단위: 만 원)"
                         />
                     </FormGroup>
                     <FormGroup controlId="spendingRatio" sx={{margin: 2}}>
@@ -143,7 +172,7 @@ function Survey() {
                             step={1}
                         />
                         <Typography variant="body" align="right">
-                        지출: {numberWithCommas(Math.round(monthlyIncome * spendingRatio / 100))}원 ({spendingRatio}%)
+                        지출: {numberWithCommas(Math.round(monthlyIncome * spendingRatio / 100))}만 원 ({spendingRatio}%)
                         </Typography>
                     </FormGroup>
                     <FormGroup controlId="occupation" sx={{margin: 2}}>
@@ -159,22 +188,22 @@ function Survey() {
                         </Select>
                     </FormGroup>
                     <FormGroup controlId="savings"  sx={{margin: 2}}>
-                        <FormLabel>예적금 현황</FormLabel>
+                        <FormLabel>예적금 현황(단위: 만 원)</FormLabel>
                         <Input
                             value={savings}
                             onChange={handleChangeSavings}
                             type="number"
-                            placeholder="예적금 현황 입력"
+                            placeholder="예적금 현황 입력(단위: 만 원)"
                         />
                     </FormGroup>
                     <div></div>
                     <FormGroup controlId="loan" sx={{margin: 2}}>
-                        <FormLabel>대출금 현황</FormLabel>
+                        <FormLabel>대출금 현황(단위: 만 원)</FormLabel>
                         <Input
                             value={loan}
                             onChange={handleChangeLoan}
                             type="number"
-                            placeholder="대출금 현황 입력"
+                            placeholder="대출금 현황 입력(단위: 만 원)"
                         />
                     </FormGroup>
                     <FormGroup controlId="button" sx={{margin: 2}}>

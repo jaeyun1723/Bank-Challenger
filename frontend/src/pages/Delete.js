@@ -18,7 +18,7 @@ function Delete() {
                     return;
                 }
             
-                axios.delete("/status/delete");
+                axios.delete("/delete");
                 alert("탈퇴되었습니다.");
                 window.location.href = "/";
             }

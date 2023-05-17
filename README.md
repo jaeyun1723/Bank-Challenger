@@ -11,7 +11,7 @@ This is ***Bank Challenger*** project.
     git clone https://github.com/boolsazo/bank-challenger.git
     ```
 3. 각 IDE에서 열 폴더는 다음과 같다.
-   > **IntelliJ** : bank-challenger
+   > **IntelliJ** : bank-challenger  
    **Visual Studio Code** : bank-challenger/frontend
 4. **IntelliJ**의 터미널을 열어 다음 명령어 실행
     ```bash

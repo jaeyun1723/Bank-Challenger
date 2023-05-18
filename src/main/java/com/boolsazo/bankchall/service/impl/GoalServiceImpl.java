@@ -7,23 +7,29 @@ import com.boolsazo.bankchall.service.GoalService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.boolsazo.bankchall.naver.NaverSearch;
+
 
 @Service
 public class GoalServiceImpl implements GoalService {
 
     @Autowired
     private GoalRepository goalRepository;
+    private final NaverSearch naverSearch;
 
     @Autowired
-    public GoalServiceImpl(GoalRepository goalRepository) {
+    public GoalServiceImpl(GoalRepository goalRepository, NaverSearch naverSearch) {
         this.goalRepository = goalRepository;
+        this.naverSearch = naverSearch;
     }
 
     @Override
     public Goal registerGoal(Goal vo) {
+        String searchResult = naverSearch.search("검색어");
         goalRepository.save(vo);
         return vo;
     }
+
 
     @Override
     public void deleteGoal(int goalId) {

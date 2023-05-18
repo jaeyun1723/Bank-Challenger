@@ -1,6 +1,6 @@
 package com.boolsazo.bankchall.controller;
 
-import com.boolsazo.bankchall.naver.NaverApiInfo;
+import com.boolsazo.bankchall.naver.NaverLoginApi;
 import com.boolsazo.bankchall.service.UserService;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -22,7 +22,7 @@ import org.springframework.web.client.RestTemplate;
 @Tag(name = "사용자", description = "사용자 API")
 public class UserController {
 
-    NaverApiInfo naverApiInfo = NaverApiInfo.getInstance();
+    NaverLoginApi naverLoginApi = NaverLoginApi.getInstance();
     UserService userService;
 
     public UserController(UserService userService) {
@@ -32,9 +32,9 @@ public class UserController {
     @GetMapping("/login")
     @Operation(summary = "네이버 로그인 API", description = "네이버 OPEN API를 이용하여 로그인 할 수 있는 API")
     public String goNaverLogin() {
-        String clientId = naverApiInfo.getClientId();
-        String callbackUrl = naverApiInfo.getCallbackUrl();
-        String state = naverApiInfo.getState();
+        String clientId = naverLoginApi.getClientId();
+        String callbackUrl = naverLoginApi.getCallbackUrl();
+        String state = naverLoginApi.getState();
 
         String url = "https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=" +
                 clientId + "&redirect_uri=" + callbackUrl + "&state=" + state;
@@ -55,8 +55,8 @@ public class UserController {
          * 1. GET ACCESS TOKEN                                                                    *
          ******************************************************************************************/
 
-        String clientId = naverApiInfo.getClientId();
-        String clientSecret = naverApiInfo.getClientSecret();
+        String clientId = naverLoginApi.getClientId();
+        String clientSecret = naverLoginApi.getClientSecret();
         String code = request.getParameter("code");
         String state = request.getParameter("state");
 
@@ -86,7 +86,7 @@ public class UserController {
         Map<String, String> requestHeaders = new HashMap<>();
         requestHeaders.put("Authorization", header);
 
-        String responseBody = naverApiInfo.get(profileUrl, requestHeaders);
+        String responseBody = naverLoginApi.get(profileUrl, requestHeaders);
         // response 전체를 parsing
         JsonObject profileObject = gson.fromJson(responseBody, JsonObject.class);
         // response.response 정보만 parsing
@@ -105,7 +105,7 @@ public class UserController {
          ******************************************************************************************/
 
         HttpSession session = request.getSession();
-        session.setAttribute("sessionId", naverApiInfo.generateRandomState());
+        session.setAttribute("sessionId", naverLoginApi.generateRandomState());
 
         System.out.println("id(토큰): " + id);
         System.out.println("이름: " + name);

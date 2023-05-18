@@ -6,6 +6,7 @@ import com.boolsazo.bankchall.dto.BFR;
 import com.boolsazo.bankchall.dto.BFRTestForm;
 import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.BFRService;
+import java.util.NoSuchElementException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,8 @@ public class BFRServiceImpl implements BFRService {
             sb.append("L"); // 1 : 안정추구형(Low-Risk)
         } else if (vo.getInvestTendency() == 2) {
             sb.append("H"); // 2 : 위험 선호형(High-Risk)
+        } else {
+            throw new IllegalArgumentException("investTendency(투자 비율)은 1 또는 2의 값만 들어올 수 있습니다.");
         }
 
         /* 소비 성향(R-I) */
@@ -31,6 +34,8 @@ public class BFRServiceImpl implements BFRService {
             sb.append("R"); // 1 : 계획형(Reflectivity)
         } else if (vo.getConsumptionTendency() == 2) {
             sb.append("I"); // 2 : 충동형(Impulsivity)
+        } else {
+            throw new IllegalArgumentException("consumption_tendency(소비 비율)은 1 또는 2의 값만 들어올 수 있습니다.");
         }
 
         /* 시간지향성(P-F) */
@@ -38,6 +43,8 @@ public class BFRServiceImpl implements BFRService {
             sb.append("P"); // 1 : 현재 지향형(Present)
         } else if (vo.getTimeOrientation() == 2) {
             sb.append("F"); // 2 : 미래 지향형(Future)
+        } else {
+            throw new IllegalArgumentException("time_orientation(시간 지향성)은 1 또는 2의 값만 들어올 수 있습니다.");
         }
 
         String financialType = sb.toString();
@@ -48,10 +55,12 @@ public class BFRServiceImpl implements BFRService {
 
     @Override
     public void registerBFR(BFRTestForm vo) throws Exception {
-        int userId = vo.getUserId();
+        User user = userRepository.findByUserId(vo.getUserId());
+
+        if (user == null) throw new NoSuchElementException("userId에 해당하는 유저가 없습니다.");
+
         BFR bfr = createBFR(vo);
 
-        User user = userRepository.findByUserId(userId);
         user.setFinancialType(bfr.name());
         userRepository.save(user);
     }

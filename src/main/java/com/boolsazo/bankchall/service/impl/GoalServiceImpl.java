@@ -37,16 +37,9 @@ public class GoalServiceImpl implements GoalService {
 
     @Override
     public Goal showGoal(int goalId) {
-        return null;
+        return goalRepository.findById(goalId).orElse(null);
     }
 
-    //    @Override
-//    public GoalListResponse showAllGoal(int userId) {
-//        List<Goal> optionalGoal = goalRepository.findAll();
-//        GoalListResponse goalListResponse = new GoalListResponse();
-//        int count = 3;
-//        return (GoalListResponse) goalRepository.findAll();
-//    }
 
     @Override
     public GoalListResponse showAllGoal(int userId) {

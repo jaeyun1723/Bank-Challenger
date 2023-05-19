@@ -36,8 +36,8 @@ function User() {
             프로필 링크: {user["profileImage"]}<br/>
             금융대사량 타입: {user["financialType"]}<br/>
             <hr/>
-            <a href='/main'>메인으로</a><br/>
-            <a href='/delete'>회원탈퇴</a>
+            <a href='/Main'>메인으로</a><br/>
+            <a href='/Delete'>회원탈퇴</a>
         </div>
     );
 }

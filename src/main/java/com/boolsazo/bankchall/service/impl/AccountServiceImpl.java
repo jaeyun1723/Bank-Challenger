@@ -30,6 +30,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public boolean checkFintechUseNumExists(String fintechUseNum) {
+        int result = accountRepository.checkFintechUseNumExists(fintechUseNum);
+        return (result == 1);
+    }
+
+    @Override
     public AccountResponse withdrawList(int userId) {
         List<AccountResponse.Result> list = accountRepository.findByUserIdAndType(userId, (byte) 0).stream()
                 .map(account -> new AccountResponse.Result(account, account.isUsed())).collect(

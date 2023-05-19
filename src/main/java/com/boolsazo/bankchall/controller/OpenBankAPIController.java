@@ -36,13 +36,13 @@ public class OpenBankAPIController {
     private AccountServiceImpl accountService;
 
     @Parameters({
-            @Parameter(name = "userId", description = "사용자 PK"),
-            @Parameter(name = "code", description = "오픈뱅킹에서 내려주는 code"),
-            @Parameter(name = "type", description = "출금계좌(0), 입금계좌(1) 구분자")
+        @Parameter(name = "userId", description = "사용자 PK"),
+        @Parameter(name = "code", description = "오픈뱅킹에서 내려주는 code"),
+        @Parameter(name = "type", description = "출금계좌(0), 입금계좌(1) 구분자")
     })
     @GetMapping("/{userId}/{code}/{type}")
     @Operation(summary = "오픈 뱅킹 API와 통신하는 API", description = "오픈 뱅킹 API와 통신할 수 있는 API")
-    public ResponseEntity registerAccessToken(@PathVariable("userId") int userId,
+    public ResponseEntity registerAccount(@PathVariable("userId") int userId,
         @PathVariable("code") String code, @PathVariable("type") int type) {
         try {
             UserOauth userOauth = null;
@@ -64,26 +64,28 @@ public class OpenBankAPIController {
                 userOauth.getAccessToken());
 
             BankAccountDto accountDto = userAccountListResponse.getRes_list().get(0);
+            if (!accountService.checkFintechUseNumExists(accountDto.getFintech_use_num())) {
+                RegistAccountRequest request = new RegistAccountRequest(
+                    accountDto.getAccount_num_masked(),
+                    accountDto.getBank_name(),
+                    false,
+                    userId,
+                    accountDto.getFintech_use_num());
 
-            RegistAccountRequest request = new RegistAccountRequest(
-                accountDto.getAccount_num_masked(),
-                accountDto.getBank_name(),
-                false,
-                userId,
-                accountDto.getFintech_use_num());
+                if (type == 0) {
+                    accountService.registWithdrawAccount(request);
+                } else {
+                    accountService.registSavingAccount(request);
+                }
 
-            if (type == 0) {
-                accountService.registWithdrawAccount(request);
-            } else {
-                accountService.registSavingAccount(request);
+                return ResponseEntity.status(HttpStatus.CREATED)
+                    .body("account created successfully.");
             }
-
-            return ResponseEntity.status(HttpStatus.CREATED)
-                .body("account created successfully.");
+            else throw new Exception();
         } catch (Exception e) {
             System.out.println(e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body("Failed to register AccessToken.");
+                .body("Failed to register account.");
         }
     }
 }

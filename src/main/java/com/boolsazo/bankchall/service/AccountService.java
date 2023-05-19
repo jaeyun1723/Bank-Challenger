@@ -9,6 +9,8 @@ public interface AccountService {
 
     void registSavingAccount(RegistAccountRequest request);
 
+    boolean checkFintechUseNumExists(String fintechUseNum);
+
     AccountResponse withdrawList(int userId);
 
     AccountResponse savingsList(int userId);

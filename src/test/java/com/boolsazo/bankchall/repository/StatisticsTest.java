@@ -2,10 +2,9 @@ package com.boolsazo.bankchall.repository;
 
 import com.boolsazo.bankchall.dto.resultSet.CategoryResultSet;
 import com.boolsazo.bankchall.dto.resultSet.GenderAgeResultSet;
-import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
 import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;

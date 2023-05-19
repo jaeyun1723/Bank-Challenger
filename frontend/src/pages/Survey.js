@@ -154,12 +154,12 @@ function Survey() {
                         </Select>
                     </FormGroup>
                     <FormGroup controlId="monthlyIncome" sx={{margin: 2}}>
-                        <FormLabel>월 소득(단위: 만 원)</FormLabel>
+                        <FormLabel>월 소득</FormLabel>
                         <Input
                             value={monthlyIncome}
                             onChange={handleChangeMonthlyIncome}
                             type="number"
-                            placeholder="월 소득 입력(단위: 만 원)"
+                            placeholder="월 소득 입력"
                         />
                     </FormGroup>
                     <FormGroup controlId="spendingRatio" sx={{margin: 2}}>
@@ -172,7 +172,7 @@ function Survey() {
                             step={1}
                         />
                         <Typography variant="body" align="right">
-                        지출: {numberWithCommas(Math.round(monthlyIncome * spendingRatio / 100))}만 원 ({spendingRatio}%)
+                        지출: {numberWithCommas(Math.round(monthlyIncome * spendingRatio / 100))}원 ({spendingRatio}%)
                         </Typography>
                     </FormGroup>
                     <FormGroup controlId="occupation" sx={{margin: 2}}>
@@ -188,22 +188,22 @@ function Survey() {
                         </Select>
                     </FormGroup>
                     <FormGroup controlId="savings"  sx={{margin: 2}}>
-                        <FormLabel>예적금 현황(단위: 만 원)</FormLabel>
+                        <FormLabel>예적금 현황</FormLabel>
                         <Input
                             value={savings}
                             onChange={handleChangeSavings}
                             type="number"
-                            placeholder="예적금 현황 입력(단위: 만 원)"
+                            placeholder="예적금 현황 입력"
                         />
                     </FormGroup>
                     <div></div>
                     <FormGroup controlId="loan" sx={{margin: 2}}>
-                        <FormLabel>대출금 현황(단위: 만 원)</FormLabel>
+                        <FormLabel>대출금 현황</FormLabel>
                         <Input
                             value={loan}
                             onChange={handleChangeLoan}
                             type="number"
-                            placeholder="대출금 현황 입력(단위: 만 원)"
+                            placeholder="대출금 현황 입력"
                         />
                     </FormGroup>
                     <FormGroup controlId="button" sx={{margin: 2}}>

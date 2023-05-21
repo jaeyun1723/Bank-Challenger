@@ -18,3 +18,4 @@ This is ***Bank Challenger*** project.
     ./mvnw clean install
     ```
 5. IntelliJ에서 `BankChallApplication` 실행
+6. Visual Studio Code에서 `npm start` 실행

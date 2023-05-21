@@ -49,7 +49,7 @@ public class Goal extends BaseTimeEntity {
     @Column(name = "goal_image")
     private String goalImage;
 
-    @Column(columnDefinition = "BOOLEAN DEFAULT 0", nullable = false)
+    @Column(name = "is_expired", columnDefinition = "BOOLEAN DEFAULT 0", nullable = false)
     private boolean isExpired;
 
     @Column

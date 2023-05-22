@@ -22,6 +22,6 @@ public enum BFR {
     final int consumption;
     final int deposit;
     final int invest;
-    final int fixed_cost;
+    final int fixedCost;
 
 }

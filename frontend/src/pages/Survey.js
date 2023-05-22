@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, Box, FormGroup, FormLabel, MenuItem, Input, Select, Slider, Button } from "@mui/material";
+import { Typography, Box, FormGroup, FormLabel, RadioGroup, Radio, MenuItem, Input, Select, Slider, Button, FormControlLabel } from "@mui/material";
 
 function Survey() {
     const [login, setLogin] = useState('');
@@ -145,13 +145,15 @@ function Survey() {
                 }}>
                     <FormGroup controlId="isMarried" sx={{margin: 2}}>
                         <FormLabel>결혼 여부</FormLabel>
-                        <Select
+                        <RadioGroup
                             value={isMarried}
+                            defaultValue="미혼"
                             onChange={handleChangeIsMarried}
+                            row
                         >
-                            <MenuItem value={"미혼"}>미혼</MenuItem>
-                            <MenuItem value={"기혼"}>기혼</MenuItem>
-                        </Select>
+                            <FormControlLabel value="미혼" control={<Radio />} label="미혼" />
+                            <FormControlLabel value="기혼" control={<Radio />} label="기혼" />
+                        </RadioGroup>
                     </FormGroup>
                     <FormGroup controlId="monthlyIncome" sx={{margin: 2}}>
                         <FormLabel>월 소득</FormLabel>
@@ -182,9 +184,15 @@ function Survey() {
                             onChange={handleChangeOccupation}
                         >
                             <MenuItem value={"선택"}>선택</MenuItem>
+                            <MenuItem value={"무직"}>무직</MenuItem>
                             <MenuItem value={"학생"}>학생</MenuItem>
-                            <MenuItem value={"직장인"}>직장인</MenuItem>
+                            <MenuItem value={"회사원"}>회사원</MenuItem>
                             <MenuItem value={"자영업자"}>자영업자</MenuItem>
+                            <MenuItem value={"전문직"}>전문직</MenuItem>
+                            <MenuItem value={"프리랜서"}>프리랜서</MenuItem>
+                            <MenuItem value={"공무원"}>공무원</MenuItem>
+                            <MenuItem value={"엔지니어"}>엔지니어</MenuItem>
+                            <MenuItem value={"서비스직"}>서비스직</MenuItem>
                         </Select>
                     </FormGroup>
                     <FormGroup controlId="savings"  sx={{margin: 2}}>

@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from 'react';
 import axios from 'axios';
-import { Typography, Box, FormGroup, FormLabel, RadioGroup, Radio, MenuItem, Input, Select, Slider, Button, FormControlLabel } from "@mui/material";
+import { Box, FormGroup, FormLabel, RadioGroup, Radio, MenuItem, Input, Select, Slider, Button, FormControlLabel, Typography } from "@mui/material";
 
 function Survey() {
     const [login, setLogin] = useState('');
@@ -135,14 +135,18 @@ function Survey() {
         return(
             <div id="survey" margin="0 auto" display="flex">
                 <br/>
-                <Typography variant="h3" align="center">뱅크 챌린져</Typography>
-                <br/>
                 <Box component="form" noValidate sx={{
                     mt: 1,
                     width: 1/3,
                     margin: "0 auto",
                     minWidth: 300,
-                }}>
+                }}>                 
+                    <img
+                      alt="logo"
+                      src={require("assets/img/brand/bank_chall_logo.png")}
+                      style={{ width: "200px", margin:"0 auto", display: "flex"}}
+                    />
+                    <br/>   
                     <FormGroup controlId="isMarried" sx={{margin: 2}}>
                         <FormLabel>결혼 여부</FormLabel>
                         <RadioGroup

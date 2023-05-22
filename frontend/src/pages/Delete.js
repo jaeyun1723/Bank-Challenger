@@ -1,31 +1,19 @@
-import { React, useState, useEffect } from 'react';
-import axios from 'axios';
+import axios from "axios";
 
 function Delete() {
-    const [login, setLogin] = useState('');
+  if (sessionStorage.getItem("userId") === null) {
+    window.location.href = "/";
+    return;
+  }
 
-    useEffect(() => { 
-        axios.get("/status/login")
-        .then(response => {
-            setLogin(response.data.login);
-        })
-        .then(() => {
-            if (login === false) {
-                window.location.href = "/";
-            } else {
-                if (window.confirm("진짜 탈퇴하시겠습니까?") === false) {
-                    window.location.href = "/user";
-                    return;
-                }
-            
-                axios.delete("/delete");
-                alert("탈퇴되었습니다.");
-                window.location.href = "/";
-            }
-        })
-        .catch(error => console.log(error));
-    }, [login]);
+  if (window.confirm("진짜 탈퇴하시겠습니까?") === false) {
+    window.location.href = "/user";
+    return;
+  }
 
+  axios.delete("/delete");
+  alert("탈퇴되었습니다.");
+  window.location.href = "/";
 }
 
 export default Delete;

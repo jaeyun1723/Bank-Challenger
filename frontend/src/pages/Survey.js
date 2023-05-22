@@ -51,7 +51,7 @@ function Survey() {
 
   const handleNoInput = () => {
     if (occupation === "선택") {
-      alert("모든 정보를 입력해주세요.");
+      alert("직종을 선택해주세요.");
       return false;
     }
     return true;
@@ -59,7 +59,7 @@ function Survey() {
 
   const handleInvalidInput = () => {
     if (monthlyIncome < 0 || savings < 0 || loan < 0) {
-      alert("음수 입력값이 있습니다.");
+      alert("음수 입력 값이 있습니다.");
       return false;
     }
     return true;

@@ -146,7 +146,9 @@ function Survey() {
                       src={require("assets/img/brand/bank_chall_logo.png")}
                       style={{ width: "200px", margin:"0 auto", display: "flex"}}
                     />
-                    <br/>   
+                    <br/>
+                    <Typography variant="h3" align="center">설문조사</Typography>
+                    <br/>
                     <FormGroup controlId="isMarried" sx={{margin: 2}}>
                         <FormLabel>결혼 여부</FormLabel>
                         <RadioGroup

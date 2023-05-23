@@ -12,7 +12,7 @@ import {
   InputGroup,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
@@ -41,7 +41,7 @@ class Login extends React.Component {
               <span />
             </div>
             <Container className="pt-lg-7">
-              <RowAndColumnSpacing answer1 = {0} answer2 = {0} index = {0}/>
+              <RowAndColumnSpacing answer1={0} answer2={0} index={0} />
             </Container>
           </section>
         </main>

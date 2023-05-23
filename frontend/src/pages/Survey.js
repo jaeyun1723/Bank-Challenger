@@ -1,6 +1,7 @@
 import { React, useState } from "react";
 import axios from "axios";
 import {
+  Card,
   Box,
   FormGroup,
   FormLabel,
@@ -132,116 +133,149 @@ function Survey() {
     window.location.href = "/main";
   } else {
     return (
-      <div id="survey" margin="0 auto" display="flex">
+      <section className="section section-shaped section-lg">
+        <div className="shape shape-style-1 shape-default">
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+          <span />
+        </div>
+        <img
+          alt="logo"
+          src={require("assets/img/brand/bank_chall_logo.png")}
+          style={{ width: "150px", margin: "0 auto", display: "flex" }}
+        />
+        <Typography variant="h3" align="center">
+          Bank Challenger
+        </Typography>
         <br />
-        <Box
-          component="form"
-          noValidate
-          sx={{
-            mt: 1,
-            width: 1 / 3,
-            margin: "0 auto",
-            minWidth: 300,
-          }}
-        >
-          <img
-            alt="logo"
-            src={require("assets/img/brand/bank_chall_logo.png")}
-            style={{ width: "150px", margin: "0 auto", display: "flex" }}
-          />
-          <br />
-          <Typography variant="h3" align="center">
-            설문조사
-          </Typography>
-          <br />
-          <FormGroup controlId="isMarried" sx={{ margin: 2 }}>
-            <FormLabel>결혼 여부</FormLabel>
-            <RadioGroup
-              value={isMarried}
-              defaultValue="미혼"
-              onChange={handleChangeIsMarried}
-              row
-            >
-              <FormControlLabel value="미혼" control={<Radio />} label="미혼" />
-              <FormControlLabel value="기혼" control={<Radio />} label="기혼" />
-            </RadioGroup>
-          </FormGroup>
-          <FormGroup controlId="monthlyIncome" sx={{ margin: 2 }}>
-            <FormLabel>월 소득</FormLabel>
-            <Input
-              value={monthlyIncome}
-              onChange={handleChangeMonthlyIncome}
-              type="number"
-              placeholder="월 소득 입력"
-            />
-          </FormGroup>
-          <FormGroup controlId="spendingRatio" sx={{ margin: 2 }}>
-            <FormLabel>월 소득에서 소비의 비율</FormLabel>
-            <Slider
-              value={spendingRatio}
-              onChange={handleChangeSpendingRatio}
-              min={0}
-              max={100}
-              step={1}
-            />
-            <Typography variant="body" align="right">
-              지출:{" "}
-              {numberWithCommas(
-                Math.round((monthlyIncome * spendingRatio) / 100)
-              )}
-              원 ({spendingRatio}%)
-            </Typography>
-          </FormGroup>
-          <FormGroup controlId="occupation" sx={{ margin: 2 }}>
-            <FormLabel>직종</FormLabel>
-            <Select value={occupation} onChange={handleChangeOccupation}>
-              <MenuItem value={"선택"}>선택</MenuItem>
-              <MenuItem value={"무직"}>무직</MenuItem>
-              <MenuItem value={"학생"}>학생</MenuItem>
-              <MenuItem value={"회사원"}>회사원</MenuItem>
-              <MenuItem value={"자영업자"}>자영업자</MenuItem>
-              <MenuItem value={"전문직"}>전문직</MenuItem>
-              <MenuItem value={"프리랜서"}>프리랜서</MenuItem>
-              <MenuItem value={"공무원"}>공무원</MenuItem>
-              <MenuItem value={"엔지니어"}>엔지니어</MenuItem>
-              <MenuItem value={"서비스직"}>서비스직</MenuItem>
-            </Select>
-          </FormGroup>
-          <FormGroup controlId="savings" sx={{ margin: 2 }}>
-            <FormLabel>예적금 현황</FormLabel>
-            <Input
-              value={savings}
-              onChange={handleChangeSavings}
-              type="number"
-              placeholder="예적금 현황 입력"
-            />
-          </FormGroup>
-          <div></div>
-          <FormGroup controlId="loan" sx={{ margin: 2 }}>
-            <FormLabel>대출금 현황</FormLabel>
-            <Input
-              value={loan}
-              onChange={handleChangeLoan}
-              type="number"
-              placeholder="대출금 현황 입력"
-            />
-          </FormGroup>
-          <FormGroup controlId="button" sx={{ margin: 2 }}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={handleOnClick}
+        <div id="survey" margin="0 auto" display="flex">
+          <Card
+            sx={{
+              width: 2 / 5,
+              margin: "0 auto",
+              minWidth: 300,
+              border: "1px solid black",
+              boxShadow: "0 1px 3px 0px rgba(0, 0, 0, 0.5)",
+              borderRadius: 23,
+            }}
+          >
+            <br />
+            <Box
+              component="form"
               noValidate
               sx={{
-                mt: 1,
-                width: "100%",
+                width: "75%",
+                margin: "0 auto",
+                minWidth: 300,
               }}
             >
-              설문조사 제출
-            </Button>
-          </FormGroup>
-        </Box>
-      </div>
+              <Typography variant="h3" align="center">
+                설문조사
+              </Typography>
+              <FormGroup controlId="isMarried" sx={{ margin: 2 }}>
+                <FormLabel>결혼 여부</FormLabel>
+                <RadioGroup
+                  value={isMarried}
+                  defaultValue="미혼"
+                  onChange={handleChangeIsMarried}
+                  row
+                >
+                  <FormControlLabel
+                    value="미혼"
+                    control={<Radio />}
+                    label="미혼"
+                  />
+                  <FormControlLabel
+                    value="기혼"
+                    control={<Radio />}
+                    label="기혼"
+                  />
+                </RadioGroup>
+              </FormGroup>
+              <FormGroup controlId="monthlyIncome" sx={{ margin: 2 }}>
+                <FormLabel>월 소득</FormLabel>
+                <Input
+                  value={monthlyIncome}
+                  onChange={handleChangeMonthlyIncome}
+                  type="number"
+                  placeholder="월 소득 입력"
+                />
+              </FormGroup>
+              <FormGroup controlId="spendingRatio" sx={{ margin: 2 }}>
+                <FormLabel>월 소득에서 소비의 비율</FormLabel>
+                <Slider
+                  value={spendingRatio}
+                  onChange={handleChangeSpendingRatio}
+                  min={0}
+                  max={100}
+                  step={1}
+                />
+                <Typography variant="body" align="right">
+                  지출:{" "}
+                  {numberWithCommas(
+                    Math.round((monthlyIncome * spendingRatio) / 100)
+                  )}
+                  원 ({spendingRatio}%)
+                </Typography>
+              </FormGroup>
+              <FormGroup controlId="occupation" sx={{ margin: 2 }}>
+                <FormLabel>직종</FormLabel>
+                <Select value={occupation} onChange={handleChangeOccupation}>
+                  <MenuItem value={"선택"}>선택</MenuItem>
+                  <MenuItem value={"무직"}>무직</MenuItem>
+                  <MenuItem value={"학생"}>학생</MenuItem>
+                  <MenuItem value={"회사원"}>회사원</MenuItem>
+                  <MenuItem value={"자영업자"}>자영업자</MenuItem>
+                  <MenuItem value={"전문직"}>전문직</MenuItem>
+                  <MenuItem value={"프리랜서"}>프리랜서</MenuItem>
+                  <MenuItem value={"공무원"}>공무원</MenuItem>
+                  <MenuItem value={"엔지니어"}>엔지니어</MenuItem>
+                  <MenuItem value={"서비스직"}>서비스직</MenuItem>
+                </Select>
+              </FormGroup>
+              <FormGroup controlId="savings" sx={{ margin: 2 }}>
+                <FormLabel>예적금 현황</FormLabel>
+                <Input
+                  value={savings}
+                  onChange={handleChangeSavings}
+                  type="number"
+                  placeholder="예적금 현황 입력"
+                />
+              </FormGroup>
+              <div></div>
+              <FormGroup controlId="loan" sx={{ margin: 2 }}>
+                <FormLabel>대출금 현황</FormLabel>
+                <Input
+                  value={loan}
+                  onChange={handleChangeLoan}
+                  type="number"
+                  placeholder="대출금 현황 입력"
+                />
+              </FormGroup>
+              <FormGroup controlId="button" sx={{ margin: 2 }}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={handleOnClick}
+                  noValidate
+                  sx={{
+                    mt: 1,
+                    width: "100%",
+                  }}
+                >
+                  설문조사 제출
+                </Button>
+              </FormGroup>
+              <br />
+            </Box>
+          </Card>
+        </div>
+      </section>
     );
   }
 }

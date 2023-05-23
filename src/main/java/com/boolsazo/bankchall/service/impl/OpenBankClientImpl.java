@@ -35,7 +35,7 @@ public class OpenBankClientImpl implements OpenBankClient {
 
     @Value("${openbank.client_secret}")
     private String client_secret;
-    private String redirect_uri = "http://localhost:8080/";
+    private String redirect_uri = "http://localhost:8080/manageaccount";
     private String base_url = "https://testapi.openbanking.or.kr/v2.0";
 
     //

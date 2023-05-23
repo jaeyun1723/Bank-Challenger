@@ -42,14 +42,17 @@ public class OpenBankAPIController {
     })
     @GetMapping("/{userId}/{code}/{type}")
     @Operation(summary = "오픈 뱅킹 API와 통신하는 API", description = "오픈 뱅킹 API와 통신할 수 있는 API")
-    public ResponseEntity registerAccount(@PathVariable("userId") int userId,
+    public ResponseEntity<String> registerAccount(@PathVariable("userId") int userId,
         @PathVariable("code") String code, @PathVariable("type") int type) {
         try {
             UserOauth userOauth = null;
             Optional<UserOauth> UserOauthOptional = userOauthService.findByUserId(userId);
             if (!UserOauthOptional.isPresent()) {
                 // 토큰 발급 api
+               // System.out.println("1. "+userId+",2 "+code + ", 3 "+type);
                 ResponseTokenDto token = openBankClient.requestToken(userId, code);
+                System.out.println("1. "+userId+",2 "+code + ", 3 "+type);
+              // System.out.println("왜 안돼 "+token.getAccess_token());
                 // 2.access_token, seq 저장
                 UserOauth vo = new UserOauth(userId, token.getUser_seq_no(),
                     token.getAccess_token());

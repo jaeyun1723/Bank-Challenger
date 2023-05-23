@@ -90,28 +90,28 @@ class DemoNavbar extends React.Component {
                 </div>
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/goal-page" tag={Link} >
+                    <DropdownToggle nav to="/goal" tag={Link} >
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
                       <span className="nav-link-inner--text">목표현황</span>
                     </DropdownToggle>
                   </UncontrolledDropdown>
 
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/bfr-page" tag={Link}>
+                    <DropdownToggle nav to="/bfr" tag={Link}>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
                       <span className="nav-link-inner--text">금융대사량</span>
                     </DropdownToggle>
                   </UncontrolledDropdown>
 
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/manageaccount-page" tag={Link}>
+                    <DropdownToggle nav to="/manageaccount" tag={Link}>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
                       <span className="nav-link-inner--text">계좌 관리</span>
                     </DropdownToggle>
                   </UncontrolledDropdown>
 
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/mypage-page" tag={Link}>
+                    <DropdownToggle nav to="/mypage" tag={Link}>
                       <i className="ni ni-collection d-lg-none mr-1" />
                       <span className="nav-link-inner--text">나의 정보</span>
                     </DropdownToggle>

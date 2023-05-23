@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -7,31 +6,39 @@ import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { React, useEffect, useState } from 'react';
+import axios from "axios";
 
 export default function ResponsiveDialog(props) {
-  const [open, setOpen] = React.useState(props.flag);
+  const [open, setOpen] = useState(props.flag);
+  console.log(props)
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
-  console.log('answer1 >> ' , props.answer1)
-  console.log('answer2 >> ' , props.answer2)
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  //   console.log('answer1 >> ' , props.answer1)
-  //   console.log('answer2 >> ' , props.answer2)
-  // };
-
-  const handleClose = () => {
+  const Submit = () => {
+    console.log(props.request)
     setOpen(false);
+    axios.post("/bfr", props.request)
+    .then(response => {
+      window.location.href = "/";
+    })
+    .catch(error => console.log(error));
 
+    // useEffect(() => {
+    //
   };
+
+  // const handleClose = () => {
+  //   setOpen(false);
+  //
+  // };
 
   return (
       <div>
         <Dialog
             fullScreen={fullScreen}
             open={open}
-            onClose={handleClose}
+            // onClose={handleClose}
             aria-labelledby="responsive-dialog-title"
         >
           <DialogTitle id="responsive-dialog-title">
@@ -43,12 +50,12 @@ export default function ResponsiveDialog(props) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
-            <Button autoFocus onClick={handleClose}>
+            <Button autoFocus onClick={Submit}>
               {"제출하기"}
             </Button>
-            <Button onClick={handleClose} autoFocus>
-              {"취소하기"}
-            </Button>
+            {/*<Button onClick={handleClose} autoFocus>*/}
+            {/*  {"취소하기"}*/}
+            {/*</Button>*/}
           </DialogActions>
         </Dialog>
       </div>

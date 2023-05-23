@@ -1,0 +1,7 @@
+.goal-detail{
+    box-sizing: border-box;
+    width: 400px;
+    height: 500px;
+    border-radius: 40px;
+    /* 추가적인 스타일 지정 */
+}

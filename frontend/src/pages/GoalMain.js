@@ -1,72 +1,197 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./GoalMain.css";
+import GoalDetail from "./GoalDetail";
 import CreateGoal from "./CreateGoal";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
+import GoalFirstMain from "./GoalFirstMain";
+import "./CreateGoal.css";
 
 
-function GoalMain() {
+const api = axios.create({
+    baseURL: "http://localhost:8080", // Replace this with the actual server URL
+});
+
+function GoalMain({ userId }) {
     const [showCreateGoal, setShowCreateGoal] = useState(false);
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 3,
-        slidesToScroll: 1,
-        centerPadding: '20px'
+    const [showGoalDetail, setShowGoalDetail] = useState(false);
+    const [selectedGoal, setSelectedGoal] = useState(null);
+    const [goals, setGoals] = useState([]);
+    const history = useHistory();
 
+    const updateGoals = () => {
+        axios
+            .get(`/goal/list/${userId}`)
+            .then((res) => {
+                setGoals(res.data.goals);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
     };
+
+    useEffect(() => {
+        // Fetch goals data from the server
+        axios
+            .get(`/goal/list/${userId}`) // Replace with your backend API URL and user ID
+            .then((res) => {
+                setGoals(res.data.goals);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, [userId]);
+    if (userId === 2 && goals.length === 0) {
+        return <GoalFirstMain />;
+    }
+    const handleSlideClick = (goalId) => {
+        axios
+            .get(`/goal/detail/${goalId}`) // Replace with your backend API URL
+            .then((res) => {
+                setSelectedGoal(res.data);
+                setShowGoalDetail(true);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
+
+    const handleSlideMouseEnter = (e) => {
+        e.currentTarget.style.backgroundColor = "#f0f0f0"; // Change to the color you want
+    };
+
+    const handleSlideMouseLeave = (e) => {
+        e.currentTarget.style.backgroundColor = "#50508C"; // Change to the original color
+    };
+
+    const handleCreateGoalClick = () => {
+        setShowCreateGoal(true);
+        updateGoals();
+    };
+
+
+    const handleCreateGoalClose = () => {
+        setShowCreateGoal(false);
+        updateGoals();
+    };
+
+    const handleGoalDetailClose = () => {
+        setShowGoalDetail(false);
+        updateGoals();
+    };
+
     return (
         <div className="container">
-            <Slider {...settings}>
-                <div className="slide">
-                    <h3>미국 여행</h3>
-                    <p>미국 여행까지 1000만원 모으기</p>
-                </div>
-                <div className="slide">
-                    <h3>벤츠 e 클래스</h3>
-                    <p>1억 모으기</p>
-                </div>
-                <div className="slide">
-                    <h3>아이폰 16</h3>
-                    <p>출시일 전까지 200만원 꼭 모으고 만당</p>
-                </div>
-                <div className="slide">
-                    <h3>부모님 결혼 30주년 기념</h3>
-                    <p>내년까지 5000만원 모아서 드릴 예정</p>
-                </div>
+            <Slider
+                dots={true}
+                infinite={false}
+                speed={500}
+                slidesToShow={3}
+                slidesToScroll={1}
+                centerPadding="20px"
+                arrows={true}
+            >
+                {goals.map((goal) => (
+                    <div
+                        className="slide"
+                        onClick={() => handleSlideClick(goal.goalId)}
+                        onMouseEnter={handleSlideMouseEnter}
+                        onMouseLeave={handleSlideMouseLeave}
+                        key={goal.goalId}
+                    >
+                        <h3>{goal.goalName}</h3>
+                        <h2>{goal.goalAmount}</h2>
 
+                        <h2>{goal.startDate}</h2>
 
+                    </div>
+                ))}
             </Slider>
-            <h1>목표</h1>
-            <button onClick={() => setShowCreateGoal(true)}>목표 생성</button>
+
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "50px",
+                }}
+            >
+                <button onClick={handleCreateGoalClick}>목표 생성</button>
+            </div>
+
             {showCreateGoal && (
-                <div style={{
-                    position: 'fixed',
-                    top: '50%',
-                    left: '50%',
-                    transform: 'translate(-50%, -50%)',
-                    backgroundColor: 'white',
-                    padding: '1em',
-                    zIndex: 1000,
-                }}>
+                <div
+                    style={{
+                        position: "fixed",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        backgroundColor: "white",
+                        padding: "1em",
+                        zIndex: 1000,
+                        borderRadius: "20px", // 테두리를 둥글게 만듦
+                        boxShadow: "0 2px 30px rgba(0, 0, 0, 0.3)",
+
+
+
+                    }}
+                >
                     <CreateGoal />
                     <button onClick={() => setShowCreateGoal(false)}>Close</button>
                 </div>
             )}
             {showCreateGoal && (
-                <div style={{
-                    position: 'fixed',
-                    top: 0,
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                    zIndex: 999,
-                }} onClick={() => setShowCreateGoal(false)} />
+                <div
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.7)",
+                        zIndex: 999,
+
+
+                    }}
+                    onClick={() => setShowCreateGoal(false)}
+                />
+            )}
+
+            {showGoalDetail && selectedGoal && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: "50%",
+                        left: "50%",
+                        transform: "translate(-50%, -50%)",
+                        backgroundColor: "white",
+                        padding: "1em",
+                        zIndex: 1000,
+                    }}
+                >
+                    <GoalDetail goal={selectedGoal} goalId={selectedGoal.goalId} onClose={handleGoalDetailClose} />
+                    <button onClick={handleGoalDetailClose}>Close</button>
+                </div>
+            )}
+
+            {showGoalDetail && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: 0,
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
+                        backgroundColor: "rgba(0, 0, 0, 0.7)",
+                        zIndex: 999,
+                    }}
+                    onClick={handleGoalDetailClose}
+                />
             )}
         </div>
     );
 }
+
 export default GoalMain;

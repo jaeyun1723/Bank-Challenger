@@ -1,0 +1,61 @@
+.create-goal {
+    width: 350px;
+    height: 450px;
+    border-radius: 40px;
+    flex-direction: column;
+    gap: 20px;
+    align-items: flex-end;
+    display: flex;
+    margin: 0 auto;
+    padding: 1rem;
+    box-sizing: border-box;
+    /* Added styles */
+    /* Add a slight shadow */
+}
+
+
+.create-goal h1 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.create-goal > div:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+.create-goal form {
+    width: 100%;
+}
+
+.create-goal .input-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.create-goal .input-group label {
+    flex-basis: 120%;
+
+}
+
+.create-goal .input-group input,
+.create-goal .input-group .react-datepicker-wrapper {
+
+}
+
+.create-goal button[type="submit"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #5C7AEA;
+    border: none;
+    cursor: pointer;
+    margin-top: 1rem;
+}

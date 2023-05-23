@@ -2,133 +2,214 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import './CreateGoal.css';
+import Connection from './Connection';
 
-function CreateGoal() {
-    const [name, setName] = useState("");
-    const [amount, setAmount] = useState("");
+// Instantiate axios with a base URL
+const api = axios.create({
+    baseURL: "http://localhost:8080",  // Replace this with the actual server URL
+});
+
+function CreateGoal({ setIsOpen }) {
+    const [inputMode, setInputMode] = useState('manual');
+    const [userId, setUserId] = useState("2");
+    const [category, setCategory] = useState("");
+    const [goalName, setGoalName] = useState("");
+    const [productId, setProductId] = useState("");
+    const [goalAmount, setGoalAmount] = useState("");
+    const [savingAmount, setSavingAmount] = useState("");
+    const [isExpired, setIsExpired] = useState(false);
+    const [day, setDay] = useState("");
     const [startDate, setStartDate] = useState(null);
-    const [image, setImage] = useState(null);
-    const [searchTerm, setSearchTerm] = useState("");
-    const [searchResult, setSearchResult] = useState(null);
-    const [inputMethod, setInputMethod] = useState("direct");
+    const [goalImage, setGoalImage] = useState("");
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [searchResults, setSearchResults] = useState([]);
+    const [selectedResult, setSelectedResult] = useState(null); // Added state to store the selected search result
 
-    const handleDirectInput = () => {
-        setInputMethod("direct");
+    const handleColorChange = (e) => {
+        setGoalImage(e.target.value);
     };
 
-    const handleSearchInput = () => {
-        setInputMethod("search");
+    const handleChange = (e) => {
+        setGoalAmount(e.target.value);
     };
 
-    const handleSearch = async () => {
+    const searchResultsContainerStyle = {
+        maxHeight: '200px',
+        overflowY: 'auto',
+    };
+
+    const resetInputValues = () => {
+        setGoalName("");
+        setGoalAmount("");
+        setSavingAmount("");
+        setDay("");
+        setStartDate(null);
+        setGoalImage(null);
+    };
+
+    const handleSearchSubmit = async (e) => {
+        e.preventDefault();
+
         try {
-            const response = await axios.post("/api/search", { query: searchTerm });
-            setSearchResult(response.data);
-        } catch (error) {
-            console.error("Error searching for product:", error);
+            const response = await api.get('/goal/search', { params: { query: searchQuery } });
+            setSearchResults(response.data.items); // Assuming the response data has a field 'items' that contains the search results
+        } catch (err) {
+            console.error(err);
         }
     };
 
-    const handleSelectProduct = (product) => {
-        setName(product.title);
-        setAmount(product.price);
-        setImage(product.image);
+    const handleManualButtonClick = () => {
+        setInputMode('manual');
+        resetInputValues();
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Save the goal data to the backend here
-        // Include name, amount, startDate, image, and any other relevant data
-        // After saving, close the popup
-        window.close();
+    const handleSearchButtonClick = () => {
+        setInputMode('search');
+        resetInputValues();
     };
+
+
+
+    const searchResultImageStyle = {
+        width: '100px',
+        height: '100px',
+    };
+
+    const handleResultSelect = (result) => {
+        // When a user selects a search result, set the goalAmount and goalImage accordingly.
+        setGoalAmount(result.lprice);
+        //setProductId(result.productId);
+        setSelectedResult(result); // Store the selected result
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const data = {
+            userId,
+            category,
+            goalName,
+            productId,
+            goalAmount,
+            savingAmount,
+            isExpired,
+            day,
+            savingStartDate: startDate.toISOString(),
+            createDate: new Date().toISOString(),
+            goalImage
+        };
+        console.log(data);
+        try {
+            const response = await api.post("/goal", data);
+            console.log("Goal created successfully:", response.data);
+            setIsSubmitted(true);
+        } catch (error) {
+            console.error("Error creating goal:", error);
+        }
+    };
+
+    if (isSubmitted) {
+        return <Connection />;
+    }
 
     return (
-        <div>
-            <h1>목표 생성</h1>
-            <div>
-                <button onClick={handleDirectInput}>직접 입력</button>
-                <button onClick={handleSearchInput}>검색하여 입력</button>
+        <>
+            <h1>목표 생성하기</h1>
+            <div style={{ display: "flex" }}>
+            <button style={{ flex: "1 1 0", marginRight: 0 }} onClick={handleManualButtonClick}>직접 입력</button>
+            <button style={{ flex: "1 1 0", marginLeft: 0 }} onClick={handleSearchButtonClick}>검색하여 입력</button>
             </div>
-            {inputMethod === "direct" ? (
-                <form onSubmit={handleSubmit}>
-                    <div>
-                        <label>목표 이름</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label>목표 금액</label>
-                        <input
-                            type="number"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label>목표 시작일</label>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                        />
-                    </div>
-                    <div>
-                        <label>이미지 첨부</label>
-                        <input
-                            type="file"
-                            onChange={(e) => setImage(e.target.files[0])}
-                        />
-                    </div>
-                    <button type="submit">생성</button>
+            {inputMode === 'manual' ? (
+                <form className="create-goal" onSubmit={handleSubmit}>
+                    <label>
+                        Goal Name
+                        <input type="text" value={goalName} onChange={(e) => setGoalName(e.target.value)} required />
+                    </label>
+                    <label>
+                        Goal Amount
+                        <input type="text" value={goalAmount} onChange={(e) => setGoalAmount(e.target.value)} required />
+                    </label>
+                    <label>
+                        Saving Amount
+                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required />
+                    </label>
+                    <label>
+                        Day
+                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required />
+                    </label>
+                    <label>
+                        Start Date
+                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy/MM/dd" minDate={new Date()} required />
+                    </label>
+                    <label>
+                        Background Color
+                        <input type="color" value={goalImage} onChange={handleColorChange} required />
+                    </label>
+                    <button type="submit">Submit</button>
                 </form>
             ) : (
-                <div>
-                    <div>
-                        <label>검색어</label>
-                        <input
-                            type="text"
-                            value={searchTerm}
-                            onChange={(e) => setSearchTerm(e.target.value)}
-                        />
-                        <button onClick={handleSearch}>검색</button>
-                    </div>
-                    {searchResult && (
-                        <div>
-                            <h2>검색 결과</h2>
-                            {searchResult.map((product) => (
-                                <div key={product.id}>
-                                    <h3>{product.title}</h3>
-                                    <p>{product.lprice}</p>                                <img src={product.image}
-                                                                                                alt={product.title}/>
-                                    <button onClick={() => handleSelectProduct(product)}>
-                                        선택
-                                    </button>
-                                </div>
-                            ))}
+                <form className="create-goal" onSubmit={handleSubmit}>
+                    <label>
+                        Goal Name
+                        <input type="text" value={goalName} onChange={(e) => setGoalName(e.target.value)} required />
+                    </label>
+                    <label>
+                        Day
+                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required />
+                    </label>
+                    <label>
+                        Start Date
+                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy/MM/dd" minDate={new Date()} required />
+                    </label>
+                    <label>
+                        Saving Amount
+                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required />
+                    </label>
+                    <label>
+                        검색하기
+                        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} required />
+                        <button type="button" onClick={handleSearchSubmit}>Search</button>
+                    </label>
+                    {searchResults.length > 0 && (
+                        <div style={{ ...searchResultsContainerStyle, display: selectedResult ? 'none' : 'block' }}>
+                            <ul>
+                                {searchResults.map((result) => (
+                                    <li key={result.productId} onClick={() => handleResultSelect(result)}>
+                                        {/* Render the selected result with image and price */}
+                                        <div className={`search-result ${selectedResult === result ? 'selected' : ''}`}>
+                                            <div className="search-result-image">
+                                                <img src={result.image} alt={result.title} style={searchResultImageStyle} />
+                                            </div>
+                                            <div className="search-result-details">
+                                                <p>Title: {result.title}</p>
+                                                <p>Price: {result.lprice}</p>
+                                            </div>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     )}
-                    <div>
-                        <label>목표 이름</label>
-                        <input
-                            type="text"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                        />
-                    </div>
-                    <div>
-                        <label>목표 시작일</label>
-                        <DatePicker
-                            selected={startDate}
-                            onChange={(date) => setStartDate(date)}
-                        />
-                    </div>
-                    <button type="submit">생성</button>
-                </div>
+                    {selectedResult && (
+                        <>
+                            <label>
+                            Selected Goal Amount
+                            <input type="text" value={goalAmount} onChange={handleChange} />
+                        </label>
+
+                        </>
+                    )}
+
+                    <label>
+                        Background Color
+                        <input type="color" value={goalImage} onChange={handleColorChange} required />
+                    </label>
+                    <button type="submit">Submit</button>
+                </form>
             )}
-        </div>
+        </>
     );
 }
 

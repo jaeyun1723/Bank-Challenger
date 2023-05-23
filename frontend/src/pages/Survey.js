@@ -92,7 +92,7 @@ function Survey() {
         headers: { "Content-type": "application/json;charset=UTF-8" },
       })
         .then(() => {
-          window.location.href = "/main";
+          window.location.href = "/bfr";
         })
         .catch((error) => {
           console.log(error);

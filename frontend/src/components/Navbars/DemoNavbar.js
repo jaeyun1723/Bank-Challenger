@@ -17,14 +17,14 @@ import {
   Container,
   Row,
   Col,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
 
 class DemoNavbar extends React.Component {
   doLogin = () => {
     const history = useHistory();
     history.push("/login");
-  }
+  };
 
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
@@ -32,22 +32,25 @@ class DemoNavbar extends React.Component {
   }
   state = {
     collapseClasses: "",
-    collapseOpen: false
+    collapseOpen: false,
   };
 
   onExiting = () => {
     this.setState({
-      collapseClasses: "collapsing-out"
+      collapseClasses: "collapsing-out",
     });
   };
 
   onExited = () => {
     this.setState({
-      collapseClasses: ""
+      collapseClasses: "",
     });
   };
 
   render() {
+    const userId = sessionStorage.getItem("userId");
+    const bfr = sessionStorage.getItem("bfr");
+    const name = sessionStorage.getItem("name");
     return (
       <>
         <header className="header-global">
@@ -58,7 +61,7 @@ class DemoNavbar extends React.Component {
           >
             <Container>
               <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
-               Bank Challenger
+                Bank Challenger
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">
                 <span className="navbar-toggler-icon" />
@@ -119,36 +122,42 @@ class DemoNavbar extends React.Component {
                 </Nav>
 
                 <Nav className="align-items-lg-center ml-lg-auto" navbar>
-                  <NavItem>
-                    <NavLink
-                      className="nav-link-icon"
-                      href="https://github.com/boolsazo/bank-challenger"
-                      id="tooltip112445449"
-                      target="_blank"
-                    >
-                      <i className="fa fa-github" />
-                      <span className="nav-link-inner--text d-lg-none ml-2">
-                        Github
-                      </span>
-                    </NavLink>
-                    <UncontrolledTooltip delay={0} target="tooltip112445449">
-                      Star us on Github
-                    </UncontrolledTooltip>
-                  </NavItem>
-                  <NavItem className="d-none d-lg-block ml-lg-4">
-                      <Button
-                        className="btn-neutral btn-icon"
-                        color="default"
-                        href="/login"
-                      >
-                        <span className="btn-inner--icon">
-                          <i className="fa fa-cloud-download mr-2" />
-                        </span>
-                        <span className="nav-link-inner--text ml-1">
-                          네이버 아이디로 로그인
-                        </span>
-                      </Button>
-                  </NavItem>
+                  {userId === null ? (
+                    <>
+                      <NavItem className="d-none d-lg-block ml-lg-4">
+                        <Button
+                          className="btn-neutral btn-icon"
+                          color="default"
+                          href="/login"
+                        >
+                          <span className="nav-link-inner--text ml-1">
+                            로그인
+                          </span>
+                        </Button>
+                      </NavItem>
+                    </>
+                  ) : (
+                    <>
+                      <NavItem>
+                        <UncontrolledDropdown nav>
+                          <span className="text-white">
+                            {name}님 안녕하세요
+                          </span>
+                        </UncontrolledDropdown>
+                      </NavItem>
+                      <NavItem className="d-none d-lg-block ml-lg-4">
+                        <Button
+                          className="btn-neutral btn-icon"
+                          color="default"
+                          href="/logout"
+                        >
+                          <span className="nav-link-inner--text ml-1">
+                            로그아웃
+                          </span>
+                        </Button>
+                      </NavItem>
+                    </>
+                  )}
                 </Nav>
               </UncontrolledCollapse>
             </Container>

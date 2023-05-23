@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Headroom from "headroom.js";
 import {
   Button,
@@ -21,11 +21,6 @@ import {
 } from "reactstrap";
 
 class DemoNavbar extends React.Component {
-  doLogin = () => {
-    const history = useHistory();
-    history.push("/login");
-  };
-
   componentDidMount() {
     let headroom = new Headroom(document.getElementById("navbar-main"));
     headroom.init();
@@ -45,6 +40,10 @@ class DemoNavbar extends React.Component {
     this.setState({
       collapseClasses: "",
     });
+  };
+
+  deleteSession = () => {
+    sessionStorage.clear();
   };
 
   render() {
@@ -93,7 +92,7 @@ class DemoNavbar extends React.Component {
                 </div>
                 <Nav className="navbar-nav-hover align-items-lg-center" navbar>
                   <UncontrolledDropdown nav>
-                    <DropdownToggle nav to="/goal" tag={Link} >
+                    <DropdownToggle nav to="/goal" tag={Link}>
                       <i className="ni ni-ui-04 d-lg-none mr-1" />
                       <span className="nav-link-inner--text">목표현황</span>
                     </DropdownToggle>
@@ -129,6 +128,7 @@ class DemoNavbar extends React.Component {
                           className="btn-neutral btn-icon"
                           color="default"
                           href="/login"
+                          onClick={this.getSession}
                         >
                           <span className="nav-link-inner--text ml-1">
                             로그인
@@ -150,6 +150,7 @@ class DemoNavbar extends React.Component {
                           className="btn-neutral btn-icon"
                           color="default"
                           href="/logout"
+                          onClick={this.deleteSession}
                         >
                           <span className="nav-link-inner--text ml-1">
                             로그아웃

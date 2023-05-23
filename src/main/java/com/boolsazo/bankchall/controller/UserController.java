@@ -116,7 +116,7 @@ public class UserController {
         System.out.println("프로필이미지링크: " + profileImage);
         System.out.println(session.getAttribute("sessionId"));
 
-        String redirectUrl = "redirect:/main";
+        String redirectUrl = "redirect:/session";
 
         int userId = 0;
         try {

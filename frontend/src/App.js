@@ -17,48 +17,48 @@ import BfrResult from "./pages/BfrResult.js";
 import Loading from "./pages/Loading.js";
 
 function App() {
-  const [login, setLogin] = useState("");
+    const [login, setLogin] = useState("");
 
-  useEffect(() => {
-    axios
-    .get("/status/login")
-    .then((response) => {
-      setLogin(response.data.login);
-    })
-    .catch((error) => console.log(error));
-  }, [login]);
+    useEffect(() => {
+        axios
+            .get("/status/login")
+            .then((response) => {
+                setLogin(response.data.login);
+            })
+            .catch((error) => console.log(error));
+    }, [login]);
 
-  const setSession = () => {
-    axios
-    .get("/status/user")
-    .then((res) => {
-      sessionStorage.setItem("userId", res.data.userId);
-      sessionStorage.setItem("name", res.data.name);
-      sessionStorage.setItem("email", res.data.email);
-      sessionStorage.setItem("gender", res.data.gender);
-      sessionStorage.setItem("birthYear", res.data.birthYear);
-      sessionStorage.setItem("age", res.data.age);
-      sessionStorage.setItem("profileImage", res.data.profileImage);
-      sessionStorage.setItem("financialType", res.data.financialType);
-      sessionStorage.setItem("goalCnt", res.data.goalCnt);
-      sessionStorage.setItem("achievementRate", res.data.achievementRate);
-    })
-    .catch((error) => console.log(error));
-  };
+    const setSession = () => {
+        axios
+            .get("/status/user")
+            .then((res) => {
+                sessionStorage.setItem("userId", res.data.userId);
+                sessionStorage.setItem("name", res.data.name);
+                sessionStorage.setItem("email", res.data.email);
+                sessionStorage.setItem("gender", res.data.gender);
+                sessionStorage.setItem("birthYear", res.data.birthYear);
+                sessionStorage.setItem("age", res.data.age);
+                sessionStorage.setItem("profileImage", res.data.profileImage);
+                sessionStorage.setItem("financialType", res.data.financialType);
+                sessionStorage.setItem("goalCnt", res.data.goalCnt);
+                sessionStorage.setItem("achievementRate", res.data.achievementRate);
+            })
+            .catch((error) => console.log(error));
+    };
 
-  if (sessionStorage.getItem("userId") === null) {
-    // 로그인은 되었으나 세션 정보가 없는 경우, 세션 갱신
-    if (login === true) {
-      setSession();
-    }
-  } else {
-    // 로그아웃 상태이나 세션 정보가 남아 있는 경우, 세션 제거
-    if (login === false) {
-      sessionStorage.clear();
+    if (sessionStorage.getItem("userId") === null) {
+        // 로그인은 되었으나 세션 정보가 없는 경우, 세션 갱신
+        if (login === true) {
+            setSession();
+        }
     } else {
-      setSession();
+        // 로그아웃 상태이나 세션 정보가 남아 있는 경우, 세션 제거
+        if (login === false) {
+            sessionStorage.clear();
+        } else {
+            setSession();
+        }
     }
-  }
 
   return (
       <BrowserRouter>

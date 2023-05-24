@@ -36,7 +36,7 @@ function CreateGoal({ setIsOpen }) {
     };
 
     const searchResultsContainerStyle = {
-        maxHeight: '200px',
+        maxHeight: '300px',
         overflowY: 'auto',
     };
 
@@ -54,7 +54,9 @@ function CreateGoal({ setIsOpen }) {
 
         try {
             const response = await api.get('/goal/search', { params: { query: searchQuery } });
-            setSearchResults(response.data.items); // Assuming the response data has a field 'items' that contains the search results
+            setSearchResults(response.data.items);
+            console.log(response.data.items);
+            // Assuming the response data has a field 'items' that contains the search results
         } catch (err) {
             console.error(err);
         }
@@ -80,13 +82,13 @@ function CreateGoal({ setIsOpen }) {
     const handleResultSelect = (result) => {
         // When a user selects a search result, set the goalAmount and goalImage accordingly.
         setGoalAmount(result.lprice);
-        //setProductId(result.productId);
+        setProductId(result.productId);
         setSelectedResult(result); // Store the selected result
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        setProductId("");
         const data = {
             userId,
             category,
@@ -117,10 +119,8 @@ function CreateGoal({ setIsOpen }) {
     return (
         <>
             <h1>목표 생성하기</h1>
-            <div style={{ display: "flex" }}>
-            <button style={{ flex: "1 1 0", marginRight: 0 }} onClick={handleManualButtonClick}>직접 입력</button>
-            <button style={{ flex: "1 1 0", marginLeft: 0 }} onClick={handleSearchButtonClick}>검색하여 입력</button>
-            </div>
+            <button onClick={handleManualButtonClick}>직접 입력</button>
+            <button onClick={handleSearchButtonClick}>검색하여 입력</button>
             {inputMode === 'manual' ? (
                 <form className="create-goal" onSubmit={handleSubmit}>
                     <label>
@@ -177,14 +177,13 @@ function CreateGoal({ setIsOpen }) {
                             <ul>
                                 {searchResults.map((result) => (
                                     <li key={result.productId} onClick={() => handleResultSelect(result)}>
-                                        {/* Render the selected result with image and price */}
                                         <div className={`search-result ${selectedResult === result ? 'selected' : ''}`}>
                                             <div className="search-result-image">
-                                                <img src={result.image} alt={result.title} style={searchResultImageStyle} />
+                                                <img src={result.image} alt={result.title} style={{ width: '100px', height: 'auto' }}/>
                                             </div>
                                             <div className="search-result-details">
-                                                <p>Title: {result.title}</p>
-                                                <p>Price: {result.lprice}</p>
+                                                <p>상품명: {result.title}</p>
+                                                <p>가격: {result.lprice}</p>
                                             </div>
                                         </div>
                                     </li>
@@ -195,9 +194,9 @@ function CreateGoal({ setIsOpen }) {
                     {selectedResult && (
                         <>
                             <label>
-                            Selected Goal Amount
-                            <input type="text" value={goalAmount} onChange={handleChange} />
-                        </label>
+                                Selected Goal Amount
+                                <input type="text" value={goalAmount} onChange={handleChange} />
+                            </label>
 
                         </>
                     )}

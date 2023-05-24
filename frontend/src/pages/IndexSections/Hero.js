@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Container, Row, Col} from "reactstrap";
+import {Container, Row, Col} from "reactstrap";
 
 class Hero extends React.Component {
   render() {
@@ -12,9 +12,8 @@ class Hero extends React.Component {
                   "../../assets/img/theme/main01.png")})`,
               backgroundSize: "cover",
               backgroundPosition: "center",
-              width: '1900px',
               height: '1000px'
-            }}>
+            }}>             
               {/* Background circles */}
               <div className="shape shape-style-1 shape-default">
                 <span className="span-150"/>
@@ -35,12 +34,9 @@ class Hero extends React.Component {
                     <Col className="text-center" lg="6">
                       <div style={{width: '200px'}}></div>
                       <p className="lead text-white"></p>
-                      <div className="btn-wrapper mt-5">
+                      <div className="btn-wrapper mt-5" style={{margin:'20px'}}>
                         {" "}
                       </div>
-                      뱅크 챌린저는 설정한 목표를 달성할 수 있도록
-                      <br/>
-                      자동이체를 통해 관리해주는 서비스입니다.
                     </Col>
                   </Row>
                 </div>

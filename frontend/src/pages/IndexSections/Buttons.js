@@ -12,10 +12,9 @@ class BasicElements extends React.Component {
             backgroundImage: `url(${require("../../assets/img/theme/main02.png")})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
-            width:'1900px',
             height:'1000px'
           }}>
-            {/* <Container>
+            <Container>
 <Row className="justify-content-center">
   <Col lg="12">
     <h2 className="mb-5">
@@ -189,7 +188,7 @@ class BasicElements extends React.Component {
     </Button>
   </Col>
 </Row>
-</Container> */}
+</Container>
         </section>
       </>
     );

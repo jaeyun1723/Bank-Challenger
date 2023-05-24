@@ -33,7 +33,7 @@ class Hello extends React.Component {
   render() {
     return (
       <>
-        <DemoNavbar userId={this.props.userId} />
+        <DemoNavbar />
         <main ref="main">
           <Hero />
           <Buttons />

@@ -1,54 +1,48 @@
-
-
 .slide {
-    box-sizing: border-box;
-    border: 2px solid #ddd;
-    padding: 50px;
-    margin: 100px 0px;
-    width: 80%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #50508C;
-    border-radius: 20px;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    height: 400px;
-    text-align: center;
+  box-sizing: border-box;
+  border: 2px solid #ddd;
+  padding: 50px;
+  margin: 100px 0px;
+  width: 80%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #50508c;
+  border-radius: 20px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  height: 400px;
+  text-align: center;
 }
 .container {
-    width: 80%;  /* or any other percentage or fixed value you prefer */
-    padding: 30px;
-
+  width: 80%;
+  padding: 30px;
 }
 
-/* GoalMain.css */
-
-
 .slide:hover {
-    background-color: #f0f0f0;
+  background-color: #f0f0f0;
 }
 
 .slide h3 {
-    margin: 0;
-    font-size: 18px;
+  margin: 0;
+  font-size: 18px;
 }
 
 .slide p {
-    margin: 0;
-    font-size: 14px;
+  margin: 0;
+  font-size: 14px;
 }
 
 .container button {
-    padding: 10px 20px;
-    font-size: 16px;
-    background-color: #50508C;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #50508c;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .container button:hover {
-    background-color: #444478;
+  background-color: #444478;
 }

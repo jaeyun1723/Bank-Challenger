@@ -9,7 +9,10 @@ import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import CardsFooter from "components/Footers/CardsFooter.js";
 import Main01 from "./IndexSections/Main01.js";
 import Main02 from "./IndexSections/Main02.js";
-
+import Main03 from "./IndexSections/Main03.js";
+import Main04 from "./IndexSections/Main04.js";
+import Main05 from "./IndexSections/Main05.js";
+import SimpleFooter from "components/Footers/SimpleFooter.js";
 class Hello extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -20,7 +23,7 @@ class Hello extends React.Component {
   render() {
     let options = {
       activeClass: "active",
-      anchors: ["main01", "main02", "main03", "main04"],
+      anchors: ["main01", "main02", "main03", "main04", "main05"],
       arrowNavigation: true,
       className: "SectionContainer",
       delay: 500,
@@ -45,14 +48,15 @@ class Hello extends React.Component {
               <Main02 />
             </Section>
             <Section>
-              <Main01 />
+              <Main03 />
             </Section>
             <Section>
-              <Main02 />
+              <Main04 />
             </Section>
-            <Footer>
-              <CardsFooter />
-            </Footer>
+            <Section>
+              <Main05 />
+            
+            </Section>
           </SectionsContainer>
         </main>
       </>

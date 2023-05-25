@@ -18,11 +18,11 @@ class CardsFooter extends React.Component {
   render() {
     return (
       <>
-        <footer className="footer has-cards">
+        <footer className="footer">
           <Container>
-            <Row className="row-grid align-items-center my-md">
-              <Col lg="6">
-                <h3 className="text-primary font-weight-light mb-2">
+            <Row className="row-grid align-items-center"  style={{marginTop:'-20px'}}>
+              <Col lg="7">
+                <h3 className="text-primary font-weight-light mb-1" >
                   KB국민은행 IT아카데미 IT's Your Life 3기
                 </h3>
                 <h4 className="mb-0 font-weight-light">1반 4팀</h4>

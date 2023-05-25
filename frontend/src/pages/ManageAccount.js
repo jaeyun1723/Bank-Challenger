@@ -162,7 +162,7 @@ function ManageAccount() {
           }}
           className="btn-1 ml-1 btn btn-outline-info"
         >
-          + 저금 계좌 추가하기
+          + 저축 계좌 추가하기
         </button>
       </div>
     );
@@ -345,7 +345,7 @@ function ManageAccount() {
             저금 계좌({savingAccounts.length}개)
           </div>
           <div>
-            <small>{userName}님이 등록하신 저금 계좌 목록이에요.</small>
+            <small>{userName}님이 등록하신 저축 계좌 목록이에요.</small>
           </div>
           <div style={{ marginBottom: "20px" }}></div>
           {savingAccounts.map((it) => (

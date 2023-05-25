@@ -36,9 +36,6 @@ class Main01 extends React.Component {
                     <div style={{ width: "200px" }}></div>
                     <p className="lead text-white"></p>
                     <div className="btn-wrapper mt-5"> </div>
-                    뱅크 챌린저는 설정한 목표를 달성할 수 있도록
-                    <br />
-                    자동이체를 통해 관리해주는 서비스입니다.
                   </Col>
                 </Row>
               </div>

@@ -8,7 +8,7 @@ class Main02 extends React.Component {
           className="section section-components pb-0"
           id="section-components"
           style={{
-            backgroundImage: `url(${require("../../assets/img/theme/main02.png")})`,
+            backgroundImage: `url(${require("../../assets/img/theme/main021.png")})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             height: "100vh",

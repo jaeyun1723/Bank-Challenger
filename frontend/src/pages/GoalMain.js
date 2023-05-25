@@ -37,7 +37,7 @@ function GoalMain({ userId }) {
         console.error(err);
       });
   }, [userId]);
-  if (userId === 2 && goals.length === 0) {
+  if (goals.length === 0) {
     return <GoalFirstMain />;
   }
   const handleSlideClick = (goalId) => {

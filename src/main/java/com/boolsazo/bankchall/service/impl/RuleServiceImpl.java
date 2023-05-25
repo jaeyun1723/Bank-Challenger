@@ -9,8 +9,6 @@ import com.boolsazo.bankchall.repository.GoalAccountRepository;
 import com.boolsazo.bankchall.repository.GoalRepository;
 import com.boolsazo.bankchall.repository.SavingHistoryRepository;
 import com.boolsazo.bankchall.service.RuleService;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,6 @@ public class RuleServiceImpl implements RuleService {
 
     @Autowired
     private GoalRepository goalRepository;
-
 
     @Autowired
     private GoalAccountRepository goalAccountRepository;
@@ -37,16 +34,11 @@ public class RuleServiceImpl implements RuleService {
         int savingAccountId = dto.getSavingAccountId();
 
         Goal goal = goalRepository.findById(goalId)
-                .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
+                        .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
 
         goal.setDay(dto.getDay());
         goal.setSavingAmount(dto.getSavingAmount());
-
-        // TODO: Goal 테이블에서 savingStartDate 타입을 String으로 변경하기
-        String savingStartDate = dto.getSavingStartDate();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime savingStartDateTime = LocalDateTime.parse(savingStartDate, formatter);
-        goal.setSavingStartDate(savingStartDateTime);
+        goal.setSavingStartDate(dto.getSavingStartDate());
 
         // TODO: 목표에 규칙 추가하기
         goalRepository.save(goal);
@@ -64,7 +56,7 @@ public class RuleServiceImpl implements RuleService {
     public void deleteRule(int goalId) throws Exception {
         // TODO: goalId에 맞는 모든 규칙(day, savingAmount,savingStartDate)을 null로 변경
         Goal goal = goalRepository.findById(goalId)
-                .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
+                        .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
         goal.setDay(null);
         goal.setSavingAmount(0);
         goal.setSavingStartDate(null);
@@ -79,25 +71,29 @@ public class RuleServiceImpl implements RuleService {
     @Override
     public RuleDetailResponse showRule(int goalId) {
         GoalAccount account = goalAccountRepository.findByGoalId(goalId).orElseThrow(
-                () -> new NoSuchElementException("존재하는 규칙이 없습니다."));
+            () -> new NoSuchElementException("존재하는 규칙이 없습니다."));
 
         RuleDetailResponse result = new RuleDetailResponse();
 
         GoalAccountResultSet goalWAccount = goalAccountRepository.showGoalWAccount(goalId);
         RuleDetailResponse.AccountInfo withdrawInfo = new RuleDetailResponse.AccountInfo(
-                goalWAccount.getAccount_Num_Masked(),
-                goalWAccount.getBank_Name());
+            goalWAccount.getAccount_Num_Masked(),
+            goalWAccount.getBank_Name());
 
         GoalAccountResultSet goalSAccount = goalAccountRepository.showGoalSAccount(goalId);
         RuleDetailResponse.AccountInfo savingsInfo = new RuleDetailResponse.AccountInfo(
-                goalSAccount.getAccount_Num_Masked(),
-                goalSAccount.getBank_Name());
+            goalSAccount.getAccount_Num_Masked(),
+            goalSAccount.getBank_Name());
 
         result.setWithdrawInfo(withdrawInfo);
         result.setSavingInfo(savingsInfo);
 
-        Optional<RuleDetailResponse.SavingHistory> savingHistories = savingHistoryRepository.findById(goalId)
-                .map(sh -> new RuleDetailResponse().new SavingHistory(sh.getSavingAmount(), sh.getSavingDate()));
+        Optional<RuleDetailResponse.SavingHistory> savingHistories = savingHistoryRepository.findById(
+                goalId)
+                                                                         .map(
+                                                                             sh -> new RuleDetailResponse().new SavingHistory(
+                                                                                 sh.getSavingAmount(),
+                                                                                 sh.getSavingDate()));
 
         result.setSavingHistory(savingHistories);
         return result;

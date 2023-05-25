@@ -1,6 +1,7 @@
 package com.boolsazo.bankchall.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,6 +32,6 @@ public class RuleRequestDto {
     private int savingAmount;
 
     @Schema(description = "저축 자동이체 시작일")
-    private String savingStartDate;
+    private LocalDateTime savingStartDate;
 
 }

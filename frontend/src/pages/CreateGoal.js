@@ -57,7 +57,7 @@ function CreateGoal({ setIsOpen }) {
       const response = await api.get("/goal/search", {
         params: { query: searchQuery },
       });
-      if (searchQuery.length === 0) return;
+      if (searchQuery.match(/\S/) === null) return;
       setSearchResults(response.data.items);
       console.log(response.data.items);
       // Assuming the response data has a field 'items' that contains the search results

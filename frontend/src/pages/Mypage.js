@@ -88,6 +88,7 @@ const Profile = () => {
                           alt="..."
                           className="rounded-circle"
                           src={sessionStorage.getItem("profileImage")}
+                          style={{ maxWidth:'300px', width:'250px', height:'250px'}}
                         />
                       </a>
                     </div>
@@ -102,7 +103,7 @@ const Profile = () => {
                   </Col>
                 </Row>
                 <div className="text-center mt-5">
-                  <h3>
+                  <h3 style={{marginTop:'140px'}}>
                     {sessionStorage.getItem("name")}
                     <span className="font-weight-light">
                       , {sessionStorage.getItem("age")}

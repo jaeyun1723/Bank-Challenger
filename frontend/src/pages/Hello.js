@@ -1,18 +1,11 @@
 import React from "react";
-import {
-  SectionsContainer,
-  Section,
-  ScrollToTopOnMount,
-  Footer,
-} from "react-fullpage";
+import { SectionsContainer, Section, ScrollToTopOnMount } from "react-fullpage";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
-import CardsFooter from "components/Footers/CardsFooter.js";
 import Main01 from "./IndexSections/Main01.js";
 import Main02 from "./IndexSections/Main02.js";
 import Main03 from "./IndexSections/Main03.js";
 import Main04 from "./IndexSections/Main04.js";
 import Main05 from "./IndexSections/Main05.js";
-import SimpleFooter from "components/Footers/SimpleFooter.js";
 class Hello extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
@@ -55,7 +48,6 @@ class Hello extends React.Component {
             </Section>
             <Section>
               <Main05 />
-            
             </Section>
           </SectionsContainer>
         </main>

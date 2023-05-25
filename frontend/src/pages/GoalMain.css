@@ -1,22 +1,26 @@
-/* .slide {
+.slide {
   box-sizing: border-box;
   border: 2px solid #ddd;
   padding: 50px;
-  margin: 100px 0px;
+  margin: 50px 0px;
   width: 80%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #50508c;
+  background-color: #7691f6;
   border-radius: 20px;
   transition: all 0.3s ease;
   overflow: hidden;
   height: 400px;
   text-align: center;
 }
-.container {
-  width: 80%;
-  padding: 30px;
+
+.mukho {
+  width: 80% !important;
+}
+
+.muk {
+  border: none !important;
 }
 
 .slide:hover {
@@ -26,6 +30,19 @@
 .slide h3 {
   margin: 0;
   font-size: 18px;
+  color: #f0f0f0;
+}
+.slide h2 {
+  margin: 0;
+  color: #f0f0f0;
+}
+
+.slide:hover h3 {
+  color: #7691f6;
+}
+
+.slide:hover h2 {
+  color: #7691f6;
 }
 
 .slide p {
@@ -33,16 +50,12 @@
   font-size: 14px;
 }
 
-.container button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #50508c;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
+.bookmark {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: relative;
+  top: -30px;
+  left: -30px;
+  border: 2px solid #000000;
 }
-
-.container button:hover {
-  background-color: #444478;
-} */

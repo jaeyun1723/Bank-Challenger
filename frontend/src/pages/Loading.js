@@ -18,7 +18,7 @@ export default function Loading() {
       sessionStorage.setItem("savingAmount", res.data.savingAmount);
     })
     .then(() => {
-      //window.location.href = "/";
+      window.location.href = "/";
     })
     .catch((error) => console.log(error));
 }

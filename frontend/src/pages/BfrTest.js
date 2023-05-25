@@ -83,9 +83,6 @@ export default function RowAndColumnSpacing(props) {
   const theme = useTheme();
   const userId = sessionStorage.getItem("userId");
 
-  // const [activeStep, setActiveStep] = React.useState(prop.progress);
-  // console.log(activeStep)
-  // const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
     request.userId = userId;
     setIndex((cur) => cur + 1);
@@ -113,68 +110,76 @@ export default function RowAndColumnSpacing(props) {
   };
 
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <Box sx={{ width: "90%", margin: "5%" }}>
-        <LinearProgressWithLabel progress={index} />
-        {flag ? (
-          <ResponsiveDialog
-            flag={true}
-            answer1={answer1}
-            answer2={answer2}
-            request={request}
-          />
-        ) : null}
-        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          <Grid item xs={12} sx={{ height: "50%" }}>
-            <Item>{data[index].question}</Item>
+      <Card sx={{ minWidth: 275 }}>
+        <Box sx={{ width: "90%", margin: "5%" }}>
+          <LinearProgressWithLabel progress={index} />
+          {flag ? (
+              <ResponsiveDialog
+                  flag={true}
+                  answer1={answer1}
+                  answer2={answer2}
+                  request={request}
+              />
+          ) : null}
+          <br />
+          <br />
+          <br />
+          <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+            <Grid item xs={12} sx={{ height: "50%" }} style={{textAlign: "center"}}>
+              <h2 class="navbar-brand">{data[index].question}</h2>
+            </Grid>
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <Grid item xs={6}>
+              <Item>
+                <Box
+                    onClick={() => {
+                      setAnswer1(answer1 + 1);
+                      handleNext();
+                      setProgress(index + 1);
+                    }}
+                    sx={{
+                      height: "50%",
+                      "&:hover": {
+                        cursor: "pointer",
+                        color: "white",
+                        backgroundColor: "text.disabled",
+                        opacity: [0.9, 0.8, 0.7],
+                      },
+                    }}
+                >
+                  {data[index].answer_1}
+                </Box>
+              </Item>
+            </Grid>
+            <Grid item xs={6}>
+              <Item>
+                <Box
+                    onClick={() => {
+                      setAnswer2(answer2 + 1);
+                      handleNext();
+                      setIndex(index + 1);
+                    }}
+                    sx={{
+                      height: "50%",
+                      "&:hover": {
+                        cursor: "pointer",
+                        color: "white",
+                        backgroundColor: "text.disabled",
+                        opacity: [0.9, 0.8, 0.7],
+                      },
+                    }}
+                >
+                  {data[index].answer_2}
+                </Box>
+              </Item>
+            </Grid>
           </Grid>
-
-          <Grid item xs={6}>
-            <Item>
-              <Box
-                onClick={() => {
-                  setAnswer1(answer1 + 1);
-                  handleNext();
-                  setProgress(index + 1);
-                }}
-                sx={{
-                  height: "50%",
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: "white",
-                    backgroundColor: "text.disabled",
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                }}
-              >
-                {data[index].answer_1}
-              </Box>
-            </Item>
-          </Grid>
-          <Grid item xs={6}>
-            <Item>
-              <Box
-                onClick={() => {
-                  setAnswer2(answer2 + 1);
-                  handleNext();
-                  setIndex(index + 1);
-                }}
-                sx={{
-                  height: "50%",
-                  "&:hover": {
-                    cursor: "pointer",
-                    color: "white",
-                    backgroundColor: "text.disabled",
-                    opacity: [0.9, 0.8, 0.7],
-                  },
-                }}
-              >
-                {data[index].answer_2}
-              </Box>
-            </Item>
-          </Grid>
-        </Grid>
-      </Box>
-    </Card>
+        </Box>
+      </Card>
   );
 }

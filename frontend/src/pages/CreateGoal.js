@@ -21,7 +21,7 @@ function CreateGoal({ setIsOpen }) {
     const [isExpired, setIsExpired] = useState(false);
     const [day, setDay] = useState("");
     const [startDate, setStartDate] = useState(null);
-    const [goalImage, setGoalImage] = useState("");
+    const [goalImage, setGoalImage] = useState("#000000");
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [searchQuery, setSearchQuery] = useState('');
     const [searchResults, setSearchResults] = useState([]);
@@ -35,6 +35,7 @@ function CreateGoal({ setIsOpen }) {
         setGoalAmount(e.target.value);
     };
 
+
     const searchResultsContainerStyle = {
         maxHeight: '300px',
         overflowY: 'auto',
@@ -47,6 +48,7 @@ function CreateGoal({ setIsOpen }) {
         setDay("");
         setStartDate(null);
         setGoalImage(null);
+        setProductId("");
     };
 
     const handleSearchSubmit = async (e) => {
@@ -75,8 +77,8 @@ function CreateGoal({ setIsOpen }) {
 
 
     const searchResultImageStyle = {
-        width: '100px',
-        height: '100px',
+        width: '80px',
+        height: '80px',
     };
 
     const handleResultSelect = (result) => {
@@ -118,59 +120,94 @@ function CreateGoal({ setIsOpen }) {
 
     return (
         <>
-            <h1>목표 생성하기</h1>
-            <button onClick={handleManualButtonClick}>직접 입력</button>
-            <button onClick={handleSearchButtonClick}>검색하여 입력</button>
+            <h1 style={{textAlign:"center", margin: "20px 20px"}}>목표 생성하기</h1>
+            <button onClick={handleManualButtonClick} style={{ marginRight: "2%", width: "49%", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}>직접 입력</button>
+            <button onClick={handleSearchButtonClick} style={{ width: "49%", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}>검색하여 입력</button>
+
             {inputMode === 'manual' ? (
                 <form className="create-goal" onSubmit={handleSubmit}>
                     <label>
-                        Goal Name
-                        <input type="text" value={goalName} onChange={(e) => setGoalName(e.target.value)} required />
+                        목표 이름
+                        <input
+                            type="text"
+                            value={goalName}
+                            onChange={(e) => setGoalName(e.target.value)}
+                            required
+                            style={{marginLeft: "60px",width: "300px", height: "40px", padding: "0.8rem", border: "3px solid #ccc", alignItems: "flex-end", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}
+                        />
                     </label>
                     <label>
-                        Goal Amount
-                        <input type="text" value={goalAmount} onChange={(e) => setGoalAmount(e.target.value)} required />
+                        목표 금액
+                        <input type="text" value={goalAmount} onChange={(e) => setGoalAmount(e.target.value)} required style={{marginLeft: "60px",width: "300px",height: "40px",padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}
+                        />
                     </label>
                     <label>
-                        Saving Amount
-                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required />
+                        자동이체 금액(달)
+                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required style={{marginLeft: "18px",width: "300px", height: "40px",padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}
+                        />
                     </label>
                     <label>
-                        Day
-                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required />
+                        자동이체 날짜(일)
+                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required style={{marginLeft: "18px",width: "300px", padding: "0.8rem", height: "40px",border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}
+                        />
                     </label>
+                    <label className="input-label">
+                        목표 시작일
+                        <div className="input-container">
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                dateFormat="yyyy/MM/dd"
+                                minDate={new Date()}
+                                required
+                                className="custom-datepicker"
+                            />
+                        </div>
+                    </label>
+
                     <label>
-                        Start Date
-                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy/MM/dd" minDate={new Date()} required />
+                        테마색
+                        <input type="color" value={goalImage} onChange={handleColorChange} required style={{marginLeft: "80px"}}/>
                     </label>
-                    <label>
-                        Background Color
-                        <input type="color" value={goalImage} onChange={handleColorChange} required />
-                    </label>
-                    <button type="submit">Submit</button>
+                    <button type="submit">목표 만들기</button>
                 </form>
             ) : (
                 <form className="create-goal" onSubmit={handleSubmit}>
                     <label>
-                        Goal Name
-                        <input type="text" value={goalName} onChange={(e) => setGoalName(e.target.value)} required />
+                        목표 금액
+                        <input type="text" value={goalName} onChange={(e) => setGoalName(e.target.value)} required style={{marginLeft: "60px",width: "300px", height: "40px",padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}/>
                     </label>
                     <label>
-                        Day
-                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required />
+                        자동이체 날짜(일)
+                        <input type="number" value={day} onChange={(e) => setDay(e.target.value)} required style={{marginLeft: "15px",width: "300px", height: "40px",padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}/>
+                    </label>
+                    <label className="input-label">
+                        목표 시작일
+                        <div className="input-container">
+                            <DatePicker
+                                selected={startDate}
+                                onChange={(date) => setStartDate(date)}
+                                dateFormat="yyyy/MM/dd"
+                                minDate={new Date()}
+                                required
+                                className="custom-datepicker"
+                            />
+                        </div>
                     </label>
                     <label>
-                        Start Date
-                        <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} dateFormat="yyyy/MM/dd" minDate={new Date()} required />
-                    </label>
-                    <label>
-                        Saving Amount
-                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required />
+                        자동이체 금액(달)
+                        <input type="text" value={savingAmount} onChange={(e) => setSavingAmount(e.target.value)} required style={{marginLeft: "18px",width: "300px",height: "40px", padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)"}}/>
                     </label>
                     <label>
                         검색하기
-                        <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} required />
-                        <button type="button" onClick={handleSearchSubmit}>Search</button>
+                        <input
+                            type="text"
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            required
+                            style={{marginLeft: "65px", width: "230px",height: "40px", padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)" }}
+                        />
+                        <button type="button" onClick={handleSearchSubmit} style={{marginLeft:"10px", width: "50px", height: "25px", fontSize: "12px", padding: "6px 12px", backgroundColor:"gray"}}>검색</button>
                     </label>
                     {searchResults.length > 0 && (
                         <div style={{ ...searchResultsContainerStyle, display: selectedResult ? 'none' : 'block' }}>
@@ -179,8 +216,9 @@ function CreateGoal({ setIsOpen }) {
                                     <li key={result.productId} onClick={() => handleResultSelect(result)}>
                                         <div className={`search-result ${selectedResult === result ? 'selected' : ''}`}>
                                             <div className="search-result-image">
-                                                <img src={result.image} alt={result.title} style={{ width: '100px', height: 'auto' }}/>
-                                            </div>
+
+                                                <img src={result.image} alt={result.title} style={{ width: '100px', height: '80px' }}/>
+                      </div>
                                             <div className="search-result-details">
                                                 <p>상품명: {result.title}</p>
                                                 <p>가격: {result.lprice}</p>
@@ -194,18 +232,19 @@ function CreateGoal({ setIsOpen }) {
                     {selectedResult && (
                         <>
                             <label>
-                                Selected Goal Amount
-                                <input type="text" value={goalAmount} onChange={handleChange} />
+                                목표 금액
+                                <input type="text" value={goalAmount} onChange={handleChange} style = {{marginLeft: "60px", width: "230px",height: "40px", padding: "0.8rem", border: "3px solid #ccc", borderRadius: "30px", boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)" }}/>
+
                             </label>
 
                         </>
                     )}
 
                     <label>
-                        Background Color
-                        <input type="color" value={goalImage} onChange={handleColorChange} required />
+                        테마 색상
+                        <input type="color" value={goalImage} onChange={handleColorChange} required style={{marginLeft: "70px"}}/>
                     </label>
-                    <button type="submit">Submit</button>
+                    <button type="submit">목표 만들기</button>
                 </form>
             )}
         </>

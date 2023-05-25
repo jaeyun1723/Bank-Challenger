@@ -1,10 +1,10 @@
 .create-goal {
-    width: 400px;
-    height: 750px;
+    width: 500px;
+    height: 650px;
     border-radius: 40px;
     flex-direction: column;
     gap: 30px;
-    align-items: flex-end;
+    align-items: left;
     display: flex;
     margin: 0 auto;
     padding: 1rem;
@@ -54,8 +54,112 @@
     font-size: 1rem;
     font-weight: bold;
     color: white;
-    background-color: #5C7AEA;
+    background-color: #50508c;
     border: none;
     cursor: pointer;
     margin-top: 1rem;
+}
+
+.button-container {
+    display: flex;
+}
+
+.button-container button {
+    justify-content: center;
+    flex: 1;
+    margin: 0;
+}
+.create-goal form label {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    width: 10%;
+
+}
+
+.create-goal form label input[type="text"] {
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 50px solid #ccc;
+    width: 100%;
+    padding: 0.8rem;
+}
+.create-goal form label input[type="number"] {
+    padding: 0.5rem;
+    border-radius: 20px;
+    border: 50px solid #ccc;
+    width: 100%;
+    padding: 0.8rem;
+}
+
+.create-goal form label input[type="color"] {
+    padding: 2rem;
+    border-radius: 10px;
+    border: 10px solid #ccc;
+    width: 100px; /* 색상 선택기 너비 조정 */
+}
+
+.create-goal form button[type="submit"] {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background-color: #5C7AEA;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.custom-datepicker {
+    width: 300px;
+    padding: 0.8rem;
+    border: 3px solid #ccc;
+    border-radius: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    height: 40px;
+    margin-left: 40px;
+}
+.input-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-container {
+    margin-left: 10px;
+}
+
+.search-result {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+.search-result.selected {
+    background-color: lightblue;
+}
+
+.search-result .search-result-image {
+    margin-right: 10px;
+}
+
+.search-result .search-result-details {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-result .search-result-details p {
+    margin: 0;
+}
+
+.result-title {
+    font-weight: bold;
+}
+
+.result-price {
+    margin-top: 5px;
 }

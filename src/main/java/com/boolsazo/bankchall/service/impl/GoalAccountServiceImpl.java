@@ -4,6 +4,7 @@ import com.boolsazo.bankchall.domain.GoalAccount;
 import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
 import com.boolsazo.bankchall.repository.GoalAccountRepository;
 import com.boolsazo.bankchall.service.GoalAccountService;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,5 +32,10 @@ public class GoalAccountServiceImpl implements GoalAccountService {
     @Override
     public void deleteByGoalId(int goalId) throws Exception {
         repository.deleteByGoalId(goalId);
+    }
+
+    @Override
+    public Optional<GoalAccount> findByGoalId(int goalId) throws Exception {
+        return repository.findByGoalId(goalId);
     }
 }

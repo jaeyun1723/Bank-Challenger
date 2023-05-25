@@ -2,7 +2,9 @@ package com.boolsazo.bankchall.service.impl;
 
 import com.boolsazo.bankchall.domain.Goal;
 import com.boolsazo.bankchall.domain.GoalAccount;
+import com.boolsazo.bankchall.dto.RuleDetailResponse;
 import com.boolsazo.bankchall.dto.RuleRequestDto;
+import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
 import com.boolsazo.bankchall.repository.GoalAccountRepository;
 import com.boolsazo.bankchall.repository.GoalRepository;
 import com.boolsazo.bankchall.repository.SavingHistoryRepository;
@@ -10,6 +12,7 @@ import com.boolsazo.bankchall.service.RuleService;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +21,7 @@ public class RuleServiceImpl implements RuleService {
 
     @Autowired
     private GoalRepository goalRepository;
+
 
     @Autowired
     private GoalAccountRepository goalAccountRepository;
@@ -33,7 +37,7 @@ public class RuleServiceImpl implements RuleService {
         int savingAccountId = dto.getSavingAccountId();
 
         Goal goal = goalRepository.findById(goalId)
-                        .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
+                .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
 
         goal.setDay(dto.getDay());
         goal.setSavingAmount(dto.getSavingAmount());
@@ -60,7 +64,7 @@ public class RuleServiceImpl implements RuleService {
     public void deleteRule(int goalId) throws Exception {
         // TODO: goalId에 맞는 모든 규칙(day, savingAmount,savingStartDate)을 null로 변경
         Goal goal = goalRepository.findById(goalId)
-                        .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
+                .orElseThrow(() -> new NoSuchElementException("Goal Not Found"));
         goal.setDay(null);
         goal.setSavingAmount(0);
         goal.setSavingStartDate(null);
@@ -70,5 +74,32 @@ public class RuleServiceImpl implements RuleService {
 
         // TODO: goal_id 일치하는 SavingHistory(입금내역 테이블)의 행 삭제하기
         savingHistoryRepository.deleteByGoalId(goalId);
+    }
+
+    @Override
+    public RuleDetailResponse showRule(int goalId) {
+        GoalAccount account = goalAccountRepository.findByGoalId(goalId).orElseThrow(
+                () -> new NoSuchElementException("존재하는 규칙이 없습니다."));
+
+        RuleDetailResponse result = new RuleDetailResponse();
+
+        GoalAccountResultSet goalWAccount = goalAccountRepository.showGoalWAccount(goalId);
+        RuleDetailResponse.AccountInfo withdrawInfo = new RuleDetailResponse.AccountInfo(
+                goalWAccount.getAccount_Num_Masked(),
+                goalWAccount.getBank_Name());
+
+        GoalAccountResultSet goalSAccount = goalAccountRepository.showGoalSAccount(goalId);
+        RuleDetailResponse.AccountInfo savingsInfo = new RuleDetailResponse.AccountInfo(
+                goalSAccount.getAccount_Num_Masked(),
+                goalSAccount.getBank_Name());
+
+        result.setWithdrawInfo(withdrawInfo);
+        result.setSavingInfo(savingsInfo);
+
+        Optional<RuleDetailResponse.SavingHistory> savingHistories = savingHistoryRepository.findById(goalId)
+                .map(sh -> new RuleDetailResponse().new SavingHistory(sh.getSavingAmount(), sh.getSavingDate()));
+
+        result.setSavingHistory(savingHistories);
+        return result;
     }
 }

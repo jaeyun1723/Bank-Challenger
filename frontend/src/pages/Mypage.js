@@ -51,19 +51,19 @@ const Profile = () => {
     <>
       <DemoNavbar />
       <main className="profile-page">
-        <section className="section-profile-cover section-shaped my-0">
-          {/* Circles background */}
-          <div className="shape shape-style-1 shape-default alpha-4">
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-            <span />
-          </div>
+        <section className="section-profile-cover">
+        <img
+                alt="..."
+                src={require("assets/img/theme/background.png")}
+                style={{
+                  width: "100%",
+                  height: "1400px",
+                  maxWidth: "2000px",
+                  margin: "0 auto",
+                }}
+              />
           {/* SVG separator */}
-          <div className="separator separator-bottom separator-skew">
+          <div className=" separator-skew">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               preserveAspectRatio="none"
@@ -72,9 +72,8 @@ const Profile = () => {
               x="0"
               y="0"
             >
-              <polygon className="fill-white" points="2560 0 2560 100 0 100" />
             </svg>
-          </div>
+          </div >
         </section>
         <section className="section">
           <Container>

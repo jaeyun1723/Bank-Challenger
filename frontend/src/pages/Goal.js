@@ -35,15 +35,17 @@ class Goal extends React.Component {
         <main ref="main">
           <div className="position-relative">
             {/* shape Hero */}
-            <section
-              className="section section-lg section-shaped pb-500"
-              style={{
-                width: "100%",
-                height: "1200px",
-                maxWidth: "2000px",
-                margin: "0 auto",
-              }}
-            >
+            <section>
+              <img
+                alt="..."
+                src={require("assets/img/theme/background.png")}
+                style={{
+                  width: "100%",
+                  height: "1200px",
+                  maxWidth: "2000px",
+                  margin: "0 auto",
+                }}
+              />
               <div className="shape shape-style-1 shape-default">
                 <span />
                 <span />
@@ -56,11 +58,12 @@ class Goal extends React.Component {
                   top: "60%", // 수정할 위치 (예: "70%")
                   left: "50%",
                   transform: "translate(-50%, -70%)",
-                  backgroundColor: "white",
+                  backgroundColor: "#f0f0f0",
                   width: "85%", // 수정할 너비
                   height: "800px", // 수정할 높이
                   zIndex: 10,
                   display: "flex",
+                  opacity: "0.8"
                 }}
               >
                 <GoalMain userId={sessionStorage.getItem("userId")} />

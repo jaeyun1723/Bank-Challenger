@@ -22,14 +22,22 @@ class Login extends React.Component {
           <main ref="main">
             <section className="section section-shaped section-lg">
               <div className="shape shape-style-1 shape-default">
-
+              <img
+                alt="..."
+                src={require("assets/img/theme/background02.png")}
+                style={{
+                  width: "100%",
+                  height: "100%",
+                  maxWidth: "2000px",
+                  margin: "0 auto",
+                }}
+              />
               </div>
               <Container className="pt-lg-7">
                 <h2 className="display-3 text-white" style={{textAlign: 'center'}}>
                   {name}님과 같은 {bfr}에 대해 알려드릴게요!
                 </h2>
-
-                <Card container spacing={2} style={{backgroundColor: "#768ff4"}}>
+                <Card container spacing={2} style={{backgroundColor: "#768ff4", border: 'none'}}>
                   <Grid container>
                     <Grid item xs style={{textAlign: "center"}}>
                       <img
@@ -39,7 +47,7 @@ class Login extends React.Component {
                           src={require("assets/img/statistics/HIF.png")}
                       />
                     </Grid>
-                    <Divider orientation="vertical" flexItem/>
+                    <Divider orientation="vertical" flexItem  style={{border: 'none'}}/>
                     <Grid item xs>
                       <h2 className="display-3 mb-0 text-white"
                           style={{textAlign: 'center'}}>

@@ -37,6 +37,7 @@ function GoalMain({ userId }) {
         console.error(err);
       });
   }, [userId]);
+  
   if (goals.length === 0) {
     return <GoalFirstMain />;
   }
@@ -84,7 +85,8 @@ function GoalMain({ userId }) {
         arrows={true}
       >
         {goals.map((goal) => (
-          <Card className="muk d-flex justify-content-center align-items-center">
+          <Card className="muk d-flex justify-content-center align-items-center"
+          >
             <div
               className="slide"
               onClick={() => handleSlideClick(goal.goalId)}

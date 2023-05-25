@@ -10,93 +10,116 @@ import { useHistory } from "react-router-dom";
 import GoalFirstMain from "./GoalFirstMain";
 import { Button, Card } from "reactstrap";
 import "./CreateGoal.css";
+import { Button, Card } from "reactstrap";
 
 const api = axios.create({
   baseURL: "http://localhost:8080", // Replace this with the actual server URL
 });
 
 function GoalMain({ userId }) {
-  const [showCreateGoal, setShowCreateGoal] = useState(false);
-  const [showGoalDetail, setShowGoalDetail] = useState(false);
-  const [selectedGoal, setSelectedGoal] = useState(null);
-  const [goals, setGoals] = useState([]);
-  const history = useHistory();
 
-  const updateGoals = () => {
-    axios
-      .get(`/goal/list/${userId}`)
-      .then((res) => {
-        setGoals(res.data.goals);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+    const [showCreateGoal, setShowCreateGoal] = useState(false);
+    const [showGoalDetail, setShowGoalDetail] = useState(false);
+    const [selectedGoal, setSelectedGoal] = useState(null);
+    const [goals, setGoals] = useState([]);
+    const history = useHistory();
 
-  useEffect(() => {
-    // Fetch goals data from the server
-    axios
-      .get(`/goal/list/${userId}`) // Replace with your backend API URL and user ID
-      .then((res) => {
-        setGoals(res.data.goals);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, [userId]);
-  if (userId === 2 && goals.length === 0) {
-    return <GoalFirstMain />;
-  }
-  const handleSlideClick = (goalId) => {
-    axios
-      .get(`/goal/detail/${goalId}`) // Replace with your backend API URL
-      .then((res) => {
-        setSelectedGoal(res.data);
-        setShowGoalDetail(true);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+    const updateGoals = () => {
+        axios
+            .get(`/goal/list/${userId}`)
+            .then((res) => {
+                setGoals(res.data.goals);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
-  const handleSlideMouseEnter = (e) => {
-    e.currentTarget.style.backgroundColor = "#f0f0f0"; // Change to the color you want
-    e.currentTarget.style.color = "#7691F6";
-  };
+    useEffect(() => {
+        // Fetch goals data from the server
+        axios
+            .get(`/goal/list/${userId}`) // Replace with your backend API URL and user ID
+            .then((res) => {
+                setGoals(res.data.goals);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    }, [userId]);
+    if (userId === 2 && goals.length === 0) {
+        return <GoalFirstMain />;
+    }
+    const handleSlideClick = (goalId) => {
+        axios
+            .get(`/goal/detail/${goalId}`) // Replace with your backend API URL
+            .then((res) => {
+                setSelectedGoal(res.data);
+                setShowGoalDetail(true);
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+    };
 
-  const handleSlideMouseLeave = (e) => {
-    e.currentTarget.style.backgroundColor = "#7691F6"; // Change to the original color
-    e.currentTarget.style.color = "#f0f0f0";
-  };
+    const handleSlideMouseEnter = (e) => {
+        e.currentTarget.style.backgroundColor = "#f0f0f0"; // Change to the color you want
+        e.currentTarget.style.color = "#7691F6";
+    };
 
-  const handleCreateGoalClick = () => {
-    setShowCreateGoal(true);
-    updateGoals();
-  };
+    const handleSlideMouseLeave = (e) => {
+        e.currentTarget.style.backgroundColor = "#7691F6"; // Change to the original color
+        e.currentTarget.style.color = "#f0f0f0";
+    };
 
-  const handleCreateGoalClose = () => {
-    setShowCreateGoal(false);
-    updateGoals();
-  };
+    const handleCreateGoalClick = () => {
+        setShowCreateGoal(true);
+        updateGoals();
+    };
 
-  const handleGoalDetailClose = () => {
-    setShowGoalDetail(false);
-    updateGoals();
-  };
 
-  return (
-    <div className="container mukho">
-      <Slider
-        dots={true}
-        infinite={true}
-        speed={500}
-        slidesToShow={3}
-        slidesToScroll={1}
-        centerPadding="20px"
-        arrows={true}
-      >
-        {goals.map((goal) => (
-          <Card className="muk d-flex justify-content-center align-items-center">
+    const handleCreateGoalClose = () => {
+        setShowCreateGoal(false);
+        updateGoals();
+    };
+
+    const handleGoalDetailClose = () => {
+        setShowGoalDetail(false);
+        updateGoals();
+    };
+
+    return (
+        <div className="container mukho">
+            <Slider
+                dots={true}
+                infinite={true}
+                speed={500}
+                slidesToShow={3}
+                slidesToScroll={1}
+                centerPadding="20px"
+                arrows={true}
+            >
+                {goals.map((goal) => (
+                    <Card className="muk d-flex justify-content-center align-items-center">
+                        <div
+                            className="slide"
+                            onClick={() => handleSlideClick(goal.goalId)}
+                            onMouseEnter={handleSlideMouseEnter}
+                            onMouseLeave={handleSlideMouseLeave}
+                            key={goal.goalId}
+                        >
+                            <div
+                                className="bookmark"
+                                style={{ backgroundColor: goal.goalImage }}
+                            ></div>
+                            <h3>{goal.goalName}</h3>
+                            <h2>{goal.goalAmount}</h2>
+                            <h2>{goal.startDate}</h2>
+                        </div>
+                    </Card>
+                ))}
+            </Slider>
+
+
             <div
               className="slide"
               onClick={() => handleSlideClick(goal.goalId)}
@@ -104,6 +127,22 @@ function GoalMain({ userId }) {
               onMouseLeave={handleSlideMouseLeave}
               key={goal.goalId}
             >
+
+                <Button
+                    color="primary"
+                    onClick={handleCreateGoalClick}
+                    onMouseEnter={handleSlideMouseEnter}
+                    onMouseLeave={handleSlideMouseLeave}
+                    style={{
+                        width: "33%",
+                        backgroundColor: "#7691F6",
+                        border: "0",
+                    }}
+                >
+                    목표 생성
+                </Button>
+            </div>
+
               <div
                 className="bookmark"
                 style={{ backgroundColor: goal.goalImage }}

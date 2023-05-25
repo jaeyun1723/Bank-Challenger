@@ -76,7 +76,7 @@ function GoalMain({ userId }) {
     <div className="container mukho">
       <Slider
         dots={true}
-        infinite={true}
+        infinite={false}
         speed={500}
         slidesToShow={3}
         slidesToScroll={1}

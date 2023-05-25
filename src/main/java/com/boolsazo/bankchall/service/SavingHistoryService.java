@@ -11,4 +11,6 @@ public interface SavingHistoryService {
     List<SavingHistoryResultSet> showAllByGoalId(int goalId) throws Exception;
 
     List<SavingHistoryResultSet> showAllByUserId(int userId) throws Exception;
+
+    int showSavingAmountByUserId(int userId) throws Exception;
 }

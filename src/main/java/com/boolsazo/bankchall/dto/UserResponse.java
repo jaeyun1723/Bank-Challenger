@@ -46,4 +46,7 @@ public class UserResponse {
     @Schema(description = "목표 달성률")
     private int achievementRate;
 
+    @Schema(description = "현재까지 모은 금액")
+    private int savingAmount;
+
 }

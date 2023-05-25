@@ -4,6 +4,7 @@ export default function Loading() {
   axios
     .get("/status/user")
     .then((res) => {
+      console.log("res.data", res.data);
       sessionStorage.setItem("userId", res.data.userId);
       sessionStorage.setItem("name", res.data.name);
       sessionStorage.setItem("email", res.data.email);
@@ -14,9 +15,10 @@ export default function Loading() {
       sessionStorage.setItem("financialType", res.data.financialType);
       sessionStorage.setItem("goalCnt", res.data.goalCnt);
       sessionStorage.setItem("achievementRate", res.data.achievementRate);
+      sessionStorage.setItem("savingAmount", res.data.savingAmount);
     })
     .then(() => {
-      window.location.href = "/";
+      //window.location.href = "/";
     })
     .catch((error) => console.log(error));
 }

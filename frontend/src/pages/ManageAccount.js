@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import {
   Button,
@@ -7,28 +7,10 @@ import {
   CardHeader,
   CardBody,
   Container,
-  Row,
-  Col,
-  ButtonToolbar,
 } from "reactstrap";
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
-import shinhanLogo from "assets/img/brand/shinhan.png";
-import bnkLogo from "assets/img/brand/bnk.png";
-import citiLogo from "assets/img/brand/citi.png";
-import dgbLogo from "assets/img/brand/dgb.png";
-import ibkLogo from "assets/img/brand/ibk.png";
-import kbLogo from "assets/img/brand/kb.png";
-import kdbLogo from "assets/img/brand/kdb.jpg";
-import kjbLogo from "assets/img/brand/kjb.png";
-import mgLogo from "assets/img/brand/mg.jpg";
-import nonghyupLogo from "assets/img/brand/nonghyup.png";
-import sanghoLogo from "assets/img/brand/sangho.jpg";
-import scLogo from "assets/img/brand/sc.png";
-import shinhyupLogo from "assets/img/brand/shinhyup.jpg";
-import suhyupLogo from "assets/img/brand/suhyup.png";
-import wooriLogo from "assets/img/brand/woori.jpg";
-import hanaLogo from "assets/img/brand/hana.png";
+import bankLogo from "components/Banks/BankLogo"
 function ManageAccount() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -74,51 +56,6 @@ function ManageAccount() {
         .catch((error) => console.log(error));
     }
   }, []);
-
-  function getBankLogo(bankName) {
-    switch (bankName) {
-      case "신한은행":
-        return shinhanLogo;
-      case "KDB산업은행":
-        return kdbLogo;
-      case "IBK기업은행":
-        return ibkLogo;
-      case "KB국민은행":
-        return kbLogo;
-      case "수협은행":
-        return suhyupLogo;
-      case "NH농협은행":
-        return nonghyupLogo;
-      case "우리은행":
-        return wooriLogo;
-      case "SC제일은행":
-        return scLogo;
-      case "한국씨티은행":
-        return citiLogo;
-      case "대구은행":
-        return dgbLogo;
-      case "부산은행":
-        return bnkLogo;
-      case "광주은행":
-        return kjbLogo;
-      case "제주은행":
-        return shinhanLogo;
-      case "전북은행":
-        return kjbLogo;
-      case "경남은행":
-        return bnkLogo;
-      case "새마을금고":
-        return mgLogo;
-      case "신협":
-        return shinhyupLogo;
-      case "상호저축은행":
-        return sanghoLogo;
-      case "하나은행":
-        return hanaLogo;
-      default:
-        return "";
-    }
-  }
 
   function RegisterWithdrawAccount() {
     const registerWAccountClick = () => {
@@ -278,17 +215,7 @@ function ManageAccount() {
                   <tr>
                     <th rowSpan="2">
                       <span>
-                        <img
-                          alt="..."
-                          className="img-fluid"
-                          src={getBankLogo(it.bankName)}
-                          style={{
-                            textAlign: "left",
-                            marginBottom: "3px",
-                            width: "35px",
-                            marginRight: "10px",
-                          }}
-                        />
+                        {bankLogo(it.bankName)}
                       </span>
                     </th>
                     <th
@@ -364,17 +291,7 @@ function ManageAccount() {
                   <tr>
                     <th rowSpan="2">
                       <span>
-                        <img
-                          alt="..."
-                          className="img-fluid"
-                          src={getBankLogo(it.bankName)}
-                          style={{
-                            textAlign: "left",
-                            marginBottom: "3px",
-                            width: "35px",
-                            marginRight: "10px",
-                          }}
-                        />
+                      {bankLogo(it.bankName)}
                       </span>
                     </th>
                     <th

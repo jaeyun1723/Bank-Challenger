@@ -54,12 +54,11 @@ const Profile = () => {
         <section className="section-profile-cover">
         <img
                 alt="..."
-                src={require("assets/img/theme/background.png")}
+                src={require("assets/img/theme/background03.png")}
                 style={{
                   width: "100%",
-                  height: "1400px",
+                  height: "1650px",
                   maxWidth: "2000px",
-                  margin: "0 auto",
                 }}
               />
           {/* SVG separator */}

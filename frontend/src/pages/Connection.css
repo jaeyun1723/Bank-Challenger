@@ -1,6 +1,6 @@
 .connection {
-    width: 350px;
-    height: 400px;
+    width: 767px;
+    height: 767px;
     border-radius: 40px;
     flex-direction: column;
     gap: 20px;

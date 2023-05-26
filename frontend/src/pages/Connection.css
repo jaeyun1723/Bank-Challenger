@@ -1,6 +1,7 @@
 .connection {
-    width: 767px;
-    height: 767px;
+
+    width: 350px;
+    height: 200px;
     border-radius: 40px;
     flex-direction: column;
     gap: 20px;
@@ -8,6 +9,6 @@
     display: flex;
     margin: 0 auto;
     padding: 1rem;
-    box-sizing: border-box;
+
     /* 추가적인 스타일 지정 */
 }

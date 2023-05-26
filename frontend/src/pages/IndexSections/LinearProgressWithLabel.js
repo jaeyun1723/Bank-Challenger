@@ -28,25 +28,9 @@ LinearProgressWithLabel.propTypes = {
 };
 
 export default function LinearWithValueLabel(prop) {
-  const [progress, setProgress] = React.useState(prop.progress * 12.5);
-  if (prop.progress * 12.5 == 100) {
-    console.log('폼 제출하기')
-  }
-
-  // React.useEffect(() => {
-  //   setProgress(prop.progress * 10);
-
-    // const timer = setInterval(() => {
-    //   setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
-    // }, 800);
-    // return () => {
-    //   clearInterval(timer);
-    // };
-  // }, []);
-
   return (
       <Box sx={{ width: '100%' }}>
-        <LinearProgressWithLabel value={prop.progress * 12.5} />
+        <LinearProgressWithLabel value={prop.progress * 11.1} />
       </Box>
   );
 }

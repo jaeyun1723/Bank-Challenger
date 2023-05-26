@@ -10,6 +10,7 @@ import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.StatisticsService;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public StatisticsCategoryResponse goalStatistics(int userId) throws Exception {
-        CategoryResultSet result;
+        List<CategoryResultSet> result;
         try {
             result = userRepository.goalStatistics(userId);
         } catch (Exception e) {
@@ -49,7 +50,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                     genderAge.setWoman(result.getCount());
                 }
             }
-
+            System.out.println(genderAge);
             response.add(genderAge);
         }
 
@@ -58,13 +59,13 @@ public class StatisticsServiceImpl implements StatisticsService {
 
     @Override
     public StatisticsJobResponse StatisticsJobResponse(int userId) throws Exception {
-        OccupationResultSet result;
+        List<OccupationResultSet> result;
         try {
             result = userRepository.jobStatistics(userId);
         } catch (Exception e) {
             throw new Exception("통계 처리 중 에러" , e);
         }
 
-        return null;
+        return new StatisticsJobResponse(result);
     }
 }

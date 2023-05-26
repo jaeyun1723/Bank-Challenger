@@ -7,7 +7,6 @@ import LinearProgressWithLabel from "./IndexSections/LinearProgressWithLabel.js"
 import ResponsiveDialog from "./IndexSections/ResponsiveDialog.js";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
-// import ResponsiveDialog from "./IndexSections/ResponsiveDialog.js";
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
@@ -63,7 +62,10 @@ const questions = [
     answer_1: "짧고 굵게 세운다. ",
     answer_2: "길고 가늘게 세운다. ",
   },
-  { question: "", answer_1: "", answer_2: "" },
+  { question: "삶에 있어서 인생 계획을 세울 때, 나는 ",
+    answer_1: "짧고 굵게 세운다. ",
+    answer_2: "길고 가늘게 세운다. "
+  }
 ];
 
 const request = {
@@ -85,7 +87,7 @@ export default function RowAndColumnSpacing(props) {
 
   const handleNext = () => {
     request.userId = userId;
-    setIndex((cur) => cur + 1);
+    console.log(index)
     if (index === 2) {
       request.investTendency = answer1 > answer2 ? 1 : 2;
       setAnswer1(0);
@@ -104,8 +106,12 @@ export default function RowAndColumnSpacing(props) {
       setAnswer2(0);
     }
 
-    if (index === 7) {
+    if (index === 8) {
       setFlag(true);
+    } else {
+      console.log('???')
+      console.log(index)
+      setIndex((cur) => cur + 1);
     }
   };
 

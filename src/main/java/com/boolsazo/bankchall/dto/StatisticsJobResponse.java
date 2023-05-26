@@ -1,6 +1,9 @@
 package com.boolsazo.bankchall.dto;
 
+import com.boolsazo.bankchall.domain.Occupation;
+import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,4 +41,30 @@ public class StatisticsJobResponse {
 
     @Schema(description = "서비스직", defaultValue = "0")
     private int service = 0;
+
+    public StatisticsJobResponse(List<OccupationResultSet> resultSet) {
+        for (OccupationResultSet ors : resultSet) {
+            String occupation = ors.getOccupation();
+            int count = ors.getCount();
+            if (occupation.equals(Occupation.IN_OCCUPATION.getKor())) {
+                this.inoccupation = count;
+            } else if (occupation.equals(Occupation.STUDENT.getKor())) {
+                this.student = count;
+            } else if (occupation.equals(Occupation.EMPLOYEE.getKor())) {
+                this.employee = count;
+            } else if (occupation.equals(Occupation.OWNER_OPERATOR.getKor())) {
+                this.ownerOperator = count;
+            } else if (occupation.equals(Occupation.SPECIALIZED_JOB.getKor())) {
+                this.specializedJob = count;
+            } else if (occupation.equals(Occupation.FREELANCER.getKor())) {
+                this.freelancer = count;
+            } else if (occupation.equals(Occupation.CIVIL_SERVANT.getKor())) {
+                this.civilServant = count;
+            } else if (occupation.equals(Occupation.SERVICE.getKor())) {
+                this.service = count;
+            } else if (occupation.equals(Occupation.ENGINEERING.getKor())) {
+                this.engineer = count;
+            }
+        }
+    }
 }

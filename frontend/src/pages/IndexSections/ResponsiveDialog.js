@@ -16,11 +16,10 @@ export default function ResponsiveDialog(props) {
   const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
 
   const Submit = () => {
-    console.log(props.request)
     setOpen(false);
     axios.post("/bfr", props.request)
     .then(response => {
-      window.location.href = "/";
+      window.location.href = "/bfr-result";
     })
     .catch(error => console.log(error));
 

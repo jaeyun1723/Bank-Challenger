@@ -3,6 +3,7 @@ package com.boolsazo.bankchall.repository;
 import com.boolsazo.bankchall.dto.resultSet.CategoryResultSet;
 import com.boolsazo.bankchall.dto.resultSet.GenderAgeResultSet;
 import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
+import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,9 +22,12 @@ public class StatisticsTest {
     @Test
     @DisplayName("금융대사량에 따른 목표")
     void goalStatistic() {
-        CategoryResultSet result = userRepository.goalStatistics(1);
-        System.out.println("카테고리: " + result.getCategory());
-        System.out.println("개수: " + result.getCount());
+        List<CategoryResultSet> result = userRepository.goalStatistics(1);
+        for (CategoryResultSet cr: result) {
+            System.out.println("카테고리: " + cr.getCategory());
+            System.out.println("개수: " + cr.getCount());
+        }
+//
     }
 
     @Test
@@ -43,8 +47,12 @@ public class StatisticsTest {
     @Test
     @DisplayName("금융대사량에 따른 목표")
     void jobStatistics() {
-        OccupationResultSet result = userRepository.jobStatistics(1);
-        System.out.println("직업: " + result.getOccupation());
-        System.out.println("개수: " + result.getCount());
+        List<OccupationResultSet> result = userRepository.jobStatistics(1);
+        for (OccupationResultSet cr: result) {
+            System.out.println("카테고리: " + cr.getOccupation());
+            System.out.println("개수: " + cr.getCount());
+        }
+//        System.out.println("직업: " + result.getOccupation());
+//        System.out.println("개수: " + result.getCount());
     }
 }

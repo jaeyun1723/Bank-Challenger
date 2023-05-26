@@ -37,7 +37,7 @@ function GoalMain({ userId }) {
         console.error(err);
       });
   }, [userId]);
-  
+
   if (goals.length === 0) {
     return <GoalFirstMain />;
   }
@@ -54,8 +54,8 @@ function GoalMain({ userId }) {
   };
 
   const handleSlideMouseEnter = (e) => {
-    e.currentTarget.style.backgroundColor = "#f0f0f0";
-    e.currentTarget.style.color = "#7691F6";
+    e.currentTarget.style.backgroundColor = "#172b4d";
+    e.currentTarget.style.color = "#f0f0f0";
   };
 
   const handleSlideMouseLeave = (e) => {
@@ -73,6 +73,10 @@ function GoalMain({ userId }) {
     updateGoals();
   };
 
+  const handleAddRule = () => {
+    alert("규칙 추가");
+  };
+
   return (
     <div className="container mukho">
       <Slider
@@ -85,8 +89,7 @@ function GoalMain({ userId }) {
         arrows={true}
       >
         {goals.map((goal) => (
-          <Card className="muk d-flex justify-content-center align-items-center"
-          >
+          <Card className="muk d-flex justify-content-center align-items-center">
             <div
               className="slide"
               onClick={() => handleSlideClick(goal.goalId)}
@@ -97,11 +100,21 @@ function GoalMain({ userId }) {
               <div
                 className="bookmark"
                 style={{ backgroundColor: goal.goalImage }}
-              ></div>
+              />
               <h3>{goal.goalName}</h3>
               <h2>{goal.goalAmount}</h2>
               <h2>{goal.startDate}</h2>
             </div>
+            <Button
+              className="add-rule"
+              onClick={handleAddRule}
+              style={{
+                width: "60%",
+                justifyContent: "center",
+              }}
+            >
+              규칙 추가
+            </Button>
           </Card>
         ))}
       </Slider>

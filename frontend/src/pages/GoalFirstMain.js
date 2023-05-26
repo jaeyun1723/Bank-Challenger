@@ -33,7 +33,7 @@ function GoalFirstMain() {
   };
 
   const handleSlideMouseEnter = (e) => {
-    e.currentTarget.style.backgroundColor = "#f0f0f0"; // change to the color you want
+    e.currentTarget.style.backgroundColor = "#172b4d"; // change to the color you want
   };
 
   const handleSlideMouseLeave = (e) => {

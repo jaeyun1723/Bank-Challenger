@@ -21,10 +21,12 @@
 
 .muk {
   border: none !important;
+  background-color: rgb(240, 240, 240) !important;
+  opacity: 0.8 !important;
 }
 
 .slide:hover {
-  background-color: #f0f0f0;
+  background-color: #172b4d;
 }
 
 .slide h3 {
@@ -38,11 +40,11 @@
 }
 
 .slide:hover h3 {
-  color: #7691f6;
+  color: #f0f0f0;
 }
 
 .slide:hover h2 {
-  color: #7691f6;
+  color: #f0f0f0;
 }
 
 .slide p {
@@ -58,4 +60,8 @@
   top: -30px;
   left: -30px;
   border: 2px solid #000000;
+}
+
+.add-rule {
+  top: -150px;
 }

@@ -2,6 +2,7 @@ package com.boolsazo.bankchall.service;
 
 import com.boolsazo.bankchall.domain.GoalAccount;
 import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
+import java.util.List;
 import java.util.Optional;
 
 public interface GoalAccountService {
@@ -14,6 +15,6 @@ public interface GoalAccountService {
 
     void deleteByGoalId(int goalId) throws Exception;
 
-    Optional<GoalAccount> findByGoalId(int goalId) throws Exception;
+    List<GoalAccount> findByGoalId(int goalId) throws Exception;
 
 }

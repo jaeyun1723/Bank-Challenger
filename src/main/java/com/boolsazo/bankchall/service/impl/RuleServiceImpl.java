@@ -89,8 +89,15 @@ public class RuleServiceImpl implements RuleService {
                 new SavingHistory(resultSet.getSaving_Amount(), resultSet.getSaving_Date()));
         }
 
+        int goalAmount = goalRepository.findGoalAmountByGoalId(goalId);
+        int savingAmount = savingHistoryRepository.showSavingAmountByGoalId(goalId);
+        int calcPercent = (int) Math.round(((savingAmount / (double) goalAmount)) * 100);
+        int percent = (savingAmount > 0) ? ((calcPercent > 100) ? 100 : calcPercent) : 0;
+
         RuleDetailResponse result = RuleDetailResponse.builder()
                                         .goalId(goalId)
+                                        .goalAmount(goalAmount)
+                                        .percent(percent)
                                         .withdrawInfo(new RuleDetailResponse.AccountInfo(
                                             goalWAccount.getAccount_Num_Masked(),
                                             goalWAccount.getBank_Name()))

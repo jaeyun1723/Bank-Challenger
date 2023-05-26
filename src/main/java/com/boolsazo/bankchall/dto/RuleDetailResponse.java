@@ -37,6 +37,12 @@ public class RuleDetailResponse {
     @Schema(description = "규칙에 추가된 해당 목표 pk")
     private int goalId;
 
+    @Schema(description = "목표 금액")
+    private int goalAmount;
+
+    @Schema(description = "현재 모은 금액(퍼센트)")
+    private int percent;
+
     @Schema(description = "출금 계좌 정보")
     private AccountInfo withdrawInfo;
 

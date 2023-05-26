@@ -18,6 +18,7 @@ import {
 
 function Survey() {
   const userId = sessionStorage.getItem("userId");
+  const financialType = sessionStorage.getItem("financialType");
 
   const [isMarried, setIsMarried] = useState("미혼"); // 결혼 여부
   const [monthlyIncome, setMonthlyIncome] = useState(0); // 월 소득
@@ -128,6 +129,8 @@ function Survey() {
   }
 
   if (userId === null || sessionStorage.getItem("financialType") !== "null") {
+    window.location.href = "/";
+  } else if (financialType !== "null") {
     window.location.href = "/";
   } else {
     return (

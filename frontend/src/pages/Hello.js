@@ -10,7 +10,7 @@ class Hello extends React.Component {
   componentDidMount() {
     document.documentElement.scrollTop = 0;
     document.scrollingElement.scrollTop = 0;
-    this.refs.main.scrollTop = 0;
+    //this.refs.main.scrollTop = 0;
   }
 
   render() {
@@ -28,31 +28,38 @@ class Hello extends React.Component {
       verticalAlign: true,
     };
 
-    return (
-      <>
-        <DemoNavbar />
-        <main ref="main">
-          <ScrollToTopOnMount />
-          <SectionsContainer {...options}>
-            <Section>
-              <Main01 />
-            </Section>
-            <Section>
-              <Main02 />
-            </Section>
-            <Section>
-              <Main03 />
-            </Section>
-            <Section>
-              <Main04 />
-            </Section>
-            <Section>
-              <Main05 />
-            </Section>
-          </SectionsContainer>
-        </main>
-      </>
-    );
+    const userId = sessionStorage.getItem("userId");
+    const financialType = sessionStorage.getItem("financialType");
+
+    if (userId !== null && financialType === "null") {
+      window.location.href = "/survey";
+    } else {
+      return (
+        <>
+          <DemoNavbar />
+          <main ref="main">
+            <ScrollToTopOnMount />
+            <SectionsContainer {...options}>
+              <Section>
+                <Main01 />
+              </Section>
+              <Section>
+                <Main02 />
+              </Section>
+              <Section>
+                <Main03 />
+              </Section>
+              <Section>
+                <Main04 />
+              </Section>
+              <Section>
+                <Main05 />
+              </Section>
+            </SectionsContainer>
+          </main>
+        </>
+      );
+    }
   }
 }
 

@@ -9,12 +9,15 @@ import axios from "axios";
 import GoalFirstMain from "./GoalFirstMain";
 import { Button, Card } from "reactstrap";
 import "./CreateGoal.css";
+import RegisterRule from "./RegisterRule";
 
 function GoalMain({ userId }) {
   const [showCreateGoal, setShowCreateGoal] = useState(false);
   const [showGoalDetail, setShowGoalDetail] = useState(false);
+  const [showRule, setShowRule] = useState(false);
   const [selectedGoal, setSelectedGoal] = useState(null);
   const [goals, setGoals] = useState([]);
+  const [selectedGoalId, setSelectedGoalId] = useState('');
 
   const updateGoals = () => {
     axios
@@ -73,8 +76,14 @@ function GoalMain({ userId }) {
     updateGoals();
   };
 
-  const handleAddRule = () => {
-    alert("규칙 추가");
+  const handleAddRule = (goalId) => {
+    alert(goalId);
+    setSelectedGoalId(goalId);
+    setShowRule(true);
+  };
+
+  const handleRuleClose = () => {
+    setShowRule(false);
   };
 
   return (
@@ -107,7 +116,7 @@ function GoalMain({ userId }) {
             </div>
             <Button
               className="add-rule"
-              onClick={handleAddRule}
+              onClick={() => handleAddRule(goal.goalId)}
               style={{
                 width: "60%",
                 justifyContent: "center",
@@ -170,6 +179,7 @@ function GoalMain({ userId }) {
           </button>
         </div>
       )}
+
       {showCreateGoal && (
         <div
           style={{
@@ -220,6 +230,42 @@ function GoalMain({ userId }) {
           onClick={handleGoalDetailClose}
         />
       )}
+
+      {showRule && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            backgroundColor: "white",
+            padding: "1em",
+            zIndex: 1000,
+          }}
+        >
+          <RegisterRule
+            goalId={selectedGoalId}
+            onClose={handleRuleClose}
+          />
+          <button onClick={handleRuleClose}>Close</button>
+        </div>
+      )}
+
+      {showRule && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            zIndex: 999,
+          }}
+          onClick={handleRuleClose}
+        />
+      )}
+
     </div>
   );
 }

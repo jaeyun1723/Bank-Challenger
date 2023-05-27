@@ -30,7 +30,7 @@ const handleNext = () => {
     };
 
     return (
-
+<div>
             {showRegisterRule ? (
                 <RegisterRule />
             ) : (

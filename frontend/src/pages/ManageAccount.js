@@ -11,6 +11,7 @@ import {
 import DemoNavbar from "components/Navbars/DemoNavbar.js";
 import SimpleFooter from "components/Footers/SimpleFooter.js";
 import bankLogo from "components/Banks/BankLogo"
+
 function ManageAccount() {
   useEffect(() => {
     document.documentElement.scrollTop = 0;

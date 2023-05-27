@@ -13,6 +13,7 @@ import RegisterRule from "./RegisterRule";
 import { Box, Stack } from "@mui/material";
 import { Progress, Col } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
+import { Link } from 'react-router-dom';
 
 function GoalMain({ userId }) {
   if (userId === null) {
@@ -77,7 +78,6 @@ function GoalMain({ userId }) {
 
   const handleCreateGoalClick = () => {
     setShowCreateGoal(true);
-    updateGoals();
   };
 
   const handleGoalDetailClose = () => {
@@ -221,7 +221,7 @@ function GoalMain({ userId }) {
             boxShadow: "0 2px 30px rgba(0, 0, 0, 0.3)",
           }}
         >
-          <CreateGoal />
+          <GoalFirstMain/>
           <button
             onClick={() => setShowCreateGoal(false)}
             style={{

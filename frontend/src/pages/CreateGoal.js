@@ -12,6 +12,7 @@ import {DatePicker} from '@mui/x-date-pickers/DatePicker';
 import {Typography} from "@material-ui/core";
 import {TextField} from "@material-ui/core";
 import {Button} from "@material-ui/core";
+import Input from '@mui/material/Input';
 
 // Instantiate axios with a base URL
 const api = axios.create({
@@ -21,7 +22,7 @@ const api = axios.create({
 function CreateGoal({setIsOpen}) {
     const [inputMode, setInputMode] = useState("manual");
     const [userId, setUserId] = useState(sessionStorage.getItem("userId"));
-    const [category, setCategory] = useState("");
+    const [category, setCategory] = useState(setIsOpen);
     const [goalName, setGoalName] = useState("");
     const [productId, setProductId] = useState("");
     const [goalAmount, setGoalAmount] = useState("");
@@ -34,7 +35,13 @@ function CreateGoal({setIsOpen}) {
     const [searchQuery, setSearchQuery] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null); // Added state to store the selected search result
-
+    const ariaLabel = { 'aria-label': 'description' };
+    const goals = [
+        { id: 1, title: "모으자", description: "~~~~~~" },
+        { id: 2, title: "사보자", description: "~~~~~~~" },
+        { id: 3, title: "가보자", description: "~~~~~~" },
+        // other goals...
+    ];
     const handleColorChange = (e) => {
         setGoalImage(e.target.value);
     };
@@ -172,6 +179,8 @@ function CreateGoal({setIsOpen}) {
                     <form className="create-goal" onSubmit={handleSubmit}>
                         <div className="inputs">
                             <TextField
+                                placeholder="목표 이름"
+                                inputProps={ariaLabel}
                                 className = "textfield1"
                                 type="text"
                                 value={goalName}
@@ -184,6 +193,8 @@ function CreateGoal({setIsOpen}) {
 
                         <div className="inputs">
                             <TextField
+                                placeholder="목표 금액"
+                                inputProps={ariaLabel}
                                 className = "textfield2"
                                 type="text"
                                 value={goalAmount}
@@ -290,6 +301,8 @@ function CreateGoal({setIsOpen}) {
                         </div>
                         <div className="inputs">
                             <TextField
+                                placeholder="목표 이름"
+                                inputProps={ariaLabel}
                                 className = "textfield1"
                                 type="text"
                                 value={goalName}
@@ -304,6 +317,8 @@ function CreateGoal({setIsOpen}) {
                         <>
                             <label>
                                 <TextField
+                                    placeholder="목표 금액"
+                                    inputProps={ariaLabel}
                                     className = "textfield2"
                                     type="text"
                                     value={goalAmount}

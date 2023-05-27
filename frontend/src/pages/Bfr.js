@@ -25,14 +25,16 @@ class Login extends React.Component {
           <main ref="main">
             <section className="section section-shaped section-lg">
               <div className="shape shape-style-1 shape-default">
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
-                <span />
+              <img
+                alt="..."
+                src={require("assets/img/theme/background.png")}
+                style={{
+                  width: "100%",
+                  height: "1200px",
+                  maxWidth: "2000px",
+                  margin: "0 auto",
+                }}
+              />
               </div>
               <Container className="pt-lg-7">
                 <RowAndColumnSpacing answer1={0} answer2={0} index={0} />

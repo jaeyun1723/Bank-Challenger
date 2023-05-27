@@ -6,6 +6,7 @@ import com.boolsazo.bankchall.repository.GoalRepository;
 import com.boolsazo.bankchall.repository.SavingHistoryRepository;
 import com.boolsazo.bankchall.service.GoalService;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,4 +78,8 @@ public class GoalServiceImpl implements GoalService {
         return goalListResponse;
     }
 
+    @Override
+    public List<Goal> findAll(){
+        return goalRepository.findAll();
+    }
 }

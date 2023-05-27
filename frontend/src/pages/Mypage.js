@@ -52,15 +52,15 @@ const Profile = () => {
       <DemoNavbar />
       <main className="profile-page">
         <section className="section-profile-cover">
-        <img
-                alt="..."
-                src={require("assets/img/theme/background03.png")}
-                style={{
-                  width: "100%",
-                  height: "1650px",
-                  maxWidth: "2000px",
-                }}
-              />
+          <img
+            alt="..."
+            src={require("assets/img/theme/background03.png")}
+            style={{
+              width: "100%",
+              height: "1650px",
+              maxWidth: "2000px",
+            }}
+          />
           {/* SVG separator */}
           <div className=" separator-skew">
             <svg
@@ -70,9 +70,8 @@ const Profile = () => {
               viewBox="0 0 2560 100"
               x="0"
               y="0"
-            >
-            </svg>
-          </div >
+            ></svg>
+          </div>
         </section>
         <section className="section">
           <Container>
@@ -86,22 +85,27 @@ const Profile = () => {
                           alt="..."
                           className="rounded-circle"
                           src={sessionStorage.getItem("profileImage")}
-                          style={{ maxWidth:'300px', width:'250px', height:'250px'}}
+                          style={{
+                            maxWidth: "300px",
+                            width: "250px",
+                            height: "250px",
+                          }}
                         />
                       </a>
                     </div>
                   </Col>
                   <Col
-                    className="order-lg-3 text-lg-right align-self-lg-center" lg="4">
-                    <div className="card-profile-actions py-4 mt-lg-0">
-                    </div>
+                    className="order-lg-3 text-lg-right align-self-lg-center"
+                    lg="4"
+                  >
+                    <div className="card-profile-actions py-4 mt-lg-0"></div>
                   </Col>
                   <Col className="order-lg-1" lg="4">
                     <div></div>
                   </Col>
                 </Row>
                 <div className="text-center mt-5">
-                  <h3 style={{marginTop:'140px'}}>
+                  <h3 style={{ marginTop: "140px" }}>
                     {sessionStorage.getItem("name")}
                     <span className="font-weight-light">
                       , {sessionStorage.getItem("age")}
@@ -113,15 +117,21 @@ const Profile = () => {
                 </div>
                 <div className="card-profile-stats d-flex justify-content-center">
                   <div>
-                    <span className="heading">{sessionStorage.getItem("goalCnt")}</span>
+                    <span className="heading">
+                      {sessionStorage.getItem("goalCnt")}
+                    </span>
                     <span className="description">목표 갯수</span>
                   </div>
                   <div>
-                    <span className="heading">{sessionStorage.getItem("achievementRate")}</span>
+                    <span className="heading">
+                      {sessionStorage.getItem("achievementRate")}
+                    </span>
                     <span className="description">목표 달성률</span>
                   </div>
                   <div>
-                    <span className="heading">{sessionStorage.getItem("savingAmount")}</span>
+                    <span className="heading">
+                      {sessionStorage.getItem("savingAmount")}
+                    </span>
                     <span className="description">현재까지 모은 금액</span>
                   </div>
                 </div>
@@ -129,7 +139,8 @@ const Profile = () => {
                   <Row className="justify-content-center">
                     <Col lg="3">
                       <div>
-                        결혼 유무: {survey["married"] === 1 ? "기혼" : "미혼"}{" "}
+                        결혼 유무:{" "}
+                        {survey["married"] === true ? "기혼" : "미혼"}{" "}
                       </div>
                       <div>월 소득: {survey["monthlyIncome"]}만원</div>
                       <div>직종 : {survey["occupation"]}</div>

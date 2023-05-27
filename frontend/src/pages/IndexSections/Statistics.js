@@ -36,20 +36,6 @@ export default function Statistics() {
 
   useEffect(() => {
     axios
-    .get("/statistics/goal/" + sessionStorage.getItem("userId"))
-    .then((response) => {
-      goal.buy = response.data.buy
-      goal.go  = response.data.go
-      goal.collect  = response.data.collect
-      console.log(response.data)
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-  }, []);
-
-  useEffect(() => {
-    axios
     .get("/statistics/gender-age/" + sessionStorage.getItem("userId"))
     .then((response) => {
       result = response.data.result
@@ -65,41 +51,27 @@ export default function Statistics() {
           <Grid item>
             <h3 className="display-3 text-white" style={{textAlign: 'center'}}>직종 통계</h3>
             <Item><Chart job = {job}/></Item>
-            <br />
-            <h4 className="text-white" style={{textAlign: 'center'}}>
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes1.png")}
-              />
-              {bfr}을 가진 사람들은 '생산직'인 사람이 많네요!
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes2.png")}
-              />
-            </h4>
+            {/*<br />*/}
+            {/*<h4 className="text-white" style={{textAlign: 'center'}}>*/}
+            {/*  <img*/}
+            {/*      style={{width: "60px"}}*/}
+            {/*      alt="..."*/}
+            {/*      src={require("assets/img/statistics/double-quotes1.png")}*/}
+            {/*  />*/}
+            {/*  {bfr}을 가진 사람들은 '생산직'인 사람이 많네요!*/}
+            {/*  <img*/}
+            {/*      style={{width: "60px"}}*/}
+            {/*      alt="..."*/}
+            {/*      src={require("assets/img/statistics/double-quotes2.png")}*/}
+            {/*  />*/}
+            {/*</h4>*/}
           </Grid>
           <br/>
           <Grid item>
             <h2 className="display-3 text-white" style={{textAlign: 'center'}}>
               목표 통계
             </h2>
-            <Item><PieChart /></Item>
-            <br />
-            <h4 className="text-white" style={{textAlign: 'center'}}>
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes1.png")}
-              />
-              {bfr}을 가진 사람들은 '해보자' 목표를 가진 사람이 많네요!
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes2.png")}
-              />
-            </h4>
+            <Item><PieChart bfr = {bfr}/></Item>
           </Grid>
           <br/>
           <Grid item>
@@ -107,20 +79,6 @@ export default function Statistics() {
               성별/나이 통계
             </h2>
             <Item><Bar /></Item>
-            <br />
-            <h4 className="text-white" style={{textAlign: 'center'}}>
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes1.png")}
-              />
-              {bfr}을 가진 사람들은 '해보자' 목표를 가진 사람이 많네요!
-              <img
-                  style={{width: "60px"}}
-                  alt="..."
-                  src={require("assets/img/statistics/double-quotes2.png")}
-              />
-            </h4>
           </Grid>
         </Grid>
       </Box>

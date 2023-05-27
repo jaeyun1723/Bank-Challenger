@@ -15,6 +15,12 @@ public class StatisticsGenderAgeResponse {
     @Schema(description = "통계 결과값")
     List<GenderAge> result;
 
+    @Schema(description = "가장 많은 나잇대")
+    int bestAge;
+
+    @Schema(description = "가장 많은 성별")
+    int bestGender;
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Setter
@@ -30,6 +36,7 @@ public class StatisticsGenderAgeResponse {
         @Schema(description = "여성", defaultValue = "0")
         private int woman = 0;
     }
+
     public StatisticsGenderAgeResponse(List<GenderAge> result) {
         this.result = result;
     }

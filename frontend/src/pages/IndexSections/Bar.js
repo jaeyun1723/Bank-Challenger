@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Chart from 'react-apexcharts'
+import axios from "axios";
 
 export default class test extends Component {
   constructor(props) {
@@ -19,12 +20,24 @@ export default class test extends Component {
 
       series: [{
         name: '남',
-        data: [44, 55, 41, 64, 22, 43, 21]
+        data: []
       }, {
         name: '여',
-        data: [53, 32, 33, 52, 13, 44, 32]
+        data: []
       }]
     }
+
+    axios.get("/statistics/gender-age/" + sessionStorage.getItem("userId"))
+    .then(res => {
+          for (let i = 0; i < 7; i++) {
+            this.state.series[0].data.push(res.data.result[i].man)
+            this.state.series[1].data.push(res.data.result[i].woman)
+            console.log(res.data.result[i])
+          }
+          console.log(this.state.series[0].data)
+          // console.log(res.data.result)
+        }
+    )
   }
   render() {
     return (

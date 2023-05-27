@@ -109,8 +109,8 @@ export default function RowAndColumnSpacing(props) {
     if (index === 8) {
       setFlag(true);
     } else {
-      console.log('???')
-      console.log(index)
+      // console.log('???')
+      // console.log(index)
       setIndex((cur) => cur + 1);
     }
   };
@@ -153,7 +153,7 @@ export default function RowAndColumnSpacing(props) {
                       color:"white",
                       "&:hover": {
                         cursor: "pointer",
-                        color: "red",
+                        color: "white",
                         backgroundColor: "",
                         opacity: [0.9, 0.8, 0.7],
                       },

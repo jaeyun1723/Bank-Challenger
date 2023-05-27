@@ -11,41 +11,43 @@ class Login extends React.Component {
   }
 
   render() {
-    const userId = sessionStorage.getItem("userId");
-    const financialType = sessionStorage.getItem("financialType");
-
-    if (userId === null) {
-      window.location.href = "/";
-    } else if (financialType !== "null") {
-      window.location.href = "/";
-    } else {
-      return (
+    // const userId = sessionStorage.getItem("userId");
+    // const financialType = sessionStorage.getItem("financialType");
+    //
+    // if (userId === null) {
+    // window.location.href = "/";
+    // } else if (financialType !== "null") {
+    // window.location.href = "/";
+    // } else {
+    return (
         <>
           <DemoNavbar />
           <main ref="main">
             <section className="section section-shaped section-lg">
               <div className="shape shape-style-1 shape-default">
-              <img
-                alt="..."
-                src={require("assets/img/theme/background.png")}
-                style={{
-                  width: "100%",
-                  height: "1200px",
-                  maxWidth: "2000px",
-                  margin: "0 auto",
-                }}
-              />
+                <img
+                    alt="..."
+                    src={require("assets/img/theme/background.png")}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      maxWidth: "2000px",
+                      margin: "0 auto",
+                    }}
+                />
               </div>
               <Container className="pt-lg-7">
                 <RowAndColumnSpacing answer1={0} answer2={0} index={0} />
+                <br />
+                <br />
               </Container>
             </section>
           </main>
           {/*<SimpleFooter />*/}
         </>
-      );
-    }
+    );
   }
 }
+// }
 
 export default Login;

@@ -38,6 +38,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         // 연령대
         String[] ageArr = {"0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-"};
         List<GenderAge> response = new ArrayList<>();
+
         for (String age : ageArr) {
             StatisticsGenderAgeResponse.GenderAge genderAge = new StatisticsGenderAgeResponse.GenderAge();
             GenderAgeResultSet result = userRepository.genderAgeStatistics(userId, age);

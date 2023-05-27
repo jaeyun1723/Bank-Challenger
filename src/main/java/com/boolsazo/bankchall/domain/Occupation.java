@@ -6,18 +6,20 @@ import lombok.NoArgsConstructor;
 
 @Getter
 public enum Occupation {
-    IN_OCCUPATION("무직"),
-    STUDENT("학생"),
-    EMPLOYEE("회사원"),
-    OWNER_OPERATOR("자영업자"),
-    SPECIALIZED_JOB("전문직"),
-    FREELANCER("프리랜서"),
-    CIVIL_SERVANT("공무원"),
-    SERVICE("서비스업"),
-    ENGINEERING("엔지니어");
+    IN_OCCUPATION("inoccupation", "무직"),
+    STUDENT("student", "학생"),
+    EMPLOYEE("employee", "회사원"),
+    OWNER_OPERATOR("ownerOperator", "자영업자"),
+    SPECIALIZED_JOB("specializedJob", "전문직"),
+    FREELANCER("freelancer", "프리랜서"),
+    CIVIL_SERVANT("civilServant", "공무원"),
+    SERVICE("service", "서비스업"),
+    ENGINEERING("engineer", "엔지니어");
     private String kor;
+    private String eng;
 
-    private Occupation(String kor) {
+    private Occupation(String eng, String kor) {
         this.kor = kor;
+        this.eng = eng;
     }
 }

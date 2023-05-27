@@ -5,3 +5,23 @@
     border-radius: 40px;
     /* 추가적인 스타일 지정 */
 }
+
+.subTitle {
+    font-size: 20px !important;
+    text-align: left;
+    margin-bottom: -10px;
+}
+
+.percent {
+    font-size: 15px !important;
+    text-align: left;
+    margin-bottom: -10px;
+    margin-top: -20px;
+}
+
+.tbcell {
+    color: #525f7f !important;
+    text-align: left  !important;
+    line-height: 1.5  !important;
+    font-weight: 400  !important;
+}

@@ -65,3 +65,13 @@
 .add-rule {
   top: -150px;
 }
+
+.modal-body{
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+}
+
+.modal-outer{
+  overflow: hidden;
+  border-radius: 15px;
+}

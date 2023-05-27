@@ -62,16 +62,20 @@
   border: 2px solid #000000;
 }
 
-.add-rule {
+.ho {
   top: -150px;
 }
 
-.modal-body{
+.ho2 {
+  top: -175px;
+}
+
+.modal-body {
   max-height: calc(100vh - 200px);
   overflow-y: auto;
 }
 
-.modal-outer{
+.modal-outer {
   overflow: hidden;
   border-radius: 15px;
 }

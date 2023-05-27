@@ -3,7 +3,10 @@ package com.boolsazo.bankchall.service.impl;
 import com.boolsazo.bankchall.domain.Goal;
 import com.boolsazo.bankchall.dto.GoalListResponse;
 import com.boolsazo.bankchall.repository.GoalRepository;
+import com.boolsazo.bankchall.repository.SavingHistoryRepository;
 import com.boolsazo.bankchall.service.GoalService;
+
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,8 @@ public class GoalServiceImpl implements GoalService {
 
     @Autowired
     private GoalRepository goalRepository;
+    @Autowired
+    SavingHistoryRepository savingHistoryRepository;
     private final NaverSearch naverSearch;
 
     @Autowired
@@ -56,8 +61,20 @@ public class GoalServiceImpl implements GoalService {
         goalListResponse.setGoals(goals);
         goalListResponse.setCount(count);
 
+        HashMap<Integer, Integer> percentMap = new HashMap<>();
+        for (Goal goal: goals) {
+            int goalId = goal.getGoalId();
+
+            int goalAmount = goalRepository.findGoalAmountByGoalId(goalId);
+            int savingAmount = savingHistoryRepository.showSavingAmountByGoalId(goalId);
+            int calcPercent = (int) Math.round(((savingAmount / (double) goalAmount)) * 100);
+            int percent = (savingAmount > 0) ? ((calcPercent > 100) ? 100 : calcPercent) : 0;
+
+            percentMap.put(goalId, percent);
+        }
+        goalListResponse.setPercentMap(percentMap);
+
         return goalListResponse;
     }
-
 
 }

@@ -10,8 +10,9 @@ import GoalFirstMain from "./GoalFirstMain";
 import { Button, Card } from "reactstrap";
 import "./CreateGoal.css";
 import RegisterRule from "./RegisterRule";
-import { Box } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import { Progress, Col } from "reactstrap";
+import { Scrollbars } from "react-custom-scrollbars";
 
 function GoalMain({ userId }) {
   if (userId === null) {
@@ -85,7 +86,6 @@ function GoalMain({ userId }) {
   };
 
   const handleAddRule = (goal) => {
-    //setSelectedGoalId(goalId);
     setSelectedGoal(goal);
     setShowRule(true);
   };
@@ -93,7 +93,24 @@ function GoalMain({ userId }) {
   const handleRuleClose = () => {
     setShowRule(false);
   };
+
+  const handleGoalDeleteClick = (goalId) => {
+		const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
+		if (confirmDelete) {
+			axios
+				.delete(`/goal/${goalId}`)
+				.then((res) => {
+					console.log("Goal deleted successfully");
+					handleGoalDetailClose(); // 삭제 후 창 닫기
+				})
+				.catch((err) => {
+					console.error(err);
+				});
+		}
+	};
+
   console.log(goals.percentMap);
+
   return (
     <div className="container mukho">
       <Slider
@@ -239,26 +256,82 @@ function GoalMain({ userId }) {
       {showGoalDetail && selectedGoal && (
         <div className="modal-outer">
           <div
-            className="modal-body"
             style={{
               position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              backgroundColor: "white",
-              padding: "1em",
-              zIndex: 1000,
-              width: "50%",
-              height: "75%",
+							top: "50%",
+							left: "50%",
+							transform: "translate(-50%, -50%)",
+							backgroundColor: "white",
+							padding: "1em",
+							zIndex: 1000,
+							width: "50%",
+							height: "75%",
+							borderRadius: "10px",
             }}
           >
             <Box sx={{ width: "100%", height: "95%" }}>
-              <GoalDetail
-                goal={selectedGoal}
-                goalId={selectedGoal.goalId}
-                onClose={handleGoalDetailClose}
-              />
-            </Box>
+							<Scrollbars
+								thumbSize={85}
+								renderTrackVertical={({ style, ...props }) => {
+									return (
+										<div
+											{...props}
+											className="track-vertical"
+											style={{
+												...style,
+												borderRadius: "3px",
+											}}
+										/>
+									);
+								}}
+								renderThumbHorizontal={(props) => (
+									<div
+										{...props}
+										className="thumb-horizontal"
+									/>
+								)}
+								renderThumbVertical={(props) => (
+									<div
+										{...props}
+										className="thumb-vertical"
+									/>
+								)}
+								renderView={(props) => (
+									<div {...props} className="view" />
+								)}
+							>
+								<GoalDetail
+									goal={selectedGoal}
+									goalId={selectedGoal.goalId}
+									onClose={handleGoalDetailClose}
+								/>
+								<Stack
+									direction="row"
+									spacing={1}
+									justifyContent="flex-end"
+									alignItems="flex-start"
+								>
+									<Button
+										variant="contained"
+										onClick={() =>
+											handleAddRule(selectedGoal)
+										}
+									>
+										목표 수정
+									</Button>
+									<Button
+										variant="contained"
+										onClick={() =>
+											handleGoalDeleteClick(
+												selectedGoal.goalId
+											)
+										}
+									>
+										목표 삭제
+									</Button>
+								</Stack>
+							</Scrollbars>
+						</Box>
           </div>
         </div>
       )}
@@ -282,16 +355,43 @@ function GoalMain({ userId }) {
         <div
           style={{
             position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "white",
-            padding: "1em",
-            zIndex: 1000,
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						backgroundColor: "white",
+						padding: "1em",
+						zIndex: 1000,
+						width: "50%",
+						height: "90%",
+						borderRadius: "10px",
           }}
         >
-          <RegisterRule goal={selectedGoal} onClose={handleRuleClose} />
-          <button onClick={handleRuleClose}>Close</button>
+          <Scrollbars
+						thumbSize={85}
+						renderTrackVertical={({ style, ...props }) => {
+							return (
+								<div
+									{...props}
+									className="track-vertical"
+									style={{ ...style, borderRadius: "3px" }}
+								/>
+							);
+						}}
+						renderThumbHorizontal={(props) => (
+							<div {...props} className="thumb-horizontal" />
+						)}
+						renderThumbVertical={(props) => (
+							<div {...props} className="thumb-vertical" />
+						)}
+						renderView={(props) => (
+							<div {...props} className="view" />
+						)}
+					>
+						<RegisterRule
+							goal={selectedGoal}
+							onClose={handleRuleClose}
+						/>
+					</Scrollbars>
         </div>
       )}
 

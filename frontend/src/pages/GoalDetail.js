@@ -4,27 +4,20 @@ import "./GoalDetail.css";
 import bankLogo from "components/Banks/BankLogo";
 
 import {
-	Button,
 	Box,
-	Stepper,
-	Step,
-	StepLabel,
-	StepContent,
-	Paper,
 	Typography,
-	Stack,
 	Table,
 	TableHead,
 	TableRow,
 	TableCell,
 	TableBody,
+	LinearProgress,
+	styled,
 } from "@mui/material";
 
-import { styled } from "@mui/material/styles";
 import CircularProgress, {
 	circularProgressClasses,
 } from "@mui/material/CircularProgress";
-import LinearProgress from "@mui/material/LinearProgress";
 
 function LinearProgressWithLabel(props) {
 	return (
@@ -44,20 +37,11 @@ function LinearProgressWithLabel(props) {
 
 function makeComma(str) {
 	str = String(str);
-
 	return str.replace(/(\d)(?=(?:\d{3})+(?!\d))/g, "$1,");
 }
 
-const GoalDetail = ({ goalId, onClose }) => {
+const GoalDetail = ({ goal, goalId, onClose }) => {
 	const [goalDetail, setGoalDetail] = useState(null);
-	const [isEditing, setIsEditing] = useState(false);
-	const [updatedGoalName, setUpdatedGoalName] = useState("");
-	const [updatedGoalAmount, setUpdatedGoalAmount] = useState("");
-	const [updatedSavingAmount, setUpdatedSavingAmount] = useState("");
-	const [updatedGoalImage, setUpdatedGoalImage] = useState("");
-	const [updatedDay, setUpdatedDay] = useState("");
-	const [showPopup, setShowPopup] = useState(false);
-	const [rule, setRule] = useState("");
 	const [progress, setProgress] = React.useState(0);
 	const [withdrawBankName, setWithdrawBankName] = useState("");
 	const [withdrawAccountNum, setWithdrawAccountNum] = useState("");
@@ -69,7 +53,6 @@ const GoalDetail = ({ goalId, onClose }) => {
 		axios
 			.get(`/rule/${goalId}`)
 			.then((res) => {
-				setRule(res.data);
 				console.log("규칙 세부사항", res.data);
 				setProgress(res.data.percent);
 				setWithdrawBankName(res.data.withdrawInfo["bankName"]);
@@ -94,53 +77,6 @@ const GoalDetail = ({ goalId, onClose }) => {
 				console.error(err);
 			});
 	}, [goalId]);
-
-	const handleEditClick = () => {
-		setIsEditing(true);
-		setUpdatedGoalName(goalDetail.goalName);
-		setUpdatedGoalAmount(goalDetail.goalAmount);
-		setUpdatedSavingAmount(goalDetail.savingAmount);
-		setUpdatedGoalImage(goalDetail.goalImage);
-		setUpdatedDay(goalDetail.day);
-	};
-
-	const handleSaveClick = () => {
-		const updatedGoal = {
-			...goalDetail, // 원래의 goalDetail 데이터를 복사
-			goalName: updatedGoalName,
-			goalAmount: updatedGoalAmount,
-			savingAmount: updatedSavingAmount,
-			goalImage: updatedGoalImage,
-			day: updatedDay,
-		};
-
-		axios
-			.put(`/goal/${goalId}`, updatedGoal)
-			.then((res) => {
-				console.log("Goal updated successfully");
-				setIsEditing(false);
-				setGoalDetail(res.data);
-				onClose();
-			})
-			.catch((err) => {
-				console.error(err);
-			});
-	};
-
-	const handleDeleteClick = () => {
-		const confirmDelete = window.confirm("정말 삭제하시겠습니까?");
-		if (confirmDelete) {
-			axios
-				.delete(`/goal/${goalId}`)
-				.then((res) => {
-					console.log("Goal deleted successfully");
-					onClose(); // 삭제 후 창 닫기
-				})
-				.catch((err) => {
-					console.error(err);
-				});
-		}
-	};
 
 	if (!goalDetail) {
 		return <div>Loading...</div>;
@@ -283,7 +219,7 @@ const GoalDetail = ({ goalId, onClose }) => {
 	));
 
 	return (
-		<>
+		<div style={{padding:"1em"}}>
 			<div>
 				<h1>{goalDetail.goalName}</h1>
 				<p style={{ marginTop: "-10px", marginLeft: "50px" }}>
@@ -324,25 +260,12 @@ const GoalDetail = ({ goalId, onClose }) => {
 					>
 						<TableHead>
 							<TableBody></TableBody>
-							<tbody style={{ width: "100%" }}>{tableRows}</tbody>
+							<tbody style={{ width: "100%"}}>{tableRows}</tbody>
 						</TableHead>
 					</Table>
 				</div>
 			</div>
-			<Stack
-				direction="row"
-				spacing={1}
-				justifyContent="flex-end"
-				alignItems="flex-start"
-			>
-				<Button variant="contained" onClick={handleEditClick}>
-					목표 수정
-				</Button>
-				<Button variant="contained" onClick={handleDeleteClick}>
-					목표 삭제
-				</Button>
-			</Stack>
-		</>
+		</div>
 	);
 };
 

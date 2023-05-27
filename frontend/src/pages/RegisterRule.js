@@ -158,7 +158,6 @@ function RegisterRule({ goal }) {
             <div style={{
                 display: 'flex',
                 justifyContent: 'left',
-                height: '100vh',
                 width: '767px',
                 height: '767px',
             }}>

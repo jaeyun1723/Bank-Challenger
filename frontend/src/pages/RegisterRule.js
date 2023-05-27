@@ -7,7 +7,7 @@ import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
-import {FormControl, MenuItem, Select} from '@mui/material';
+import { FormControl, MenuItem, Select } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import TextField from '@mui/material/TextField';
 import bankLogo from "components/Banks/BankLogo";
@@ -16,8 +16,10 @@ import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
+import InputLabel from '@mui/material/InputLabel';
 import Grid from '@mui/material/Grid';
-function RegisterRule({ goalId }) {
+
+function RegisterRule({ goal }) {
     const [withdrawAccounts, setWithdrawAccounts] = useState([]);
     const [savingAccounts, setSavingAccounts] = useState([]);
     const [registerWAccount, setRegisterWAccount] = useState([]);
@@ -27,10 +29,12 @@ function RegisterRule({ goalId }) {
     const userName = sessionStorage.getItem("name");
     const [savingDate, setSavingDate] = useState(dayjs());
     const [money, setMoney] = useState(0);
-    const [cycle, setCycle] = useState(1);
+    const [cycle, setCycle] = useState(5);
+    const [isOpen, setIsOpen] = useState(false);
     const days = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31];
-    if (userId == null) window.location.href = "/";
 
+    if (userId == null) window.location.href = "/";
+    console.log(goal.goalAmount);
 
     useEffect(() => {
         axios
@@ -70,11 +74,11 @@ function RegisterRule({ goalId }) {
         },
         {
             label: '저축 시작일 설정',
-            description: '자동이체할 날짜를 선택하세요.'
+            description: '저축을 시작할 날짜를 선택하세요.'
         },
         {
             label: '목표에 등록할 규칙 확인',
-            description: '목표에 등록할 계좌를 확인하세요.'
+            description: '설정하신 규칙을 확인하세요.'
         },
     ];
     const [activeStep, setActiveStep] = React.useState(0);
@@ -110,18 +114,41 @@ function RegisterRule({ goalId }) {
     };
 
     const handleCycleClick = (event) => {
-        setCycle(event.target.value);
+        setIsOpen(!isOpen);
     };
+
+    const handleCycleChange = (event) => {
+        setCycle(event.target.value);
+        setIsOpen(false);
+    };
+
     const handleAccountClick = () => {
-        // let data=JSON.stringify({
-        //     userId: userId,
-        //     goalId: goalId,
-        //     withdrawAccountId: registerWAccount.accountId,
-        //     savingAccountId: registerSAccount.accountId,
-        //     day: savingDate.format("DD").toString(),
-        //     savingAmount: money,
-        //     savingStartDate: 
-        // })
+        let sendData = JSON.stringify({
+            userId: userId,
+            goalId: goal.goalId,
+            withdrawAccountId: registerWAccount.accountId,
+            savingAccountId: registerSAccount.accountId,
+            day: cycle,
+            savingAmount: money,
+            savingStartDate: savingDate.toISOString(),
+        });
+        if(window.confirm("규칙을 등록하시겠습니까??")){
+            axios({
+                method: "POST",
+                url: "/rule",
+                data: sendData,
+                headers: { "Content-type": "application/json;charset=UTF-8" },
+            })
+                .then(() => {
+                    alert("규칙을 등록하였습니다.");
+                    window.location.href='/goal';
+                })
+                .catch((error) => {
+                    console.log(error);
+                })
+        }else{
+
+        }
     };
     return (
         <>
@@ -141,7 +168,7 @@ function RegisterRule({ goalId }) {
                             <Step key={step.label}>
                                 <StepLabel
                                     optional={
-                                        index === 4 ? (
+                                        index === 5 ? (
                                             <Typography variant="caption">Last step</Typography>
                                         ) : null
                                     }
@@ -233,24 +260,35 @@ function RegisterRule({ goalId }) {
                                         </div>
                                     ))}
                                     {index === 2 && <Typography>{step.description}</Typography>}
-                                    {index === 2 && <FormControl  sx={{ m: 1, minWidth: 120 }} size='small'>
+                                    {index === 2 && <FormControl sx={{ m: 1, minWidth: 100 }} size="small">
                                         <Select
-                                        value={cycle} onChange={handleCycleClick}>
-                                        {days.map((day) => (
-                                            <MenuItem key={day} value={day}>{day}</MenuItem>
-                                        ))}
-                                    </Select>
+                                            open={isOpen}
+                                            onClose={() => setIsOpen(false)}
+                                            onOpen={() => setIsOpen(true)}
+                                            value={cycle} onChange={handleCycleChange}
+                                            MenuProps={{
+                                                anchorOrigin: {
+                                                    vertical: 'bottom',
+                                                    horizontal: 'left',
+                                                },
+                                                transformOrigin: {
+                                                    vertical: 'top',
+                                                    horizontal: 'left',
+                                                },
+                                                getContentAnchorEl: null,
+                                                PaperProps: {
+                                                    style: {
+                                                        maxHeight: 200, // 드롭다운 메뉴의 최대 높이
+                                                    },
+                                                },
+                                            }}
+                                        >
+                                            {days.map((day) => (
+                                                <MenuItem key={day} value={day}>{day}</MenuItem>
+                                            ))}
+                                        </Select>
                                     </FormControl>
                                     }
-                                    {index == 4 && <Typography>{step.description}</Typography>}
-                                    {index == 4 && <LocalizationProvider dateAdapter={AdapterDayjs}>
-                                        <DemoContainer components={['DateCalendar', 'DateCalendar']}>
-                                            <DemoItem>
-                                                <DateCalendar value={savingDate} onChange={(newValue) => setSavingDate(newValue)}
-                                                    minDate={dayjs()} />
-                                            </DemoItem>
-                                        </DemoContainer>
-                                    </LocalizationProvider>}
                                     {index == 3 && <Typography>{step.description}</Typography>}
                                     {index == 3 && <TextField
                                         id="outlin-multiline-flexible"
@@ -261,44 +299,28 @@ function RegisterRule({ goalId }) {
                                         onChange={handleMoneyClick}
                                         maxRows={2}
                                     />}
+                                    {index == 4 && <Typography>{step.description}</Typography>}
+                                    {index == 4 && <LocalizationProvider dateAdapter={AdapterDayjs}>
+                                        <DemoContainer components={['DateCalendar', 'DateCalendar']}>
+                                            <DemoItem>
+                                                <DateCalendar value={savingDate} onChange={(newValue) => setSavingDate(newValue)}
+                                                    minDate={dayjs()} />
+                                            </DemoItem>
+                                        </DemoContainer>
+                                    </LocalizationProvider>}
                                     {index === 5 && <Typography>{step.description}</Typography>}
                                     {index == 5 &&
-                                        <div style={{ marginTop: '20px' }}>
-                                            출금계좌
-                                            <button
-                                                type="button"
-                                                style={{
-                                                    marginBottom: "5px",
-                                                    textAlign: "left",
-                                                    width: "600px",
-                                                    display: "flex",
-                                                }}
-                                                className="text-primary btn-neutral ml-1 btn btn-primary "
-                                            > <table style={{ marginRight: "auto" }}>
-                                                    <tr>
-                                                        <th rowSpan="2">
-                                                            <span>
-                                                                {bankLogo(registerWAccount.bankName)}
-                                                            </span>
-                                                        </th>
-                                                        <th
-                                                            style={{
-                                                                fontSize: "12px",
-                                                                textAlign: "left",
-                                                                marginRight: "10px",
-                                                            }}
-                                                        >
-                                                            {registerWAccount.bankName}
-                                                        </th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th style={{ fontSize: "16px", textAlign: "right" }}>
-                                                            {registerWAccount.accountNumMasked}
-                                                        </th>
-                                                    </tr>
-                                                </table>
-                                            </button>
-                                            <div style={{ marginTop: '20px' }}>
+                                        <div style={{ marginTop: '10px' }}>
+                                            <Grid container spacing={1}>
+                                                <Grid item xs={15}>
+                                                    <div style={{ textAlign: 'left' }}>
+                                                        <p>{savingDate.format("YYYY년 MM월 DD일").toString()}부터 매월 {cycle}일, {money}원씩 저축해요.
+                                                            (예상 목표 달성 기간 : {Math.ceil(goal.goalAmount / money)}개월)
+                                                        </p>
+                                                    </div>
+                                                </Grid>
+                                            </Grid>
+                                            <div style={{ marginTop: '10px' }}>
                                                 저금계좌
                                                 <button
                                                     type="button"
@@ -334,21 +356,42 @@ function RegisterRule({ goalId }) {
                                                     </table>
                                                 </button>
                                             </div>
-                                            <Grid container spacing={2}>
-                                                <Grid item xs={6}>
-                                                    <div style={{ marginTop: '20px' }}>
-                                                        저축 주기
-                                                        <p>{savingDate.format("DD일").toString()}</p>
-                                                    </div>
-                                                </Grid>
-                                                <Grid item xs={6}>
-                                                    <div style={{ marginTop: '20px', textAlign: 'right' }}>
-                                                        저축 금액
-                                                        <p>{money}원</p>
-                                                    </div>
-                                                </Grid>
-                                            </Grid>
+                                            출금계좌
+                                            <button
+                                                type="button"
+                                                style={{
+                                                    marginBottom: "5px",
+                                                    textAlign: "left",
+                                                    width: "600px",
+                                                    display: "flex",
+                                                }}
+                                                className="text-primary btn-neutral ml-1 btn btn-primary "
+                                            > <table style={{ marginRight: "auto" }}>
+                                                    <tr>
+                                                        <th rowSpan="2">
+                                                            <span>
+                                                                {bankLogo(registerWAccount.bankName)}
+                                                            </span>
+                                                        </th>
+                                                        <th
+                                                            style={{
+                                                                fontSize: "12px",
+                                                                textAlign: "left",
+                                                                marginRight: "10px",
+                                                            }}
+                                                        >
+                                                            {registerWAccount.bankName}
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <th style={{ fontSize: "16px", textAlign: "right" }}>
+                                                            {registerWAccount.accountNumMasked}
+                                                        </th>
+                                                    </tr>
+                                                </table>
+                                            </button>
                                         </div>
+
                                     }
                                     <Box sx={{ mb: 2 }}>
                                         <div>
@@ -356,8 +399,9 @@ function RegisterRule({ goalId }) {
                                                 variant="contained"
                                                 onClick={index === steps.length - 1 ? handleAccountClick : handleNext}
                                                 sx={{ mt: 1, mr: 1 }}
+
                                             >
-                                                {index === steps.length - 1 ? '계좌 등록하기' : '다음 단계로 넘어가기'}
+                                                {index === steps.length - 1 ? '규칙 등록하기' : '다음 단계로 넘어가기'}
                                             </Button>
                                             <Button
                                                 disabled={index === 0}

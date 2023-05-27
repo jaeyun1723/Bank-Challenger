@@ -13,15 +13,15 @@ function Connection() {
     useEffect(() => {
         setTimeout(() => {
             setShowSecondText(true);
-        }, 2000); // Delay in milliseconds for the second text
+        }, 0); // Delay in milliseconds for the second text
 
         setTimeout(() => {
             setShowThirdText(true);
-        }, 4000); // Delay in milliseconds for the third text
+        }, 0); // Delay in milliseconds for the third text
 
         setTimeout(() => {
            setShowButton(true);
-    }, 6000); // Delay in milliseconds for the third text
+    }, 0); // Delay in milliseconds for the third text
 }, []);
 
 

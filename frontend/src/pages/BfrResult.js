@@ -249,10 +249,10 @@ class Login extends React.Component {
       //console.log(error);
       if (userId === null) {
         window.location.href = "/";
-      } else if (bfr === null) {
+      } else {
         setTimeout(() => {
           window.location.replace("/bfr-result");
-        }, 200);
+        }, 500);
       }
     }
   }

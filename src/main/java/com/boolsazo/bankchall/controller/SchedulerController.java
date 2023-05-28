@@ -20,7 +20,7 @@ public class SchedulerController {
     @Autowired
     GoalAccountService goalAccountService;
 
-    @Scheduled(fixedDelay = 1000* 60 * 60 * 24 )//* 60 * 60 * 24
+    @Scheduled(fixedDelay = 1000* 60 * 60 * 24)
     void AutomaticWithdrawal() {
 
         // 1. 목표 정보 가져오기

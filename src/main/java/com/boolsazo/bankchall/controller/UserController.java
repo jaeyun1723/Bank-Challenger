@@ -128,7 +128,6 @@ public class UserController {
                 } catch (Exception e2) {
                     System.out.println("ERROR IN REGISTER");
                 }
-                redirectUrl = "redirect:/survey";
             }
 
             System.out.println("** Login");

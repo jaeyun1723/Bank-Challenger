@@ -38,7 +38,7 @@ class Goal extends React.Component {
             <section>
               <img
                 alt="..."
-                src={require("assets/img/theme/background.png")}
+                src={require("assets/img/theme/goalbackground.png")}
                 style={{
                   width: "100%",
                   height: "1200px",

@@ -79,7 +79,7 @@ export default function BfsProgressBar(props) {
           <Grid item xs={9}>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Box sx={{ width: '80%', mr: 1 }}>
-                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={invest} color="inherit" />
+                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={invest} color="error" />
               </Box>
               <Box sx={{ minWidth: 35 }}>
                 <Typography variant="body2" color="text.white">{`${Math.round(

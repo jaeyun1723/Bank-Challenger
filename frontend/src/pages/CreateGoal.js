@@ -111,13 +111,13 @@ function CreateGoal({setIsOpen}) {
     const handleResultSelect = (result) => {
         // When a user selects a search result, set the goalAmount and goalImage accordingly.
         setGoalAmount(result.lprice);
-        //setProductId(result.productId);
+        setProductId(result.productId);
         setSelectedResult(result); // Store the selected result
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setProductId("");
+        // setProductId("");
         const data = {
             userId,
             category,

@@ -36,7 +36,7 @@ public class Goal extends BaseTimeEntity {
     private String goalName;
 
     @Column(name = "product_id")
-    private int productId;
+    private String productId;
     @Column(name = "goal_amount", nullable = false)
     private int goalAmount;
 

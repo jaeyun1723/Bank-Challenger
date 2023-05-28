@@ -17,21 +17,24 @@ public interface SavingHistoryRepository extends JpaRepository<SavingHistory, In
     void deleteByGoalId(@Param("goalId") int goalId);
 
     @Query(value =
-               "SELECT saving_date, saving_amount FROM saving_history \n"
-                   + "WHERE goal_id = :goalId", nativeQuery = true)
+        "SELECT saving_date, saving_amount FROM saving_history \n"
+            + "WHERE goal_id = :goalId", nativeQuery = true)
     List<SavingHistoryResultSet> showAllByGoalId(@Param("goalId") int goalId);
 
     @Query(value =
-               "SELECT saving_date, saving_amount FROM saving_history \n"
-                   + "WHERE user_id = :userId", nativeQuery = true)
+        "SELECT saving_date, saving_amount FROM saving_history \n"
+            + "WHERE user_id = :userId", nativeQuery = true)
     List<SavingHistoryResultSet> showAllByUserId(@Param("userId") int userId);
 
     @Query(value = "SELECT IFNULL(SUM(saving_amount), 0) FROM saving_history \n"
-                       + "where user_id = :userId", nativeQuery = true)
+        + "where user_id = :userId", nativeQuery = true)
     int showSavingAmountByUserId(@Param("userId") int userId);
 
     @Query(value = "SELECT IFNULL(SUM(saving_amount), 0) FROM saving_history \n"
-                       + "where goal_id = :goalId", nativeQuery = true)
+        + "where goal_id = :goalId", nativeQuery = true)
     int showSavingAmountByGoalId(@Param("goalId") int goalId);
 
+    @Query(value = "SELECT saving_date, saving_amount FROM saving_history WHERE account_id = :accountId AND goal_id = :goalId", nativeQuery = true)
+    List<SavingHistoryResultSet> showSavingHistoryReultSet(@Param("accountId") int accountId,
+        @Param("goalId") int goalId);
 }

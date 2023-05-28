@@ -19,4 +19,5 @@ public interface GoalService {
 
     List<Goal> findAll();
 
+    List<Goal> findByDay(String day);
 }

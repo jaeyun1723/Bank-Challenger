@@ -17,4 +17,7 @@ public interface GoalRepository extends JpaRepository<Goal, Integer> {
 
     @Query(value = "SELECT goal_amount FROM goal where goal_id = :goalId", nativeQuery = true)
     public int findGoalAmountByGoalId(@Param("goalId") int goalId);
+
+    @Query(value = "SELECT * FROM goal WHERE day=DATE_FORMAT(NOW(),'%d')", nativeQuery = true)
+    List<Goal> findByDay(String day);
 }

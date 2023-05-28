@@ -63,7 +63,7 @@ public class GoalServiceImpl implements GoalService {
         goalListResponse.setCount(count);
 
         HashMap<Integer, Integer> percentMap = new HashMap<>();
-        for (Goal goal: goals) {
+        for (Goal goal : goals) {
             int goalId = goal.getGoalId();
 
             int goalAmount = goalRepository.findGoalAmountByGoalId(goalId);
@@ -79,7 +79,12 @@ public class GoalServiceImpl implements GoalService {
     }
 
     @Override
-    public List<Goal> findAll(){
+    public List<Goal> findAll() {
         return goalRepository.findAll();
+    }
+
+    @Override
+    public List<Goal> findByDay(String day) {
+        return goalRepository.findByDay(day);
     }
 }

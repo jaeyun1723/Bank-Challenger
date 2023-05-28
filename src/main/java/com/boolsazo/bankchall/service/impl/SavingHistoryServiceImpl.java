@@ -33,4 +33,10 @@ public class SavingHistoryServiceImpl implements SavingHistoryService {
     public int showSavingAmountByUserId(int userId) throws Exception {
         return repository.showSavingAmountByUserId(userId);
     }
+
+    @Override
+    public List<SavingHistoryResultSet> showSavingHistoryReultSet(int accountId, int goalId)
+        throws Exception {
+        return repository.showSavingHistoryReultSet(accountId, goalId);
+    }
 }

@@ -45,23 +45,25 @@ export default function Statistics() {
 				console.log(error);
 			});
 	}, []);
+  
+  useEffect(() => {
+    axios
+      .get("/statistics/goal/" + sessionStorage.getItem("userId"))
+      .then((res) => {
+        setCategory(res.data);
+        const list = res.data.bestCategory;
+        setBestCategory(list);
+        const output = list.map((item, index) => {
+          if (index === list.length - 1) {
+            return item;
+          } else {
+            return item + ", ";
+          }
+        });
 
-	axios
-		.get("/statistics/goal/" + sessionStorage.getItem("userId"))
-		.then((res) => {
-			setCategory(res.data);
-      const list = res.data.bestCategory;
-			setBestCategory(list);
-      const output = list.map((item, index) => {
-        if (index === list.length - 1) {
-          return item;
-        } else {
-          return item + ", ";
-        }
+        setBestCategoryMessage(output);
       });
-
-      setBestCategoryMessage(output);
-		});
+  }, []);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>

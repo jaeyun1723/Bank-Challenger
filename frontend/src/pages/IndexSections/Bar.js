@@ -14,15 +14,33 @@ export default class test extends Component {
 				},
 				xaxis: {
 					categories: [
+            "10대 이하",
 						"10대",
 						"20대",
 						"30대",
 						"40대",
 						"50대",
-						"60대",
-						"70대",
+						"60대 이상",
 					],
 				},
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            dataLabels: {
+              position: 'center', // top, center, bottom
+            },
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          formatter: function (val) {
+            return val + "명";
+          },
+          style: {
+            fontSize: '12px',
+            colors: ["white"]
+          }
+        },
 			},
 
 			series: [

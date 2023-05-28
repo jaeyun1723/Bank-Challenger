@@ -29,7 +29,7 @@ export default class test extends Component {
           bar: {
             borderRadius: 10,
             dataLabels: {
-              position: 'top', // top, center, bottom
+              position: 'center', // top, center, bottom
             },
           }
         },
@@ -38,10 +38,9 @@ export default class test extends Component {
           formatter: function (val) {
             return val + "명";
           },
-          offsetY: -25,
           style: {
             fontSize: '12px',
-            colors: ["#304758"]
+            colors: ["white"]
           }
         },
 			},

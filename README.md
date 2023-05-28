@@ -1,6 +1,7 @@
 # Bank Challenger
 
 This is ***Bank Challenger*** project.
+> Version 1.0.0
 
 # How To Run
 

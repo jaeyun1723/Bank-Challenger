@@ -59,7 +59,6 @@ function Connection() {
           )}
         </div>
       )}
-      {document.querySelector("button").remove()}
     </>
   );
 }

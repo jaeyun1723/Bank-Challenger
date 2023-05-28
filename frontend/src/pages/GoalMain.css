@@ -126,3 +126,10 @@
   overflow: hidden;
   border-radius: 15px;
 }
+
+.slick-prev:before {
+  color: black;
+}
+.slick-next:before {
+  color: black;
+}

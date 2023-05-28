@@ -50,7 +50,7 @@ const BFRChart = () => {
         { label: '소비', value:  bfr.consumption, color:  '#C185FF'},
         { label: '예적금', value:  bfr.deposit, color: '#F7819A' },
         { label: '투자', value:  bfr.invest, color: 'rgb(118, 145, 246)'},
-        { label: '고정비용', value:  bfr.fixedCost, color: 'rgb(237, 237, 6)' }
+        { label: '고정비용', value:  bfr.fixedCost, color: '#6FDEB5' }
       ]}
       showLegend={true}
       legendPercentage={20}

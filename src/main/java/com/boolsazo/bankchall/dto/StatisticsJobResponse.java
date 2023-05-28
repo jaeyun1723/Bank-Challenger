@@ -51,31 +51,31 @@ public class StatisticsJobResponse {
             int count = ors.getCount();
             System.out.println(count);
             System.out.println(occupation);
-            if (occupation.equals(Occupation.IN_OCCUPATION.getEng())) {
+            if (occupation.equals(Occupation.IN_OCCUPATION.getKor())) {
                 this.inoccupation = count;
                 if (bestCnt < count) this.bestJob = Occupation.IN_OCCUPATION.getKor();
-            } else if (occupation.equals(Occupation.STUDENT.getEng())) {
+            } else if (occupation.equals(Occupation.STUDENT.getKor())) {
                 this.student = count;
                 if (bestCnt < count) this.bestJob = Occupation.STUDENT.getKor();
-            } else if (occupation.equals(Occupation.EMPLOYEE.getEng())) {
+            } else if (occupation.equals(Occupation.EMPLOYEE.getKor())) {
                 this.employee = count;
                 if (bestCnt < count) this.bestJob = Occupation.EMPLOYEE.getKor();
-            } else if (occupation.equals(Occupation.OWNER_OPERATOR.getEng())) {
+            } else if (occupation.equals(Occupation.OWNER_OPERATOR.getKor())) {
                 this.ownerOperator = count;
                 if (bestCnt < count) this.bestJob = Occupation.OWNER_OPERATOR.getKor();
-            } else if (occupation.equals(Occupation.SPECIALIZED_JOB.getEng())) {
+            } else if (occupation.equals(Occupation.SPECIALIZED_JOB.getKor())) {
                 this.specializedJob = count;
                 if (bestCnt < count) this.bestJob = Occupation.SPECIALIZED_JOB.getKor();
-            } else if (occupation.equals(Occupation.FREELANCER.getEng())) {
+            } else if (occupation.equals(Occupation.FREELANCER.getKor())) {
                 this.freelancer = count;
                 if (bestCnt < count) this.bestJob = Occupation.FREELANCER.getKor();
-            } else if (occupation.equals(Occupation.CIVIL_SERVANT.getEng())) {
+            } else if (occupation.equals(Occupation.CIVIL_SERVANT.getKor())) {
                 this.civilServant = count;
                 if (bestCnt < count) this.bestJob = Occupation.CIVIL_SERVANT.getKor();
-            } else if (occupation.equals(Occupation.SERVICE.getEng())) {
+            } else if (occupation.equals(Occupation.SERVICE.getKor())) {
                 this.service = count;
                 if (bestCnt < count) this.bestJob = Occupation.SERVICE.getKor();
-            } else if (occupation.equals(Occupation.ENGINEERING.getEng())) {
+            } else if (occupation.equals(Occupation.ENGINEERING.getKor())) {
                 this.engineer = count;
                 if (bestCnt < count) this.bestJob = Occupation.ENGINEERING.getKor();
             }

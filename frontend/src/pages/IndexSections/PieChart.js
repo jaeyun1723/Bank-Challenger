@@ -5,9 +5,7 @@ import axios from "axios";
 export default class test extends Component {
 	constructor(props) {
 		super(props);
-		const bfr = props.bfr;
-		let bestCategory = "";
-		console.log(props);
+
 		this.state = {
 			options: {
 				chart: {
@@ -23,14 +21,12 @@ export default class test extends Component {
 		axios
 			.get("/statistics/goal/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-        console.log("data", res.data);
+				console.log("data", res.data);
 				this.state.series = [
 					res.data.buy,
 					res.data.go,
 					res.data.collect,
 				];
-				bestCategory = res.data.bestCategory;
-				console.log(bestCategory);
 			});
 	}
 
@@ -40,10 +36,9 @@ export default class test extends Component {
 				options={this.state.options}
 				series={this.state.series}
 				type="pie"
-				width="100%"
+				width={"100%"}
 				height={320}
-			>
-			</Chart>
+			></Chart>
 		);
 	}
 }

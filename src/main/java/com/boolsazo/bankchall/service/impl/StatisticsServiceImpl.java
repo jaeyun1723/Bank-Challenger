@@ -41,7 +41,6 @@ public class StatisticsServiceImpl implements StatisticsService {
         for (String age : ageArr) {
             StatisticsGenderAgeResponse.GenderAge genderAge = new StatisticsGenderAgeResponse.GenderAge();
             GenderAgeResultSet result = userRepository.genderAgeStatistics(userId, age);
-
             genderAge.setAge(age);
             if (result != null) {
                 if (result.getGender().equals("M")) {
@@ -50,7 +49,6 @@ public class StatisticsServiceImpl implements StatisticsService {
                     genderAge.setWoman(result.getCount());
                 }
             }
-            System.out.println(genderAge);
             response.add(genderAge);
         }
 

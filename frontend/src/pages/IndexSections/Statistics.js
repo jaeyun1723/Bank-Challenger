@@ -33,7 +33,31 @@ export default function Statistics() {
 	const [job, setJob] = useState();
 	const [category, setCategory] = useState();
 	const [bestCategory, setBestCategory] = useState([]);
-  const [bestCategoryMessage, setBestCategoryMessage] = useState('');
+	const [bestCategoryMessage, setBestCategoryMessage] = useState("");
+
+	useEffect(() => {
+		axios
+			.get("/statistics/job/" + sessionStorage.getItem("userId"))
+			.then((res) => {
+				console.log("job", res.data);
+				setJob(res.data);
+				// category(res.data);
+				// const list = res.data.bestCategory;
+				// setBestCategory(list);
+				// const output = list.map((item, index) => {
+				// 	if (index === list.length - 1) {
+				// 		return item;
+				// 	} else {
+				// 		return item + ", ";
+				// 	}
+				// });
+
+				// setBestCategoryMessage(output);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
 	useEffect(() => {
 		axios
@@ -45,25 +69,28 @@ export default function Statistics() {
 				console.log(error);
 			});
 	}, []);
-  
-  useEffect(() => {
-    axios
-      .get("/statistics/goal/" + sessionStorage.getItem("userId"))
-      .then((res) => {
-        setCategory(res.data);
-        const list = res.data.bestCategory;
-        setBestCategory(list);
-        const output = list.map((item, index) => {
-          if (index === list.length - 1) {
-            return item;
-          } else {
-            return item + ", ";
-          }
-        });
 
-        setBestCategoryMessage(output);
-      });
-  }, []);
+	useEffect(() => {
+		axios
+			.get("/statistics/goal/" + sessionStorage.getItem("userId"))
+			.then((res) => {
+				setCategory(res.data);
+				const list = res.data.bestCategory;
+				setBestCategory(list);
+				const output = list.map((item, index) => {
+					if (index === list.length - 1) {
+						return item;
+					} else {
+						return item + ", ";
+					}
+				});
+
+				setBestCategoryMessage(output);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
 
 	return (
 		<Box sx={{ flexGrow: 1 }}>
@@ -111,8 +138,8 @@ export default function Statistics() {
 							className="text-white"
 							style={{ textAlign: "center" }}
 						>
-            "{bfr}을 가진 사람들은 '{bestCategoryMessage}' 목표를 가진
-							사람이 많네요!"
+							"{bfr}을 가진 사람들은 '{bestCategoryMessage}'
+							목표를 가진 사람이 많네요!"
 						</h4>
 					) : (
 						<h4

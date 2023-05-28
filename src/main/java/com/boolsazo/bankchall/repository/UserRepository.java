@@ -48,9 +48,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "select gender, count(*) count from user u\n"
             + "join goal g on u.user_id = g.user_id\n"
             + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
-            + "and u.birthyear = :birthYear\n"
+            + "and u.age = :age\n"
             + "group by u.gender", nativeQuery = true)
-    GenderAgeResultSet genderAgeStatistics(@PathVariable("userId") int userId, @PathVariable("birthYear") String birthYear);
+    GenderAgeResultSet genderAgeStatistics(@PathVariable("userId") int userId, @PathVariable("age") String age);
 
     @Query(value = "select occupation, count(*) count from user u\n"
             + "join survey s on u.user_id = s.user_id\n"

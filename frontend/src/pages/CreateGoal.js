@@ -36,12 +36,7 @@ function CreateGoal({setIsOpen}) {
     const [searchResults, setSearchResults] = useState([]);
     const [selectedResult, setSelectedResult] = useState(null); // Added state to store the selected search result
     const ariaLabel = { 'aria-label': 'description' };
-    const goals = [
-        { id: 1, title: "모으자", description: "~~~~~~" },
-        { id: 2, title: "사보자", description: "~~~~~~~" },
-        { id: 3, title: "가보자", description: "~~~~~~" },
-        // other goals...
-    ];
+
     const handleColorChange = (e) => {
         setGoalImage(e.target.value);
     };
@@ -116,7 +111,7 @@ function CreateGoal({setIsOpen}) {
     const handleResultSelect = (result) => {
         // When a user selects a search result, set the goalAmount and goalImage accordingly.
         setGoalAmount(result.lprice);
-        setProductId(result.productId);
+        //setProductId(result.productId);
         setSelectedResult(result); // Store the selected result
     };
 
@@ -209,10 +204,11 @@ function CreateGoal({setIsOpen}) {
                             <div className="input-container">
                                 <DatePicker
                                     value={startDate}
-                                    onChange={(date) => setStartDate(date)}
+                                    onChange={(date) => {setStartDate(date)}}
                                     renderInput={(props) => <input {...props} />}
-                                    inputFormat={"yyyy/MM/dd"}
-                                    minDate={dayjs()}
+                                    inputFormat={"yyyy-MM-dd"}
+
+                                minDate={dayjs()}
                                     className="custom-datepicker"
                                     responsive={true}
                                     required

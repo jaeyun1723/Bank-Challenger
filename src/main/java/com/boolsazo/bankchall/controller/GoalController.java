@@ -50,6 +50,7 @@ public class GoalController {
     @Operation(summary = "해당 사용자 모든 목표 조회 API", description = "해당 사용자의 목표를 조회할 수 있는 API")
     public ResponseEntity<GoalListResponse> showAllGoal(@PathVariable("userId") int userId) {
         GoalListResponse goalListResponse = goalService.showAllGoal(userId);
+
         if (goalListResponse != null && goalListResponse.getGoals() != null && !goalListResponse.getGoals().isEmpty()) {
             return new ResponseEntity<>(goalListResponse, HttpStatus.OK);
         } else {

@@ -64,6 +64,8 @@
 
 .ho {
   top: -150px;
+  background-color: white !important;
+  color: #172b4d !important;
 }
 
 .track-vertical {
@@ -82,8 +84,6 @@
   background-color: rgba(123, 154, 255, 0.418);
 }
 
-
-
 .track-horizontal {
   position: absolute;
   height: 6px;
@@ -93,15 +93,14 @@
   border-radius: 3px;
 }
 
-  .thumb-horizontal {
-      position: relative;
-      display: block;
-      height: 100%;
-      cursor: pointer;
-      border-radius: inherit;
-      background-color: rgba(125, 149, 255, 0.993);
-  }
-
+.thumb-horizontal {
+  position: relative;
+  display: block;
+  height: 100%;
+  cursor: pointer;
+  border-radius: inherit;
+  background-color: rgba(125, 149, 255, 0.993);
+}
 
 .view {
   position: absolute;
@@ -111,7 +110,7 @@
   bottom: 0px;
   overflow: scroll;
   margin-right: -15px;
-  margin-bottom: -17px !important; 
+  margin-bottom: -17px !important;
 }
 
 .ho2 {
@@ -127,4 +126,3 @@
   overflow: hidden;
   border-radius: 15px;
 }
-

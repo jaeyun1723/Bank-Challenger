@@ -392,6 +392,7 @@ function GoalMain({ userId }) {
                   spacing={1}
                   justifyContent="flex-end"
                   alignItems="flex-start"
+                  paddingBottom="25px"
                 >
                   <Button
                     variant="contained"

@@ -35,7 +35,8 @@ public class BFRServiceImpl implements BFRService {
         } else if (vo.getConsumptionTendency() == 2) {
             sb.append("I"); // 2 : 충동형(Impulsivity)
         } else {
-            throw new IllegalArgumentException("consumption_tendency(소비 비율)은 1 또는 2의 값만 들어올 수 있습니다.");
+            throw new IllegalArgumentException(
+                "consumption_tendency(소비 비율)은 1 또는 2의 값만 들어올 수 있습니다.");
         }
 
         /* 시간지향성(P-F) */
@@ -57,7 +58,9 @@ public class BFRServiceImpl implements BFRService {
     public void registerBFR(BFRTestForm vo) throws Exception {
         User user = userRepository.findByUserId(vo.getUserId());
 
-        if (user == null) throw new NoSuchElementException("userId에 해당하는 유저가 없습니다.");
+        if (user == null) {
+            throw new NoSuchElementException("userId에 해당하는 유저가 없습니다.");
+        }
 
         BFR bfr = createBFR(vo);
 
@@ -67,8 +70,14 @@ public class BFRServiceImpl implements BFRService {
 
     @Override
     public BFR showBFR(int userId) throws Exception {
-        String financialType = userRepository.findFinancialTypeByUserId(userId);
-        BFR bfr = BFR.valueOf(financialType);
-        return bfr;
+        try {
+            String financialType = userRepository.findFinancialTypeByUserId(userId);
+            BFR bfr = BFR.valueOf(financialType);
+            return bfr;
+        } catch (Exception e) {
+            throw new NoSuchElementException("UserId Not Found");
+        }
+
+
     }
 }

@@ -10,7 +10,6 @@ import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import com.boolsazo.bankchall.repository.UserRepository;
 import com.boolsazo.bankchall.service.StatisticsService;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +26,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         try {
             result = userRepository.goalStatistics(userId);
         } catch (Exception e) {
-            throw new Exception("통계 처리 중 에러" , e);
+            throw new Exception("통계 처리 중 에러", e);
         }
 
         return new StatisticsCategoryResponse(result);
@@ -64,7 +63,7 @@ public class StatisticsServiceImpl implements StatisticsService {
         try {
             result = userRepository.jobStatistics(userId);
         } catch (Exception e) {
-            throw new Exception("통계 처리 중 에러" , e);
+            throw new Exception("통계 처리 중 에러", e);
         }
 
         return new StatisticsJobResponse(result);

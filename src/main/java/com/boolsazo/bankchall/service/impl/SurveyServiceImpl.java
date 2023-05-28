@@ -22,6 +22,6 @@ public class SurveyServiceImpl implements SurveyService {
     @Override
     public Survey showSurvey(int userId) throws Exception {
         return repository.findById(userId)
-                   .orElseThrow(() -> new NoSuchElementException("Survey Not Found"));
+                   .orElseThrow(() -> new NoSuchElementException("UserId Not Found"));
     }
 }

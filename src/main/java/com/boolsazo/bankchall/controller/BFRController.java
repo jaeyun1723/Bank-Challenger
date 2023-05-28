@@ -1,5 +1,6 @@
 package com.boolsazo.bankchall.controller;
 
+import com.boolsazo.bankchall.domain.Survey;
 import com.boolsazo.bankchall.dto.BFR;
 import com.boolsazo.bankchall.dto.BFRTestForm;
 import com.boolsazo.bankchall.service.BFRService;
@@ -34,7 +35,7 @@ public class BFRController {
                        .body("BFR registered successfully.");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                       .body(e.getMessage());
+                       .body("Failed to register BFR. " +e.getMessage());
         }
     }
 
@@ -42,7 +43,14 @@ public class BFRController {
     @ResponseStatus(code = HttpStatus.OK)
     @Parameter(name = "userId", description = "사용자 PK")
     @Operation(summary = "해당 사용자 금융대사량 조회 API", description = "해당 사용자의 금융대사량을 조회할 수 있는 API")
-    public BFR showBFR(@PathVariable("userId") int userId) throws Exception {
-        return service.showBFR(userId);
+    public ResponseEntity showBFR(@PathVariable("userId") int userId) throws Exception {
+        try {
+            BFR bfr = service.showBFR(userId);
+            return ResponseEntity.status(HttpStatus.OK)
+                       .body(bfr);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                       .body("Failed to show BFR. " + e.getMessage());
+        }
     }
 }

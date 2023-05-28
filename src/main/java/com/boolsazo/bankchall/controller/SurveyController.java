@@ -29,7 +29,6 @@ public class SurveyController {
     public ResponseEntity registerSurvey(@RequestBody Survey pvo) {
         try {
             service.registerSurvey(pvo);
-            System.out.println("설문조사 제출");
             return ResponseEntity.status(HttpStatus.CREATED)
                        .body("Survey created successfully.");
         } catch (Exception e) {
@@ -42,7 +41,14 @@ public class SurveyController {
     @ResponseStatus(code = HttpStatus.OK)
     @Parameter(name = "userId", description = "사용자 PK")
     @Operation(summary = "해당 사용자 설문조사 조회 API", description = "해당 사용자가 제출한 설문조사 조회할 수 있는 API")
-    public Survey showSurvey(@PathVariable("userId") int userId) throws Exception {
-        return service.showSurvey(userId);
+    public ResponseEntity showSurvey(@PathVariable("userId") int userId) throws Exception {
+        try {
+            Survey survey = service.showSurvey(userId);
+            return ResponseEntity.status(HttpStatus.OK)
+                       .body(survey);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                       .body("Failed to show Survey. " + e.getMessage());
+        }
     }
 }

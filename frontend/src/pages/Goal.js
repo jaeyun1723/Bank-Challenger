@@ -63,7 +63,7 @@ class Goal extends React.Component {
                   height: "800px", // 수정할 높이
                   zIndex: 10,
                   display: "flex",
-                  opacity: "0.8"
+                  opacity: "0.8",
                 }}
               >
                 <GoalMain userId={sessionStorage.getItem("userId")} />

@@ -274,28 +274,30 @@ function GoalMain({ userId }) {
           </Card>
         ))}
       </Slider>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "50px",
-        }}
-      >
-        <Button
-          color="primary"
-          onClick={handleCreateGoalClick}
-          onMouseEnter={handleSlideMouseEnter}
-          onMouseLeave={handleSlideMouseLeave}
+      {goals.length !== 0 && (
+        <div
           style={{
-            width: "33%",
-            backgroundColor: "#7691F6",
-            border: "0",
-            color: "white",
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
           }}
         >
-          목표 생성
-        </Button>
-      </div>
+          <Button
+            color="primary"
+            onClick={handleCreateGoalClick}
+            onMouseEnter={handleSlideMouseEnter}
+            onMouseLeave={handleSlideMouseLeave}
+            style={{
+              width: "33%",
+              backgroundColor: "#7691F6",
+              border: "0",
+              color: "white",
+            }}
+          >
+            목표 생성
+          </Button>
+        </div>
+      )}
 
       {showCreateGoal && (
         <div

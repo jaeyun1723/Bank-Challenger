@@ -334,7 +334,7 @@ function ManageAccount() {
       <DemoNavbar />
       <main id="main">
         <section className="section section-hero section-shaped">
-          <div className="shape shape-style-1 shape-default">
+          <div className="shape shape-style-1">
           <img
                 alt="..."
                 src={require("assets/img/theme/background.png")}

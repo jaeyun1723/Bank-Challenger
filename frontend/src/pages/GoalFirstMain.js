@@ -66,9 +66,9 @@ function GoalFirstMain() {
   };
 
   return (
-    <div className="container category">
+    <div className="container category" >
     <div className="title">목표 둘러보기</div>
-      <Slider {...settings}>
+      <Slider {...settings}  >
         {goals.map((goal) => (
           <div
             onClick={() => handleCategoryClick(goal.category)}
@@ -76,12 +76,11 @@ function GoalFirstMain() {
             //onClick={() => handleSlideClick(goal)}
             onMouseEnter={handleSlideMouseEnter}
             onMouseLeave={handleSlideMouseLeave}
-            style={{ backgroundImage: `url(${goal.image})`}}
             key={goal.id}
           >
             <div className="slide-content">
-              <div className="goal-title" style={{color:'white'}}>{goal.title}</div>
-              <p  style={{color:'white'}} >{goal.description}</p>
+              <div className="goal-title" style={{color:'white', fontWeight:'bold'}}>{goal.title}</div>
+              <p  style={{color:'white', marginLeft:'-20px',marginRight:'-20px',fontWeight:'bold'}} >{goal.description}</p>
               <img src={goal.image}
               style={{width:'100%', marginTop:'40px'}}
               />

@@ -2,10 +2,12 @@ package com.boolsazo.bankchall.controller;
 
 import com.boolsazo.bankchall.domain.Goal;
 import com.boolsazo.bankchall.domain.SavingHistory;
+import com.boolsazo.bankchall.dto.RuleDetailResponse;
 import com.boolsazo.bankchall.dto.resultSet.GoalAccountResultSet;
 import com.boolsazo.bankchall.dto.resultSet.SavingHistoryResultSet;
 import com.boolsazo.bankchall.service.GoalAccountService;
 import com.boolsazo.bankchall.service.GoalService;
+import com.boolsazo.bankchall.service.RuleService;
 import com.boolsazo.bankchall.service.SavingHistoryService;
 import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class SchedulerController {
     @Autowired
     SavingHistoryService savingHistoryService;
 
+    @Autowired
+    RuleService ruleService;
+
     @Scheduled(fixedDelay = 1000* 60 * 60 * 24)
     void AutomaticWithdrawal() {
 
@@ -34,6 +39,12 @@ public class SchedulerController {
 
         for (Goal goal: goals) {
             try {
+                if(goal.isExpired()) continue;
+                RuleDetailResponse progress = ruleService.showRule(goal.getGoalId());
+                if(progress.getPercent()==100) {
+                    goal.setExpired(true);
+                    continue;
+                }
                 GoalAccountResultSet goalSAccountInfo = goalAccountService.showGoalSAccount(goal.getGoalId());
                 List<SavingHistoryResultSet> resultSet = savingHistoryService.showSavingHistoryReultSet(goalSAccountInfo.getAccount_Id(),goal.getGoalId());
                 boolean automaticDebitPayment = false;

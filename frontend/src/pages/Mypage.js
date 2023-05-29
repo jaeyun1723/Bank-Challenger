@@ -136,36 +136,45 @@ const Profile = () => {
                   </div>
                 </div>
                 <div className="card-profile-stats d-flex justify-content-center">
-                  <div>
-                    <span className="heading">
+                  <div style={{ marginLeft: '50px' }}>
+                    <span className="heading" style={{ fontSize: "40px" }}>
                       {sessionStorage.getItem("goalCnt")}
                     </span>
-                    <span className="description">목표 갯수</span>
+                    <span className="description" style={{ fontSize: "20px" }}>목표 갯수</span>
                   </div>
-                  <div>
-                    <span className="heading">
+                  <div style={{ marginRight: "150px", marginLeft: '160px' }}>
+                    <span className="heading" style={{ fontSize: "40px" }}>
                       {sessionStorage.getItem("achievementRate")}%
                     </span>
-                    <span className="description">목표 달성률</span>
+                    <span className="description" style={{ fontSize: "20px" }}>목표 달성률</span>
                   </div>
                   <div>
                     <span className="heading">
                       {numberWithCommas(sessionStorage.getItem("savingAmount"))}원
                     </span>
-                    <span className="description">현재까지 모은 금액</span>
+                    <span className="heading" style={{ fontSize: "40px" }}>
+                      {sessionStorage.getItem("savingAmount")}
+                    </span>
+                    <span className="description" style={{ fontSize: "20px" }}>현재까지 모은 금액</span>
                   </div>
                 </div>
                 <div className="mt-5 py-5 border-top text-center">
                   <Row className="justify-content-center">
-                    <Col lg="3">
-                      <div>
-                        결혼 유무:{" "}
+                    <Col lg="4" >
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <br />
+                      <h4 style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>
+                        결혼 유무 :{" "}
                         {survey["married"] === true ? "기혼" : "미혼"}{" "}
-                      </div>
-                      <div>월 소득: {survey["monthlyIncome"]}만원</div>
-                      <div>직종 : {survey["occupation"]}</div>
+                      </h4>
+                      <h4 style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>월 소득 : {survey["monthlyIncome"]}만원</h4>
+                      <h4 style={{ textAlign: 'center', color: 'black', fontSize: '20px' }}>직종 : {survey["occupation"]}</h4>
                     </Col>
-                    <Col lg="9">
+                    <Col lg="7">
                       <BFRChart />
                     </Col>
                   </Row>

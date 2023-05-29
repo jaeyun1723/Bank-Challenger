@@ -40,6 +40,16 @@ class Login extends React.Component {
                 <RowAndColumnSpacing answer1={0} answer2={0} index={0} />
                 <br />
                 <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
               </Container>
             </section>
           </main>

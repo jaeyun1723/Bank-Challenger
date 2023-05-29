@@ -134,7 +134,6 @@ function GoalMain({ userId }) {
 		}
 	};
 
-	console.log(goals.percentMap);
 
 	function reverseList(list) {
 		let reversed = [];
@@ -217,7 +216,9 @@ function GoalMain({ userId }) {
 								className="bookmark"
 								style={{ backgroundColor: goal.goalImage }}
 							/>
-							<h3>{goal.goalName}</h3>
+							<h3	style={{
+									fontWeight:'bold'
+								}}>{goal.goalName}</h3>
 							<h2
 								style={{
 									fontSize: "25px",
@@ -254,7 +255,7 @@ function GoalMain({ userId }) {
 												<span
 													style={{
 														color: "white",
-														fontSize: "14px",
+														fontSize: "14px"
 													}}
 												>
 													진행도

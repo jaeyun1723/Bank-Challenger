@@ -97,14 +97,15 @@ public class StatusController {
             goal = goalService.showAllGoal(userId);
 
             int achievementCount = 0;
-            for (Goal data : goal.getGoals()) {
+            for (Goal data : goal.getGoals()){
                 if (!data.isExpired()) {
                     continue;
                 }
                 ++achievementCount;
             }
+            System.out.println("달성한 개수 : "+achievementCount);
             userResponse.setGoalCnt(goal.getCount());
-            int achievementRate = goal.getCount() == 0 ? 0 : (Math.round(achievementCount / goal.getCount() * 100));
+            int achievementRate = goal.getCount() == 0 ? 0 : (int)(Math.round(achievementCount / (double)goal.getCount() * 100));
             userResponse.setAchievementRate(achievementRate);
         } catch (Exception e) {
             e.printStackTrace();

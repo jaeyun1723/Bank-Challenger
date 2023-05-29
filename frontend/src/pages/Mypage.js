@@ -124,7 +124,7 @@ const Profile = () => {
                   </div>
                   <div>
                     <span className="heading">
-                      {sessionStorage.getItem("achievementRate")}
+                      {sessionStorage.getItem("achievementRate")}%
                     </span>
                     <span className="description">목표 달성률</span>
                   </div>

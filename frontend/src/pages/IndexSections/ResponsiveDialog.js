@@ -45,7 +45,7 @@ export default function ResponsiveDialog(props) {
           </DialogTitle>
           <DialogContent>
             <DialogContentText>
-              {"뱅크 챌린져가 구성한 금융대사량에 따라 돈을 모아보세요!"}
+              {"뱅크 챌린저가 구성한 금융대사량에 따라 돈을 모아보세요!"}
             </DialogContentText>
           </DialogContent>
           <DialogActions>

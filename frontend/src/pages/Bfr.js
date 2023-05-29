@@ -21,13 +21,12 @@ class Login extends React.Component {
     // } else {
     return (
         <>
-          <DemoNavbar />
           <main ref="main">
             <section className="section section-shaped section-lg">
               <div className="shape shape-style-1 shape-default">
                 <img
                     alt="..."
-                    src={require("assets/img/theme/background.png")}
+                    src={require("assets/img/theme/bfrbackground.png")}
                     style={{
                       width: "100%",
                       height: "100%",

@@ -1,0 +1,13 @@
+.connection {
+  width: 350px;
+  height: 200px;
+  border-radius: 40px;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+  display: flex;
+  margin: 0 auto;
+  padding: 1rem;
+
+  /* 추가적인 스타일 지정 */
+}

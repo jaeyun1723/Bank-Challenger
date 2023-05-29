@@ -41,9 +41,10 @@ public class SchedulerController {
             try {
                 if(goal.isExpired()) continue;
                 RuleDetailResponse progress = ruleService.showRule(goal.getGoalId());
-                if(progress.getPercent()==100) {
-                    goal.setExpired(true);
-                    continue;
+                if(progress.getPercent() == 100) {
+                   goal.setExpired(true);
+                   goalService.updateGoal(goal);
+                   continue;
                 }
                 GoalAccountResultSet goalSAccountInfo = goalAccountService.showGoalSAccount(goal.getGoalId());
                 List<SavingHistoryResultSet> resultSet = savingHistoryService.showSavingHistoryReultSet(goalSAccountInfo.getAccount_Id(),goal.getGoalId());

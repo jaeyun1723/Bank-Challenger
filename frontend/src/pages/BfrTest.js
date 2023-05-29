@@ -132,8 +132,9 @@ export default function RowAndColumnSpacing(props) {
           <br />
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             <Grid item xs={12} sx={{ height: "50%" }} style={{textAlign: "center"}}>
-              <h2 class="navbar-brand">{data[index].question}</h2>
+              <h2 class="navbar-brand" style={{fontSize:'20px'}}>{data[index].question}</h2>
             </Grid>
+            <br />
             <br />
             <br />
             <br />

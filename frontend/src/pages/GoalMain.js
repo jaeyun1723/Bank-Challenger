@@ -52,6 +52,7 @@ function GoalMain({ userId }) {
 			})
 			.catch((err) => {
 				console.error(err);
+				setGoals([]);
 			});
 	};
 
@@ -65,6 +66,7 @@ function GoalMain({ userId }) {
 			})
 			.catch((err) => {
 				console.error(err);
+				setGoals([]);
 			});
 	}, [userId]);
 

@@ -3,7 +3,10 @@ package com.boolsazo.bankchall.dto;
 import com.boolsazo.bankchall.domain.Occupation;
 import com.boolsazo.bankchall.dto.resultSet.OccupationResultSet;
 import io.swagger.v3.oas.annotations.media.Schema;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,8 +18,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Schema(description = "금융대사량에 따른 직종 통계 응답 DTO")
 public class StatisticsJobResponse {
+
     @Schema(description = "가장 많은 직종", defaultValue = "")
-    private String bestJob;
+    private List<String> bestJob = new ArrayList<>();
     @Schema(description = "무직", defaultValue = "0")
     private int inoccupation = 0;
 
@@ -44,40 +48,38 @@ public class StatisticsJobResponse {
     @Schema(description = "서비스직", defaultValue = "0")
     private int service = 0;
 
-    public StatisticsJobResponse(List<OccupationResultSet> resultSet) {
-        int bestCnt = 0;
-        for (OccupationResultSet ors : resultSet) {
-            String occupation = ors.getOccupation();
-            int count = ors.getCount();
-            System.out.println(count);
-            System.out.println(occupation);
-            if (occupation.equals(Occupation.IN_OCCUPATION.getKor())) {
-                this.inoccupation = count;
-                if (bestCnt < count) this.bestJob = Occupation.IN_OCCUPATION.getKor();
-            } else if (occupation.equals(Occupation.STUDENT.getKor())) {
-                this.student = count;
-                if (bestCnt < count) this.bestJob = Occupation.STUDENT.getKor();
-            } else if (occupation.equals(Occupation.EMPLOYEE.getKor())) {
-                this.employee = count;
-                if (bestCnt < count) this.bestJob = Occupation.EMPLOYEE.getKor();
-            } else if (occupation.equals(Occupation.OWNER_OPERATOR.getKor())) {
-                this.ownerOperator = count;
-                if (bestCnt < count) this.bestJob = Occupation.OWNER_OPERATOR.getKor();
-            } else if (occupation.equals(Occupation.SPECIALIZED_JOB.getKor())) {
-                this.specializedJob = count;
-                if (bestCnt < count) this.bestJob = Occupation.SPECIALIZED_JOB.getKor();
-            } else if (occupation.equals(Occupation.FREELANCER.getKor())) {
-                this.freelancer = count;
-                if (bestCnt < count) this.bestJob = Occupation.FREELANCER.getKor();
-            } else if (occupation.equals(Occupation.CIVIL_SERVANT.getKor())) {
-                this.civilServant = count;
-                if (bestCnt < count) this.bestJob = Occupation.CIVIL_SERVANT.getKor();
-            } else if (occupation.equals(Occupation.SERVICE.getKor())) {
-                this.service = count;
-                if (bestCnt < count) this.bestJob = Occupation.SERVICE.getKor();
-            } else if (occupation.equals(Occupation.ENGINEERING.getKor())) {
-                this.engineer = count;
-                if (bestCnt < count) this.bestJob = Occupation.ENGINEERING.getKor();
+    public StatisticsJobResponse(List<OccupationResultSet> result) {
+        if (result != null) {
+            Optional<OccupationResultSet> occupationResultSetOptional = result.stream().max(
+                Comparator.comparing(OccupationResultSet::getCount));
+            if (occupationResultSetOptional.isPresent()) {
+                int maxCount = occupationResultSetOptional.get().getCount();
+                for (OccupationResultSet ors : result) {
+                    String occupation = ors.getOccupation();
+                    int count = ors.getCount();
+                    if (maxCount == count) {
+                        bestJob.add(occupation);
+                    }
+                    if (occupation.equals(Occupation.IN_OCCUPATION.getKor())) {
+                        this.inoccupation = count;
+                    } else if (occupation.equals(Occupation.STUDENT.getKor())) {
+                        this.student = count;
+                    } else if (occupation.equals(Occupation.EMPLOYEE.getKor())) {
+                        this.employee = count;
+                    } else if (occupation.equals(Occupation.OWNER_OPERATOR.getKor())) {
+                        this.ownerOperator = count;
+                    } else if (occupation.equals(Occupation.SPECIALIZED_JOB.getKor())) {
+                        this.specializedJob = count;
+                    } else if (occupation.equals(Occupation.FREELANCER.getKor())) {
+                        this.freelancer = count;
+                    } else if (occupation.equals(Occupation.CIVIL_SERVANT.getKor())) {
+                        this.civilServant = count;
+                    } else if (occupation.equals(Occupation.SERVICE.getKor())) {
+                        this.service = count;
+                    } else if (occupation.equals(Occupation.ENGINEERING.getKor())) {
+                        this.engineer = count;
+                    }
+                }
             }
         }
     }

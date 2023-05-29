@@ -36,12 +36,15 @@ public class StatisticsServiceImpl implements StatisticsService {
     public StatisticsGenderAgeResponse genderAgeStatistics(int userId) {
         // 연령대
         String[] ageArr = {"0-9", "10-19", "20-29", "30-39", "40-49", "50-59", "60-"};
+        String[] ageStrArr = {"10대 이하", "10대", "20대", "30대", "40대", "50대", "60대 이상"};
         List<GenderAge> response = new ArrayList<>();
 
-        for (String age : ageArr) {
+        for (int i = 0; i < ageStrArr.length; i++) {
+            String age = ageArr[i];
+            String ageStr = ageStrArr[i];
             StatisticsGenderAgeResponse.GenderAge genderAge = new StatisticsGenderAgeResponse.GenderAge();
             GenderAgeResultSet result = userRepository.genderAgeStatistics(userId, age);
-            genderAge.setAge(age);
+            genderAge.setAge(ageStr);
             if (result != null) {
                 if (result.getGender().equals("M")) {
                     genderAge.setMan(result.getCount());

@@ -18,47 +18,12 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-var result = [];
-
 export default function Statistics() {
-	const [job, setJob] = useState();
+	const [bestJob, setBestJob] = useState([]);
+	const [bestJobMessage, setBestJobMessage] = useState("");
+	const [bestGenderAgeMessage, setBestGenderAgeMessage] = useState("");
 	const [bestCategory, setBestCategory] = useState([]);
 	const [bestCategoryMessage, setBestCategoryMessage] = useState("");
-
-	useEffect(() => {
-		axios
-			.get("/statistics/job/" + sessionStorage.getItem("userId"))
-			.then((res) => {
-				
-				setJob(res.data);
-				// category(res.data);
-				// const list = res.data.bestCategory;
-				// setBestCategory(list);
-				// const output = list.map((item, index) => {
-				// 	if (index === list.length - 1) {
-				// 		return item;
-				// 	} else {
-				// 		return item + ", ";
-				// 	}
-				// });
-
-				// setBestCategoryMessage(output);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
-
-	useEffect(() => {
-		axios
-			.get("/statistics/gender-age/" + sessionStorage.getItem("userId"))
-			.then((response) => {
-				result = response.data.result;
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}, []);
 
 	useEffect(() => {
 		axios
@@ -75,12 +40,46 @@ export default function Statistics() {
 							return item + ", ";
 						}
 					});
-
 				} else {
 					setBestCategory(null);
 				}
-
 				setBestCategoryMessage(output);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
+
+	useEffect(() => {
+		axios
+			.get("/statistics/job/" + sessionStorage.getItem("userId"))
+			.then((res) => {
+				setBestJob(res.data.bestJob);
+				const list = res.data.bestJob;
+				const output = "";
+				if (list.length > 0) {
+					output = list.map((item, index) => {
+						if (index === list.length - 1) {
+							return item;
+						} else {
+							return item + ", ";
+						}
+					});
+				} else {
+					setBestJob(null);
+				}
+				setBestJobMessage(output);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
+	}, []);
+
+	useEffect(() => {
+		axios
+			.get("/statistics/gender-age/" + sessionStorage.getItem("userId"))
+			.then((res) => {
+				setBestGenderAgeMessage(res.data.bestGenderAge);
 			})
 			.catch((error) => {
 				console.log(error);
@@ -98,22 +97,26 @@ export default function Statistics() {
 						직종 통계
 					</h3>
 					<Item>
-						<Chart job={job} />
+						<Chart />
 					</Item>
-					{/*<br />*/}
-					{/*<h4 className="text-white" style={{textAlign: 'center'}}>*/}
-					{/*  <img*/}
-					{/*      style={{width: "60px"}}*/}
-					{/*      alt="..."*/}
-					{/*      src={require("assets/img/statistics/double-quotes1.png")}*/}
-					{/*  />*/}
-					{/*  {bfr}을 가진 사람들은 '생산직'인 사람이 많네요!*/}
-					{/*  <img*/}
-					{/*      style={{width: "60px"}}*/}
-					{/*      alt="..."*/}
-					{/*      src={require("assets/img/statistics/double-quotes2.png")}*/}
-					{/*  />*/}
-					{/*</h4>*/}
+					<br />
+					{bestJob.length >= 2 && (
+						<h4
+							className="text-white"
+							style={{ textAlign: "center" }}
+						>
+							"{bfr}을 가진 사람들은 '{bestJobMessage}'인 사람이
+							많네요!
+						</h4>
+					)}
+					{bestJob.length === 1 && (
+						<h4
+							className="text-white"
+							style={{ textAlign: "center" }}
+						>
+							"{bfr}을 가진 사람들은 '{bestJob}' 인 사람이 많네요!"
+						</h4>
+					)}
 				</Grid>
 				<br />
 				{bestCategory != null && (
@@ -137,7 +140,6 @@ export default function Statistics() {
 								목표를 가진 사람이 많네요!"
 							</h4>
 						)}
-						;
 						{bestCategory.length === 1 && (
 							<h4
 								className="text-white"
@@ -147,7 +149,6 @@ export default function Statistics() {
 								가진 사람이 많네요!"
 							</h4>
 						)}
-						;
 					</Grid>
 				)}
 				<br />
@@ -161,6 +162,14 @@ export default function Statistics() {
 					<Item>
 						<Bar />
 					</Item>
+					<br />
+					<h4
+							className="text-white"
+							style={{ textAlign: "center" }}
+						>
+							"{bfr}을 가진 사람들은 '{bestGenderAgeMessage}'인 사람이
+							많네요!"
+						</h4>
 				</Grid>
 			</Grid>
 		</Box>

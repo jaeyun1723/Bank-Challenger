@@ -12,14 +12,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Schema(description = "금융대사량에 따른 성별,나이 통계 응답 DTO")
 public class StatisticsGenderAgeResponse {
+
+    @Schema(description = "가장 많은 성별 & 나잇대")
+    String bestGenderAge = "";
+
     @Schema(description = "통계 결과값")
     List<GenderAge> result;
-
-    @Schema(description = "가장 많은 나잇대")
-    int bestAge;
-
-    @Schema(description = "가장 많은 성별")
-    int bestGender;
 
     @AllArgsConstructor
     @NoArgsConstructor
@@ -27,6 +25,7 @@ public class StatisticsGenderAgeResponse {
     @Getter
     @Schema(description = "금융대사량에 따른 성별,나이 통계 응답 DTO")
     public static class GenderAge {
+
         @Schema(description = "나이대", defaultValue = "0")
         private String age;
 
@@ -38,6 +37,21 @@ public class StatisticsGenderAgeResponse {
     }
 
     public StatisticsGenderAgeResponse(List<GenderAge> result) {
+        if (result != null) {
+            int max = 0;
+            String bestAge = "";
+            String bestGender = "";
+            for (GenderAge genderAge : result) {
+                if (max < genderAge.getMan()) {
+                    bestAge = genderAge.getAge();
+                    bestGender = "남자";
+                } else if (max < genderAge.getWoman()) {
+                    bestAge = genderAge.getAge();
+                    bestGender = "여자";
+                }
+            }
+            this.bestGenderAge = bestAge + " " + bestGender;
+        }
         this.result = result;
     }
 }

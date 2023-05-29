@@ -10,7 +10,7 @@ function BankLogo(bankName) {
             }} />
             break;
         case "KDB산업은행":
-            element = <img src={require("../../assets/img/brand/kdb.jpg")} style={{
+            element = <img src={require("../../assets/img/brand/kdb.png")} style={{
                 textAlign: "left",
                 marginBottom: "3px",
                 width: "35px",
@@ -50,7 +50,7 @@ function BankLogo(bankName) {
             }} />
             break;
         case "우리은행":
-            element = <img src={require("../../assets/img/brand/woori.jpg")} style={{
+            element = <img src={require("../../assets/img/brand/woori.png")} style={{
                 textAlign: "left",
                 marginBottom: "3px",
                 width: "35px",
@@ -122,7 +122,7 @@ function BankLogo(bankName) {
             }} />
             break;
         case "새마을금고":
-            element = <img src={require("../../assets/img/brand/mg.jpg")} style={{
+            element = <img src={require("../../assets/img/brand/mg.png")} style={{
                 textAlign: "left",
                 marginBottom: "3px",
                 width: "35px",
@@ -147,6 +147,14 @@ function BankLogo(bankName) {
             break;
         case "하나은행":
             element = <img src={require("../../assets/img/brand/hana.png")} style={{
+                textAlign: "left",
+                marginBottom: "3px",
+                width: "35px",
+                marginRight: "10px",
+            }} />
+            break;
+        case "카카오은행":
+            element = <img src={require("../../assets/img/brand/kakao.png")} style={{
                 textAlign: "left",
                 marginBottom: "3px",
                 width: "35px",

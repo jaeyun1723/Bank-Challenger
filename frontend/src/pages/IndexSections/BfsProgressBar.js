@@ -37,75 +37,75 @@ export default function BfsProgressBar(props) {
   }, []);
 
   return (
-      <Box sx={{ width: '100%' }}>
-        <Grid container spacing={2} style={{marginBottom: "3px"}}>
-          <Grid item xs={3}>
-            <div className="navbar-brand">소비</div>
-          </Grid>
-          <Grid item xs={9}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ width: '80%', mr: 1 }}>
-                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={consumption} color="secondary" />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.white">{`${Math.round(
-                    props.consumption,
-                )}%`}</Typography>
-              </Box>
-            </Box>
-          </Grid>
+    <Box sx={{ width: '100%' }}>
+      <Grid container spacing={2} style={{ marginBottom: "3px" }}>
+        <Grid item xs={3}>
+          <div className="navbar-brand" >소비</div>
         </Grid>
-        <Grid container spacing={2} style={{marginBottom: "3px"}}>
-          <Grid item xs={3}>
-            <div className="navbar-brand">예적금</div>
-          </Grid>
-          <Grid item xs={9}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ width: '80%', mr: 1 }}>
-                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={deposit} color="success" />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.white">{`${Math.round(
-                    props.deposit,
-                )}%`}</Typography>
-              </Box>
+        <Grid item xs={9}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '80%', mr: 1 }}>
+              <LinearProgress variant="determinate" style={{ borderRadius: "5", marginLeft: '10px' }} value={consumption} color="secondary" />
             </Box>
-          </Grid>
-        </Grid>
-        <Grid container spacing={2} style={{marginBottom: "3px"}}>
-          <Grid item xs={3}>
-            <div className="navbar-brand">투자(주식, 코인)</div>
-          </Grid>
-          <Grid item xs={9}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ width: '80%', mr: 1 }}>
-                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={invest} color="error" />
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.white">{`${Math.round(
-                    props.invest,
-                )}%`}</Typography>
-              </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2" color="text.white" style={{ marginLeft: '5px' }}>{`${Math.round(
+                props.consumption,
+              )}%`}</Typography>
             </Box>
-          </Grid>
+          </Box>
         </Grid>
-        <Grid container spacing={2} style={{marginBottom: "3px"}}>
-          <Grid item xs={3}>
-            <div className="navbar-brand">고정비용(보험,세금)</div>
-          </Grid>
-          <Grid item xs={9}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Box sx={{ width: '80%', mr: 1 }}>
-                <LinearProgress variant="determinate" style={{borderRadius: "5"}} value={fixedCost}/>
-              </Box>
-              <Box sx={{ minWidth: 35 }}>
-                <Typography variant="body2" color="text.white">{`${Math.round(
-                    props.fixedCost,
-                )}%`}</Typography>
-              </Box>
+      </Grid>
+      <Grid container spacing={2} style={{ marginBottom: "3px" }}>
+        <Grid item xs={3}>
+          <div className="navbar-brand">예적금</div>
+        </Grid>
+        <Grid item xs={9}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '80%', mr: 1 }}>
+              <LinearProgress variant="determinate" style={{ borderRadius: "5", marginLeft: '10px' }} value={deposit} color="success" />
             </Box>
-          </Grid>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2" color="text.white" style={{ marginLeft: '5px' }}>{`${Math.round(
+                props.deposit,
+              )}%`}</Typography>
+            </Box>
+          </Box>
         </Grid>
-      </Box>
+      </Grid>
+      <Grid container spacing={2} style={{ marginBottom: "3px" }}>
+        <Grid item xs={3}>
+          <div className="navbar-brand">투자(주식, 코인)</div>
+        </Grid>
+        <Grid item xs={9}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '80%', mr: 1 }}>
+              <LinearProgress variant="determinate" style={{ borderRadius: "5", marginLeft: '10px' }} value={invest} color="error" />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2" color="text.white" style={{ marginLeft: '5px' }}>{`${Math.round(
+                props.invest,
+              )}%`}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} style={{ marginBottom: "3px" }}>
+        <Grid item xs={3}>
+          <div className="navbar-brand">고정비용(보험,세금)</div>
+        </Grid>
+        <Grid item xs={9}>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ width: '80%', mr: 1 }}>
+              <LinearProgress variant="determinate" style={{ borderRadius: "5", marginLeft: '10px' }} value={fixedCost} />
+            </Box>
+            <Box sx={{ minWidth: 35 }}>
+              <Typography variant="body2" color="text.white" style={{ marginLeft: '5px' }}>{`${Math.round(
+                props.fixedCost,
+              )}%`}</Typography>
+            </Box>
+          </Box>
+        </Grid>
+      </Grid>
+    </Box>
   );
 }

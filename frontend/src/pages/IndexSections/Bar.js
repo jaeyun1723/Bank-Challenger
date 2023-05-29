@@ -14,7 +14,7 @@ export default class test extends Component {
 				},
 				xaxis: {
 					categories: [
-            "10대 이하",
+						"10대 이하",
 						"10대",
 						"20대",
 						"30대",
@@ -23,24 +23,24 @@ export default class test extends Component {
 						"60대 이상",
 					],
 				},
-        plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: 'center', // top, center, bottom
-            },
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val + "명";
-          },
-          style: {
-            fontSize: '12px',
-            colors: ["white"]
-          }
-        },
+				plotOptions: {
+					bar: {
+						borderRadius: 10,
+						dataLabels: {
+							position: "center", // top, center, bottom
+						},
+					},
+				},
+				dataLabels: {
+					enabled: true,
+					formatter: function (val) {
+						return val + "명";
+					},
+					style: {
+						fontSize: "12px",
+						colors: ["white"],
+					},
+				},
 			},
 
 			series: [
@@ -58,33 +58,34 @@ export default class test extends Component {
 		axios
 			.get("/statistics/gender-age/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-
-        this.state.series = [
-          {
-            name: "남",
-            data: [
-              res.data.result[0].man, 
-              res.data.result[1].man,
-              res.data.result[2].man, 
-              res.data.result[3].man, 
-              res.data.result[4].man, 
-              res.data.result[5].man, 
-              res.data.result[6].man],
-          },
-          {
-            name: "여",
-            data: [
-              res.data.result[0].woman, 
-              res.data.result[1].woman,
-              res.data.result[2].woman, 
-              res.data.result[3].woman, 
-              res.data.result[4].woman, 
-              res.data.result[5].woman, 
-              res.data.result[6].woman],
-          },
-        ]
+				console.log("gender-age", res.data);
+				this.state.series = [
+					{
+						name: "남",
+						data: [
+							res.data.result[0].man,
+							res.data.result[1].man,
+							res.data.result[2].man,
+							res.data.result[3].man,
+							res.data.result[4].man,
+							res.data.result[5].man,
+							res.data.result[6].man,
+						],
+					},
+					{
+						name: "여",
+						data: [
+							res.data.result[0].woman,
+							res.data.result[1].woman,
+							res.data.result[2].woman,
+							res.data.result[3].woman,
+							res.data.result[4].woman,
+							res.data.result[5].woman,
+							res.data.result[6].woman,
+						],
+					},
+				];
 			});
-
 	}
 	render() {
 		return (

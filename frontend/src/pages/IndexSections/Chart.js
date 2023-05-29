@@ -9,7 +9,7 @@ export default class test extends Component {
 			options: {
 				chart: {
 					id: "apexchart-example",
-          width: 380,
+					width: 380,
 					type: "bar",
 				},
 				xaxis: {
@@ -25,24 +25,24 @@ export default class test extends Component {
 						"서비스직",
 					],
 				},
-        plotOptions: {
-          bar: {
-            borderRadius: 10,
-            dataLabels: {
-              position: 'center', // top, center, bottom
-            },
-          }
-        },
-        dataLabels: {
-          enabled: true,
-          formatter: function (val) {
-            return val + "명";
-          },
-          style: {
-            fontSize: '12px',
-            colors: ["white"]
-          }
-        },
+				plotOptions: {
+					bar: {
+						borderRadius: 10,
+						dataLabels: {
+							position: "center", // top, center, bottom
+						},
+					},
+				},
+				dataLabels: {
+					enabled: true,
+					formatter: function (val) {
+						return val + "명";
+					},
+					style: {
+						fontSize: "12px",
+						colors: ["white"],
+					},
+				},
 			},
 			series: [
 				{
@@ -55,25 +55,24 @@ export default class test extends Component {
 		axios
 			.get("/statistics/job/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-				this.state.series = [{
-					name: "명 단위",
-					data: [
-            res.data.inoccupation,
-            res.data.student,
-            res.data.employee,
-            res.data.ownerOperator,
-            res.data.specializedJob,
-            res.data.freelancer,
-            res.data.civilServant,
-            res.data.engineer,
-            res.data.service,
-          ],
-				}
-      ];
-
-        console.log("this.state.series", this.state.series);
+				console.log("job", res.data);
+				this.state.series = [
+					{
+						name: "명 단위",
+						data: [
+							res.data.inoccupation,
+							res.data.student,
+							res.data.employee,
+							res.data.ownerOperator,
+							res.data.specializedJob,
+							res.data.freelancer,
+							res.data.civilServant,
+							res.data.engineer,
+							res.data.service,
+						],
+					},
+				];
 			});
-
 	}
 
 	render() {

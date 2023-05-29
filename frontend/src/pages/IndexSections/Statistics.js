@@ -8,8 +8,6 @@ import PieChart from "./PieChart.js";
 import Bar from "./Bar.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Goal from "./../Goal";
-
 const bfr = sessionStorage.getItem("financialType");
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -20,28 +18,18 @@ const Item = styled(Paper)(({ theme }) => ({
 	color: theme.palette.text.secondary,
 }));
 
-// var job = []
-
-const goal = {
-	buy: 0,
-	go: 0,
-	collect: 0,
-};
-
 var result = [];
 
 export default function Statistics() {
 	const [job, setJob] = useState();
-	const [category, setCategory] = useState();
 	const [bestCategory, setBestCategory] = useState([]);
 	const [bestCategoryMessage, setBestCategoryMessage] = useState("");
-	const [isExistGoal, setIsExistGoal] = useState(false);
 
 	useEffect(() => {
 		axios
 			.get("/statistics/job/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-				console.log("job", res.data);
+				
 				setJob(res.data);
 				// category(res.data);
 				// const list = res.data.bestCategory;
@@ -76,7 +64,6 @@ export default function Statistics() {
 		axios
 			.get("/statistics/goal/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-				setCategory(res.data);
 				const list = res.data.bestCategory;
 				setBestCategory(list);
 				const output = "";
@@ -88,6 +75,9 @@ export default function Statistics() {
 							return item + ", ";
 						}
 					});
+
+				} else {
+					setBestCategory(null);
 				}
 
 				setBestCategoryMessage(output);
@@ -126,7 +116,7 @@ export default function Statistics() {
 					{/*</h4>*/}
 				</Grid>
 				<br />
-				{bestCategory.length > 0 && (
+				{bestCategory != null && (
 					<Grid item>
 						<h2
 							className="display-3 text-white"
@@ -135,7 +125,7 @@ export default function Statistics() {
 							목표 통계
 						</h2>
 						<Item>
-							<PieChart category={category} />
+							<PieChart />
 						</Item>
 						<br />
 						{bestCategory.length >= 2 && (

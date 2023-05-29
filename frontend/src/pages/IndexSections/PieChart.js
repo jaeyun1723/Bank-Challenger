@@ -10,8 +10,6 @@ export default class test extends Component {
 			options: {
 				chart: {
 					id: "apexchart-example",
-					width: 380,
-					type: "pie",
 				},
 				labels: ["사보자", "가보자", "모으자"],
 			},
@@ -21,7 +19,7 @@ export default class test extends Component {
 		axios
 			.get("/statistics/goal/" + sessionStorage.getItem("userId"))
 			.then((res) => {
-				console.log("data", res.data);
+				console.log("goal", res.data);
 				this.state.series = [
 					res.data.buy,
 					res.data.go,
@@ -38,7 +36,7 @@ export default class test extends Component {
 				type="pie"
 				width={"100%"}
 				height={320}
-			></Chart>
+			/>
 		);
 	}
 }

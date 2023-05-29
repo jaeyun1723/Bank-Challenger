@@ -47,6 +47,26 @@ const Profile = () => {
     return;
   }
 
+  function reverseList(list) {
+    let reversed = [];
+    for (let i = list.length - 1; i >= 0; i--) {
+      reversed.push(list[i]);
+    }
+    return reversed;
+  }
+
+  function numberWithCommas(money) {
+    let result = money.toString().split("");
+    result = reverseList(result);
+    for (let i = 0; i < result.length; i++) {
+      if ((i + 1) % 4 === 0 && i !== 0) {
+        result.splice(i, 0, ",");
+      }
+    }
+    result = reverseList(result);
+    return result.join("");
+  }
+
   return (
     <>
       <DemoNavbar />
@@ -130,7 +150,7 @@ const Profile = () => {
                   </div>
                   <div>
                     <span className="heading">
-                      {sessionStorage.getItem("savingAmount")}
+                      {numberWithCommas(sessionStorage.getItem("savingAmount"))}원
                     </span>
                     <span className="description">현재까지 모은 금액</span>
                   </div>

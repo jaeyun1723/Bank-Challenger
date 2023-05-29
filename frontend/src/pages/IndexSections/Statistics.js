@@ -8,6 +8,7 @@ import PieChart from "./PieChart.js";
 import Bar from "./Bar.js";
 import axios from "axios";
 import { useState, useEffect } from "react";
+import Goal from "./../Goal";
 
 const bfr = sessionStorage.getItem("financialType");
 
@@ -34,6 +35,7 @@ export default function Statistics() {
 	const [category, setCategory] = useState();
 	const [bestCategory, setBestCategory] = useState([]);
 	const [bestCategoryMessage, setBestCategoryMessage] = useState("");
+	const [isExistGoal, setIsExistGoal] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -77,13 +79,16 @@ export default function Statistics() {
 				setCategory(res.data);
 				const list = res.data.bestCategory;
 				setBestCategory(list);
-				const output = list.map((item, index) => {
-					if (index === list.length - 1) {
-						return item;
-					} else {
-						return item + ", ";
-					}
-				});
+				const output = "";
+				if (list.length > 0) {
+					output = list.map((item, index) => {
+						if (index === list.length - 1) {
+							return item;
+						} else {
+							return item + ", ";
+						}
+					});
+				}
 
 				setBestCategoryMessage(output);
 			})
@@ -121,36 +126,40 @@ export default function Statistics() {
 					{/*</h4>*/}
 				</Grid>
 				<br />
-				<Grid item>
-					<h2
-						className="display-3 text-white"
-						style={{ textAlign: "center" }}
-					>
-						목표 통계
-					</h2>
-					<Item>
-						<PieChart category={category} />
-					</Item>
-					<br />
-
-					{bestCategory.length > 1 ? (
-						<h4
-							className="text-white"
+				{bestCategory.length > 0 && (
+					<Grid item>
+						<h2
+							className="display-3 text-white"
 							style={{ textAlign: "center" }}
 						>
-							"{bfr}을 가진 사람들은 '{bestCategoryMessage}'
-							목표를 가진 사람이 많네요!"
-						</h4>
-					) : (
-						<h4
-							className="text-white"
-							style={{ textAlign: "center" }}
-						>
-							"{bfr}을 가진 사람들은 '{bestCategory}' 목표를 가진
-							사람이 많네요!"
-						</h4>
-					)}
-				</Grid>
+							목표 통계
+						</h2>
+						<Item>
+							<PieChart category={category} />
+						</Item>
+						<br />
+						{bestCategory.length >= 2 && (
+							<h4
+								className="text-white"
+								style={{ textAlign: "center" }}
+							>
+								"{bfr}을 가진 사람들은 '{bestCategoryMessage}'
+								목표를 가진 사람이 많네요!"
+							</h4>
+						)}
+						;
+						{bestCategory.length === 1 && (
+							<h4
+								className="text-white"
+								style={{ textAlign: "center" }}
+							>
+								"{bfr}을 가진 사람들은 '{bestCategory}' 목표를
+								가진 사람이 많네요!"
+							</h4>
+						)}
+						;
+					</Grid>
+				)}
 				<br />
 				<Grid item>
 					<h2

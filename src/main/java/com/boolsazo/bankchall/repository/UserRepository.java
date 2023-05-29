@@ -26,9 +26,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Modifying
     @Query(value = "insert into user (id, name, age, gender, email, birthyear, profile_image) "
-            + "values (?1, ?2, ?3, ?4, ?5, ?6, ?7) ;", nativeQuery = true)
+                       + "values (?1, ?2, ?3, ?4, ?5, ?6, ?7) ;", nativeQuery = true)
     void registerUser(String id, String name, String age, String gender, String email,
-            String birthyear, String profileImage);
+        String birthyear, String profileImage);
 
     @Query(value = "update user set financial_type = ?2 where user_id = ?1 ;", nativeQuery = true)
     void updateFinancialType(int userId, String financialType);
@@ -40,21 +40,21 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     int findUserIdByEmail(String email) throws Exception;
 
     @Query(value = "select category, count(*) count from user u\n"
-            + "join goal g on u.user_id = g.user_id\n"
-            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
-            + "group by category", nativeQuery = true)
+                       + "join goal g on u.user_id = g.user_id\n"
+                       + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+                       + "group by category", nativeQuery = true)
     List<CategoryResultSet> goalStatistics(@Param("userId") int userId);
 
     @Query(value = "select gender, count(*) count from user u\n"
-            + "join goal g on u.user_id = g.user_id\n"
-            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
-            + "and u.age = :age\n"
-            + "group by u.gender", nativeQuery = true)
-    GenderAgeResultSet genderAgeStatistics(@PathVariable("userId") int userId, @PathVariable("age") String age);
+                       + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+                       + "and u.age = :age\n"
+                       + "group by u.gender", nativeQuery = true)
+    GenderAgeResultSet genderAgeStatistics(@PathVariable("userId") int userId,
+        @PathVariable("age") String age);
 
     @Query(value = "select occupation, count(*) count from user u\n"
-            + "join survey s on u.user_id = s.user_id\n"
-            + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
-            + "group by occupation", nativeQuery = true)
+                       + "join survey s on u.user_id = s.user_id\n"
+                       + "where u.financial_type = (select financial_type from user u where u.user_id = :userId)\n"
+                       + "group by occupation", nativeQuery = true)
     List<OccupationResultSet> jobStatistics(@PathVariable("userId") int userId);
 }

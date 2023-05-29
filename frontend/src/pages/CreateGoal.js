@@ -15,9 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
 import { Scrollbars } from "react-custom-scrollbars";
-import InputBase from "@mui/material/InputBase";
-import Paper from "@mui/material/Paper";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { MuiColorInput } from "mui-color-input";
 
 const theme = createTheme({
 	palette: {
@@ -48,15 +46,15 @@ function CreateGoal({ setIsOpen }) {
 	const [isExpired, setIsExpired] = useState(false);
 	const [day, setDay] = useState("null");
 	const [startDate, setStartDate] = useState("null");
-	const [goalImage, setGoalImage] = useState("#000000");
+	const [goalImage, setGoalImage] = useState("blue");
 	const [isSubmitted, setIsSubmitted] = useState(false);
 	const [searchQuery, setSearchQuery] = useState("");
 	const [searchResults, setSearchResults] = useState([]);
 	const [selectedResult, setSelectedResult] = useState(null); // Added state to store the selected search result
 	const ariaLabel = { "aria-label": "description" };
 
-	const handleColorChange = (e) => {
-		setGoalImage(e.target.value);
+	const handleColorChange = (newValue) => {
+		setGoalImage(newValue);
 	};
 
 	const handleChange = (e) => {
@@ -72,11 +70,6 @@ function CreateGoal({ setIsOpen }) {
 		value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ","); // 1,000 단위로 콤마 추가
 		setSavingAmount(value);
 	};
-
-	// const searchResultsContainerStyle = {
-	// 	maxHeight: "100px",
-	// 	overflowY: "auto",
-	// };
 
 	const resetInputValues = () => {
 		setGoalName("");
@@ -103,10 +96,6 @@ function CreateGoal({ setIsOpen }) {
 			}));
 
 			setSearchResults(items);
-
-			//setSearchResults(response.data.items);
-			console.log(items);
-			// Assuming the response data has a field 'items' that contains the search results
 		} catch (err) {
 			console.error(err);
 		}
@@ -138,7 +127,6 @@ function CreateGoal({ setIsOpen }) {
 		}
 
 		try {
-			// setProductId("");
 			const data = {
 				userId,
 				category,
@@ -178,11 +166,17 @@ function CreateGoal({ setIsOpen }) {
 
 	return (
 		<div className="wrap">
-			<h1 style={{ textAlign: "center", margin: "20px 20px" }}>
-				<Typography style={{ fontSize: "40px" }}>
-					목표 생성하기
-				</Typography>
-			</h1>
+			<Typography
+				style={{
+					fontSize: "30px",
+					textAlign: "center",
+					fontWeight: "normal",
+					marginTop: "10px",
+					marginBottom: "25px",
+				}}
+			>
+				목표 생성하기
+			</Typography>
 			<Stack
 				direction="row"
 				spacing={0.1}
@@ -197,7 +191,6 @@ function CreateGoal({ setIsOpen }) {
 						onClick={handleManualButtonClick}
 						style={{
 							marginRight: "2%",
-							width: "49%",
 						}}
 					>
 						<Typography style={{ fontSize: "20px" }}>
@@ -209,9 +202,6 @@ function CreateGoal({ setIsOpen }) {
 						variant="outlined"
 						startIcon={<SearchIcon />}
 						onClick={handleSearchButtonClick}
-						style={{
-							width: "49%",
-						}}
 					>
 						<Typography style={{ fontSize: "20px" }}>
 							검색하여 입력
@@ -222,15 +212,23 @@ function CreateGoal({ setIsOpen }) {
 
 			{inputMode === "manual" ? (
 				<form className="create-goal" onSubmit={handleSubmit}>
-					<Grid container spacing={2}>
+					<Grid
+						container
+						spacing={2}
+						direction="row"
+						justifyContent="center"
+						alignItems="center"
+					>
 						<Grid item xs={6}>
 							<TextField
+								style={{ width: "200px" }}
 								placeholder="목표 이름"
 								inputProps={ariaLabel}
 								className="textfield1"
 								type="text"
 								value={goalName}
 								onChange={(e) => setGoalName(e.target.value)}
+								size="small"
 								required
 							/>
 						</Grid>
@@ -238,7 +236,7 @@ function CreateGoal({ setIsOpen }) {
 							<Typography
 								className="title2"
 								style={{
-									fontSize: "35px",
+									fontSize: "25px",
 									fontWeight: "normal",
 								}}
 							>
@@ -246,7 +244,7 @@ function CreateGoal({ setIsOpen }) {
 								을(를) 목표로
 							</Typography>
 						</Grid>
-						<Grid item xs={5}>
+						<Grid item xs={6}>
 							<TextField
 								placeholder="목표 금액"
 								inputProps={ariaLabel}
@@ -257,29 +255,29 @@ function CreateGoal({ setIsOpen }) {
 								required
 							/>
 						</Grid>
-						<Grid item xs={7}>
+						<Grid item xs={6}>
 							<Typography
 								className="title2"
 								style={{
-									fontSize: "35px",
+									fontSize: "25px",
 									fontWeight: "normal",
 								}}
 							>
 								원을 모으고 싶어요!
 							</Typography>
 						</Grid>
-						<Grid item xs={4} md={4}>
+						<Grid item xs={4}>
 							<Typography
 								className="title2"
 								style={{
-									fontSize: "35px",
+									fontSize: "25px",
 									fontWeight: "normal",
 								}}
 							>
 								목표 시작일
 							</Typography>
 						</Grid>
-						<Grid item xs={8} md={8}>
+						<Grid item xs={8}>
 							<LocalizationProvider
 								dateAdapter={AdapterDayjs}
 								locale="ko"
@@ -298,67 +296,60 @@ function CreateGoal({ setIsOpen }) {
 									responsive={true}
 									required
 								/>
-								<span
-									className="title2"
-									style={{ paddingLeft: "5px" }}
-								>
-									에요.
-								</span>
 							</LocalizationProvider>
+							<span
+								className="title2"
+								style={{ paddingLeft: "5px" }}
+							>
+								에요.
+							</span>
 						</Grid>
-						<Grid
-							item
-							container
-							direction="row"
-							justifyContent="flex-start"
-							alignItems="flex-start"
-						>
+						<Grid item xs={4}>
 							<Typography
 								className="title2"
 								style={{
-									fontSize: "15px",
+									fontSize: "25px",
 									fontWeight: "normal",
 								}}
 							>
 								테마 색상
 							</Typography>
-
-							<input
-								type="color"
+						</Grid>
+						<Grid item xs={8}>
+							<MuiColorInput
+								className="color-css"
 								value={goalImage}
 								onChange={handleColorChange}
-								style={{ marginLeft: "30px" }}
-								required
+								style={{ width: "40%" }}
 							/>
 						</Grid>
-						<Button type="submit" className="submit-button">
-							<div className="submit-button-text">확인</div>
-						</Button>
 					</Grid>
+					<Button type="submit" className="submit-button">
+						<div className="submit-button-text">확인</div>
+					</Button>
 				</form>
 			) : (
 				<form className="create-goal" onSubmit={handleSubmit}>
-					<Grid container spacing={2}>
-						<Grid item xs>
-							<label>
-								<TextField
-									type="text"
-									// variant="outlined"
-									value={searchQuery}
-									onChange={(e) =>
-										setSearchQuery(e.target.value)
-									}
-									required
-								/>
-								<Button
-									type="button"
-									onClick={handleSearchSubmit}
-								>
-									<SearchIcon />
-								</Button>
-							</label>
+				<Grid
+						container
+					
+						columns={16}
+						direction="row"
+					>
+						<Grid item xs={4}>
+							<TextField
+								type="text"
+								value={searchQuery}
+								onChange={(e) => setSearchQuery(e.target.value)}
+								required
+							/>
+							</Grid>
+							<Grid item xs={2}>
+							<Button type="button" onClick={handleSearchSubmit} >
+								<SearchIcon />
+							</Button>
 						</Grid>
-						<Grid item xs>
+						<Grid item xs={10}>
 							{searchResults.length > 0 ? (
 								<Scrollbars
 									style={{
@@ -462,9 +453,16 @@ function CreateGoal({ setIsOpen }) {
 						</Grid>
 					</Grid>
 					{selectedResult && (
-						<Grid container spacing={2}>
+						<Grid
+							container
+							spacing={2}
+							direction="row"
+							justifyContent="center"
+							alignItems="center"
+						>
 							<Grid item xs={6}>
 								<TextField
+									style={{ width: "200px" }}
 									placeholder="목표 이름"
 									inputProps={ariaLabel}
 									className="textfield1"
@@ -473,6 +471,7 @@ function CreateGoal({ setIsOpen }) {
 									onChange={(e) =>
 										setGoalName(e.target.value)
 									}
+									size="small"
 									required
 								/>
 							</Grid>
@@ -480,7 +479,7 @@ function CreateGoal({ setIsOpen }) {
 								<Typography
 									className="title2"
 									style={{
-										fontSize: "35px",
+										fontSize: "25px",
 										fontWeight: "normal",
 									}}
 								>
@@ -488,7 +487,7 @@ function CreateGoal({ setIsOpen }) {
 									을(를) 목표로
 								</Typography>
 							</Grid>
-							<Grid item xs={5}>
+							<Grid item xs={6}>
 								<TextField
 									placeholder="목표 금액"
 									inputProps={ariaLabel}
@@ -499,29 +498,29 @@ function CreateGoal({ setIsOpen }) {
 									required
 								/>
 							</Grid>
-							<Grid item xs={7}>
+							<Grid item xs={6}>
 								<Typography
 									className="title2"
 									style={{
-										fontSize: "35px",
+										fontSize: "25px",
 										fontWeight: "normal",
 									}}
 								>
 									원을 모으고 싶어요!
 								</Typography>
 							</Grid>
-							<Grid item xs={4} md={4}>
+							<Grid item xs={4}>
 								<Typography
 									className="title2"
 									style={{
-										fontSize: "35px",
+										fontSize: "25px",
 										fontWeight: "normal",
 									}}
 								>
 									목표 시작일
 								</Typography>
 							</Grid>
-							<Grid item xs={8} md={8}>
+							<Grid item xs={8}>
 								<LocalizationProvider
 									dateAdapter={AdapterDayjs}
 									locale="ko"
@@ -540,37 +539,30 @@ function CreateGoal({ setIsOpen }) {
 										responsive={true}
 										required
 									/>
-									<span
-										className="title2"
-										style={{ paddingLeft: "5px" }}
-									>
-										에요.
-									</span>
 								</LocalizationProvider>
+								<span
+									className="title2"
+									style={{ paddingLeft: "5px" }}
+								>
+									에요.
+								</span>
 							</Grid>
-							<Grid
-								item
-								container
-								direction="row"
-								justifyContent="flex-start"
-								alignItems="flex-start"
-							>
+							<Grid item xs={4}>
 								<Typography
 									className="title2"
 									style={{
-										fontSize: "15px",
+										fontSize: "25px",
 										fontWeight: "normal",
 									}}
 								>
 									테마 색상
 								</Typography>
-
-								<input
-									type="color"
+							</Grid>
+							<Grid item xs={8}>
+								<MuiColorInput
 									value={goalImage}
 									onChange={handleColorChange}
-									style={{ marginLeft: "30px" }}
-									required
+									style={{ width: "40%" }}
 								/>
 							</Grid>
 						</Grid>

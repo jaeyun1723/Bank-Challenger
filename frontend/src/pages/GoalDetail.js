@@ -218,8 +218,16 @@ const GoalDetail = ({ goal, goalId, onClose }) => {
   return (
     <div style={{ padding: "1em" }}>
       <div>
-        <h1>{goalDetail.goalName}</h1>
-        <p style={{ marginTop: "-10px", marginLeft: "50px" }}>
+      <Typography
+				style={{
+					fontSize: "30px",
+					fontWeight: "bold",
+					marginTop: "-10px",
+				}}
+			>
+				{goalDetail.goalName}
+			</Typography>
+        <p style={{ marginLeft: "50px" }}>
           {goalDetail.category}
         </p>
         <hr style={{ width: "100%", marginTop: "-10px" }}></hr>

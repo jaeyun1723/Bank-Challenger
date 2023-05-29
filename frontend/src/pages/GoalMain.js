@@ -299,6 +299,7 @@ function GoalMain({ userId }) {
 							backgroundColor: "#7691F6",
 							border: "0",
 							color: "white",
+							fontSize:"15px"
 						}}
 					>
 						목표 생성

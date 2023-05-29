@@ -133,3 +133,8 @@
 .slick-next:before {
   color: black;
 }
+
+.img-button {
+  background: url("../assets/img/icons/common/back-button.png") no-repeat;
+  width: 35px;
+}

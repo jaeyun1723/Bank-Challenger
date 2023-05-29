@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Slider from "react-slick";
 // import "slick-carousel/slick/slick.css";
 // import "slick-carousel/slick/slick-theme.css";
-import "./GoalMain.css";
+import "./GoalFirstMain.css";
 // import Carousel from "react-material-ui-carousel";
 import CreateGoal from "./CreateGoal";
 import { useHistory } from "react-router-dom";
@@ -30,8 +30,6 @@ function GoalFirstMain() {
     setShowCreateGoal(true);
   };
 
-  // Dummy data for the goals.
-  // In a real application, you would fetch this from a server.
   const goals = [
     {
       id: 1,
@@ -52,7 +50,6 @@ function GoalFirstMain() {
       description: "#가족여행 #기념여행 #힐링",
       category: "가보자",
     },
-    // other goals...
   ];
 
   const handleSlideClick = (goal) => {
@@ -69,7 +66,8 @@ function GoalFirstMain() {
   };
 
   return (
-    <div className="container">
+    <div className="container category">
+    <div className="title">목표 둘러보기</div>
       <Slider {...settings}>
         {goals.map((goal) => (
           <div
@@ -78,11 +76,11 @@ function GoalFirstMain() {
             //onClick={() => handleSlideClick(goal)}
             onMouseEnter={handleSlideMouseEnter}
             onMouseLeave={handleSlideMouseLeave}
-            style={{ backgroundImage: `url(${goal.image})` }}
+            style={{ backgroundImage: `url(${goal.image})`}}
             key={goal.id}
           >
             <div className="slide-content">
-              <h3>{goal.title}</h3>
+              <div className="goal-title">{goal.title}</div>
               <p>{goal.description}</p>
             </div>
           </div>
@@ -102,12 +100,13 @@ function GoalFirstMain() {
         <div
           style={{
             position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "white",
-            padding: "1em",
-            zIndex: 1000,
+						top: "50%",
+						left: "50%",
+						transform: "translate(-50%, -50%)",
+						backgroundColor: "white",
+						padding: "1em",
+						zIndex: 1000,
+						borderRadius: "10px",
           }}
         >
           <CreateGoal setIsOpen={category} />

@@ -1,3 +1,7 @@
+.wrap {
+  height: 530px;
+}
+
 .create-goal {
   width: 750px;
   height: 550px;
@@ -108,7 +112,7 @@
 }
 .title2 {
   font-size: 35px;
-  font-weight: bolder;
+  font-weight: normal;
 }
 
 .input-label {
@@ -189,4 +193,25 @@
 
 bug button {
   display: none;
+}
+
+.submit-button {
+  background-color: #7691F6 !important;
+  /* background-color: #64748B !important; */
+  position: fixed !important;
+  bottom: 20px;
+  border-radius: 20px !important;
+  
+  left: 20px;
+  width: 95% !important ;
+/* 
+  left: 40%;
+  width: 20% !important ; 
+  */
+
+}
+
+.submit-button-text {
+  text-align: center;
+  font-size: 17px;
 }

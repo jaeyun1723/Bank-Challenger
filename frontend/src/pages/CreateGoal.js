@@ -131,33 +131,46 @@ function CreateGoal({ setIsOpen }) {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		// setProductId("");
-		const data = {
-			userId,
-			category,
-			goalName,
-			productId,
-			goalAmount: parseInt(goalAmount.replace(/[^0-9]/g, "")),
-			savingAmount: parseInt(savingAmount.replace(/[^0-9]/g, "")),
-			isExpired,
-			day,
-			savingStartDate: startDate.toISOString(),
-			createDate: new Date().toISOString(),
-			goalImage,
-		};
-		console.log(data);
-		try {
-			const response = await api
-				.post("/goal", data)
-				.then((res) =>
-					console.log("Goal created successfully:", res.data)
-				)
-				.catch((error) => console.log(error));
 
-			setIsSubmitted(true);
-		} catch (error) {
-			console.error("Error creating goal:", error);
+		if (startDate === "null" || startDate === null) {
+			alert("목표 시작일을 선택해주세요.");
+			return false;
 		}
+
+		try {
+			// setProductId("");
+			const data = {
+				userId,
+				category,
+				goalName,
+				productId,
+				goalAmount: parseInt(goalAmount.replace(/[^0-9]/g, "")),
+				savingAmount: parseInt(savingAmount.replace(/[^0-9]/g, "")),
+				isExpired,
+				day,
+				savingStartDate: startDate.toISOString(),
+				createDate: new Date().toISOString(),
+				goalImage,
+			};
+			console.log(data);
+
+			try {
+				const response = await api
+					.post("/goal", data)
+					.then((res) =>
+						console.log("Goal created successfully:", res.data)
+					)
+					.catch((error) => console.log(error));
+
+				setIsSubmitted(true);
+			} catch (error) {
+				console.error("Error creating goal:", error);
+			}
+		} catch (error) {
+			alert("목표 시작일을 선택해주세요.");
+			return false;
+		}
+		
 	};
 
 	if (isSubmitted) {

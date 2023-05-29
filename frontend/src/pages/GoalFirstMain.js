@@ -6,8 +6,6 @@ import "./GoalFirstMain.css";
 // import Carousel from "react-material-ui-carousel";
 import CreateGoal from "./CreateGoal";
 import { useHistory } from "react-router-dom";
-import mouse02 from "assets/img/mouses/mouse02.png";
-
 function GoalFirstMain() {
   const [showCreateGoal, setShowCreateGoal] = useState(false);
   const settings = {
@@ -36,19 +34,21 @@ function GoalFirstMain() {
       title: "모으자",
       description: "#비상금 #결혼 #은퇴준비",
       category: "모으자",
-      image: mouse02,
+      image: require("assets/img/mouses/collectcard.png"),
     },
     {
       id: 2,
       title: "사보자",
       description: "#나를위한 #선물 #쇼핑",
       category: "사보자",
+      image: require("assets/img/mouses/buycard.png"),
     },
     {
       id: 3,
       title: "가보자",
       description: "#가족여행 #기념여행 #힐링",
       category: "가보자",
+      image: require("assets/img/mouses/gocard.png"),
     },
   ];
 
@@ -80,8 +80,11 @@ function GoalFirstMain() {
             key={goal.id}
           >
             <div className="slide-content">
-              <div className="goal-title">{goal.title}</div>
-              <p>{goal.description}</p>
+              <div className="goal-title" style={{color:'white'}}>{goal.title}</div>
+              <p  style={{color:'white'}} >{goal.description}</p>
+              <img src={goal.image}
+              style={{width:'100%', marginTop:'40px'}}
+              />
             </div>
           </div>
         ))}

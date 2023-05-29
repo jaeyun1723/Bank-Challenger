@@ -14,6 +14,10 @@ import Stack from "@mui/material/Stack";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { purple } from "@mui/material/colors";
 import Grid from "@mui/material/Grid";
+import { Scrollbars } from "react-custom-scrollbars";
+import InputBase from "@mui/material/InputBase";
+import Paper from "@mui/material/Paper";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 
 const theme = createTheme({
 	palette: {
@@ -69,10 +73,10 @@ function CreateGoal({ setIsOpen }) {
 		setSavingAmount(value);
 	};
 
-	const searchResultsContainerStyle = {
-		maxHeight: "100px",
-		overflowY: "auto",
-	};
+	// const searchResultsContainerStyle = {
+	// 	maxHeight: "100px",
+	// 	overflowY: "auto",
+	// };
 
 	const resetInputValues = () => {
 		setGoalName("");
@@ -86,6 +90,7 @@ function CreateGoal({ setIsOpen }) {
 
 	const handleSearchSubmit = async (e) => {
 		e.preventDefault();
+		selectedResult ? setSelectedResult(false) : setSelectedResult(true);
 
 		try {
 			const response = await api.get("/goal/search", {
@@ -115,11 +120,6 @@ function CreateGoal({ setIsOpen }) {
 	const handleSearchButtonClick = () => {
 		setInputMode("search");
 		resetInputValues();
-	};
-
-	const searchResultImageStyle = {
-		width: "80px",
-		height: "80px",
 	};
 
 	const handleResultSelect = (result) => {
@@ -155,7 +155,7 @@ function CreateGoal({ setIsOpen }) {
 			console.log(data);
 
 			try {
-				const response = await api
+				await api
 					.post("/goal", data)
 					.then((res) =>
 						console.log("Goal created successfully:", res.data)
@@ -170,7 +170,6 @@ function CreateGoal({ setIsOpen }) {
 			alert("목표 시작일을 선택해주세요.");
 			return false;
 		}
-		
 	};
 
 	if (isSubmitted) {
@@ -199,7 +198,6 @@ function CreateGoal({ setIsOpen }) {
 						style={{
 							marginRight: "2%",
 							width: "49%",
-							// boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
 						}}
 					>
 						<Typography style={{ fontSize: "20px" }}>
@@ -213,7 +211,6 @@ function CreateGoal({ setIsOpen }) {
 						onClick={handleSearchButtonClick}
 						style={{
 							width: "49%",
-							// boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
 						}}
 					>
 						<Typography style={{ fontSize: "20px" }}>
@@ -342,10 +339,11 @@ function CreateGoal({ setIsOpen }) {
 			) : (
 				<form className="create-goal" onSubmit={handleSubmit}>
 					<Grid container spacing={2}>
-						<Grid item xs={5}>
+						<Grid item xs>
 							<label>
 								<TextField
 									type="text"
+									// variant="outlined"
 									value={searchQuery}
 									onChange={(e) =>
 										setSearchQuery(e.target.value)
@@ -360,172 +358,226 @@ function CreateGoal({ setIsOpen }) {
 								</Button>
 							</label>
 						</Grid>
-						<Grid item xs={7}>
-							{searchResults.length > 0 && (
-								<div
+						<Grid item xs>
+							{searchResults.length > 0 ? (
+								<Scrollbars
 									style={{
-										...searchResultsContainerStyle,
+										height: "300px",
 										display: selectedResult
 											? "none"
 											: "block",
 									}}
+									thumbSize={85}
+									renderTrackVertical={({
+										style,
+										...props
+									}) => {
+										return (
+											<div
+												{...props}
+												className="track-vertical"
+												style={{
+													...style,
+													borderRadius: "3px",
+												}}
+											/>
+										);
+									}}
+									renderThumbHorizontal={(props) => (
+										<div
+											{...props}
+											className="thumb-horizontal"
+										/>
+									)}
+									renderThumbVertical={(props) => (
+										<div
+											{...props}
+											className="thumb-vertical"
+										/>
+									)}
+									renderView={(props) => (
+										<div {...props} className="view" />
+									)}
 								>
-									<ul>
-										{searchResults.map((result) => (
-											<li
-												key={result.productId}
-												onClick={() =>
-													handleResultSelect(result)
-												}
-											>
-												<div
-													className={`search-result ${
-														selectedResult ===
-														result
-															? "selected"
-															: ""
-													}`}
+									<div
+										style={{
+											display: selectedResult
+												? "none"
+												: "block",
+											visibility: selectedResult
+												? "hidden"
+												: "visible",
+										}}
+									>
+										<ul style={{ listStyle: "none" }}>
+											{searchResults.map((result) => (
+												<li
+													key={result.productId}
+													onClick={() =>
+														handleResultSelect(
+															result
+														)
+													}
 												>
-													<div className="search-result-image">
-														<img
-															src={result.image}
-															alt={result.title}
-															style={{
-																width: "100px",
-																height: "80px",
-															}}
-														/>
+													<div
+														className={`search-result ${
+															selectedResult ===
+															result
+																? "selected"
+																: ""
+														}`}
+													>
+														<div className="search-result-image">
+															<img
+																src={
+																	result.image
+																}
+																alt={
+																	result.title
+																}
+																style={{
+																	width: "100px",
+																	height: "80px",
+																}}
+															/>
+														</div>
+														<div className="search-result-details">
+															<p>
+																{result.title}
+															</p>
+															<p>
+																가격:{" "}
+																{result.lprice}
+															</p>
+														</div>
 													</div>
-													<div className="search-result-details">
-														<p>
-															상품명:{" "}
-															{result.title}
-														</p>
-														<p>
-															가격:{" "}
-															{result.lprice}
-														</p>
-													</div>
-												</div>
-											</li>
-										))}
-									</ul>
-								</div>
+												</li>
+											))}
+										</ul>
+									</div>
+								</Scrollbars>
+							) : (
+								<div className="hidden-view"></div>
 							)}
 						</Grid>
-
-						<Grid item xs={6}>
-							<TextField
-								placeholder="목표 이름"
-								inputProps={ariaLabel}
-								className="textfield1"
-								type="text"
-								value={goalName}
-								onChange={(e) => setGoalName(e.target.value)}
-								required
-							/>
-						</Grid>
-						<Grid item xs={6}>
-							<Typography
-								className="title2"
-								style={{
-									fontSize: "35px",
-									fontWeight: "normal",
-								}}
-							>
-								{" "}
-								을(를) 목표로
-							</Typography>
-						</Grid>
-						<Grid item xs={5}>
-							<TextField
-								placeholder="목표 금액"
-								inputProps={ariaLabel}
-								className="textfield2"
-								type="text"
-								value={goalAmount}
-								onChange={handleChange}
-								required
-							/>
-						</Grid>
-						<Grid item xs={7}>
-							<Typography
-								className="title2"
-								style={{
-									fontSize: "35px",
-									fontWeight: "normal",
-								}}
-							>
-								원을 모으고 싶어요!
-							</Typography>
-						</Grid>
-						<Grid item xs={4} md={4}>
-							<Typography
-								className="title2"
-								style={{
-									fontSize: "35px",
-									fontWeight: "normal",
-								}}
-							>
-								목표 시작일
-							</Typography>
-						</Grid>
-						<Grid item xs={8} md={8}>
-							<LocalizationProvider
-								dateAdapter={AdapterDayjs}
-								locale="ko"
-								className="bug"
-							>
-								<DatePicker
-									value={startDate}
-									onChange={(date) => {
-										setStartDate(date);
-									}}
-									renderInput={(props) => (
-										<input {...props} />
-									)}
-									inputFormat={"yyyy-MM-dd"}
-									minDate={dayjs()}
-									responsive={true}
+					</Grid>
+					{selectedResult && (
+						<Grid container spacing={2}>
+							<Grid item xs={6}>
+								<TextField
+									placeholder="목표 이름"
+									inputProps={ariaLabel}
+									className="textfield1"
+									type="text"
+									value={goalName}
+									onChange={(e) =>
+										setGoalName(e.target.value)
+									}
 									required
 								/>
-								<span
+							</Grid>
+							<Grid item xs={6}>
+								<Typography
 									className="title2"
-									style={{ paddingLeft: "5px" }}
+									style={{
+										fontSize: "35px",
+										fontWeight: "normal",
+									}}
 								>
-									에요.
-								</span>
-							</LocalizationProvider>
-						</Grid>
-						<Grid
-							item
-							container
-							direction="row"
-							justifyContent="flex-start"
-							alignItems="flex-start"
-						>
-							<Typography
-								className="title2"
-								style={{
-									fontSize: "15px",
-									fontWeight: "normal",
-								}}
+									{" "}
+									을(를) 목표로
+								</Typography>
+							</Grid>
+							<Grid item xs={5}>
+								<TextField
+									placeholder="목표 금액"
+									inputProps={ariaLabel}
+									className="textfield2"
+									type="text"
+									value={goalAmount}
+									onChange={handleChange}
+									required
+								/>
+							</Grid>
+							<Grid item xs={7}>
+								<Typography
+									className="title2"
+									style={{
+										fontSize: "35px",
+										fontWeight: "normal",
+									}}
+								>
+									원을 모으고 싶어요!
+								</Typography>
+							</Grid>
+							<Grid item xs={4} md={4}>
+								<Typography
+									className="title2"
+									style={{
+										fontSize: "35px",
+										fontWeight: "normal",
+									}}
+								>
+									목표 시작일
+								</Typography>
+							</Grid>
+							<Grid item xs={8} md={8}>
+								<LocalizationProvider
+									dateAdapter={AdapterDayjs}
+									locale="ko"
+									className="bug"
+								>
+									<DatePicker
+										value={startDate}
+										onChange={(date) => {
+											setStartDate(date);
+										}}
+										renderInput={(props) => (
+											<input {...props} />
+										)}
+										inputFormat={"yyyy-MM-dd"}
+										minDate={dayjs()}
+										responsive={true}
+										required
+									/>
+									<span
+										className="title2"
+										style={{ paddingLeft: "5px" }}
+									>
+										에요.
+									</span>
+								</LocalizationProvider>
+							</Grid>
+							<Grid
+								item
+								container
+								direction="row"
+								justifyContent="flex-start"
+								alignItems="flex-start"
 							>
-								테마 색상
-							</Typography>
+								<Typography
+									className="title2"
+									style={{
+										fontSize: "15px",
+										fontWeight: "normal",
+									}}
+								>
+									테마 색상
+								</Typography>
 
-							<input
-								type="color"
-								value={goalImage}
-								onChange={handleColorChange}
-								style={{ marginLeft: "30px" }}
-								required
-							/>
+								<input
+									type="color"
+									value={goalImage}
+									onChange={handleColorChange}
+									style={{ marginLeft: "30px" }}
+									required
+								/>
+							</Grid>
 						</Grid>
-						<Button type="submit" className="submit-button">
-							<div className="submit-button-text">확인</div>
-						</Button>
-					</Grid>
+					)}
+					<Button type="submit" className="submit-button">
+						<div className="submit-button-text">확인</div>
+					</Button>
 				</form>
 			)}
 		</div>

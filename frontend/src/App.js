@@ -43,6 +43,7 @@ function App() {
         sessionStorage.setItem("financialType", res.data.financialType);
         sessionStorage.setItem("goalCnt", res.data.goalCnt);
         sessionStorage.setItem("achievementRate", res.data.achievementRate);
+        sessionStorage.setItem("savingAmount", res.data.savingAmount);
       })
       .catch((error) => console.log(error));
   };

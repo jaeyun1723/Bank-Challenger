@@ -19,6 +19,7 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import "./Navbar.css";
 
 class DemoNavbar extends React.Component {
   componentDidMount() {
@@ -59,7 +60,7 @@ class DemoNavbar extends React.Component {
             id="navbar-main"
           >
             <Container>
-              <NavbarBrand className="mr-lg-5" to="/" tag={Link}>
+              <NavbarBrand className="mr-lg-5" to="/" tag={Link} style={{fontFamily: "NanumSquareNeo"}}>
                 Bank Challenger
               </NavbarBrand>
               <button className="navbar-toggler" id="navbar_global">

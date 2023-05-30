@@ -15,6 +15,7 @@ import Mypage from "./pages/Mypage.js";
 import ManageAccount from "./pages/ManageAccount.js";
 import BfrResult from "./pages/BfrResult.js";
 import Loading from "./pages/Loading.js";
+import "./Fonts/Font.css";
 
 function App() {
   const [login, setLogin] = useState("");

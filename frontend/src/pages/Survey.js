@@ -152,10 +152,10 @@ function Survey() {
           <div className="shape shape-style-1 shape-default">
             <img
                 alt="..."
-                src={require("assets/img/theme/background.png")}
+                src={require("assets/img/theme/bfrbackground.png")}
                 style={{
                   width: "100%",
-                  height: "1200px",
+                  height: "100%",
                   maxWidth: "2000px"
                 }}
             />
@@ -178,7 +178,7 @@ function Survey() {
                       minWidth: 300,
                     }}
                 >
-                  <FormGroup className={"MuiFormControl-horizontal"} controlId="isMarried" sx={{margin: 2}}>
+                  <FormGroup className={"MuiFormControl-horizontal"} controlId="isMarried" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>결혼 여부</FormLabel>
                     <RadioGroup
                         value={isMarried}
@@ -199,7 +199,7 @@ function Survey() {
                       />
                     </RadioGroup>
                   </FormGroup>
-                  <FormGroup controlId="monthlyIncome" sx={{margin: 2}}>
+                  <FormGroup controlId="monthlyIncome" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>월 소득(단위: 만 원)</FormLabel>
                     <Input
                         value={monthlyIncome}
@@ -208,7 +208,7 @@ function Survey() {
                         placeholder="월 소득 입력"
                     />
                   </FormGroup>
-                  <FormGroup controlId="spendingRatio" sx={{margin: 2}}>
+                  <FormGroup controlId="spendingRatio" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>월 소득에서 소비의 비율</FormLabel>
                     <Slider
                         value={spendingRatio}
@@ -225,7 +225,7 @@ function Survey() {
                       만 원 ({spendingRatio}%)
                     </Typography>
                   </FormGroup>
-                  <FormGroup controlId="occupation" sx={{margin: 2}}>
+                  <FormGroup controlId="occupation" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>직종</FormLabel>
                     <Select value={occupation} onChange={handleChangeOccupation}>
                       <MenuItem value={"선택"}>선택</MenuItem>
@@ -240,7 +240,7 @@ function Survey() {
                       <MenuItem value={"서비스직"}>서비스직</MenuItem>
                     </Select>
                   </FormGroup>
-                  <FormGroup controlId="savings" sx={{margin: 2}}>
+                  <FormGroup controlId="savings" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>예적금 현황(단위: 만 원)</FormLabel>
                     <Input
                         value={savings}
@@ -250,7 +250,7 @@ function Survey() {
                     />
                   </FormGroup>
                   <div></div>
-                  <FormGroup controlId="loan" sx={{margin: 2}}>
+                  <FormGroup controlId="loan" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <FormLabel>대출금 현황(단위: 만 원)</FormLabel>
                     <Input
                         value={loan}
@@ -259,7 +259,7 @@ function Survey() {
                         placeholder="대출금 현황 입력"
                     />
                   </FormGroup>
-                  <FormGroup controlId="button" sx={{margin: 2}}>
+                  <FormGroup controlId="button" sx={{margin: 2}} style={{textAlign:'left'}}>
                     <Button
                         variant="contained"
                         color="primary"

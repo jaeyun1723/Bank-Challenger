@@ -20,3 +20,4 @@ This is ***Bank Challenger*** project.
     ```
 5. IntelliJ에서 `BankChallApplication` 실행
 6. Visual Studio Code에서 `npm start` 실행
+7. 시연 영상 : https://www.youtube.com/watch?v=NAd0Z5inDM4
